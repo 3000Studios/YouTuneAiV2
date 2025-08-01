@@ -6,6 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php wp_title('|', true, 'right'); ?><?php bloginfo('name'); ?></title>
 
+    <!-- PATENT PENDING NOTICE - LEGAL PROTECTION -->
+    <meta name="patent-notice" content="Patent Pending Technology - Voice-Controlled Website Modification System invented by Mr. Swain (3000Studios) - Filed August 1, 2025">
+    <meta name="inventor" content="Mr. Swain, 3000Studios">
+    <meta name="patent-status" content="Patent Pending - All Rights Reserved">
+    <meta name="licensing-contact" content="mr.jwswain@gmail.com">
+    <meta name="patent-filing-date" content="2025-08-01">
+    <meta name="technology-description" content="First-ever voice-controlled real-time website modification system">
+
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
 
@@ -17,6 +25,14 @@
 </head>
 
 <body <?php body_class(); ?>>
+
+    <!-- PATENT PENDING NOTICE BANNER -->
+    <div id="patent-notice-banner" style="background: linear-gradient(90deg, #ff0000, #ff4444); color: white; padding: 8px; text-align: center; font-weight: bold; position: fixed; top: 0; width: 100%; z-index: 10000; box-shadow: 0 2px 10px rgba(0,0,0,0.3); font-size: 14px;">
+        🚨 PATENT PENDING TECHNOLOGY 🚨 Voice-Controlled Website System - FIRST-EVER INVENTION by Mr. Swain (3000Studios) - Filed Aug 1, 2025 - 
+        <a href="mailto:mr.jwswain@gmail.com" style="color: yellow; text-decoration: underline;">Contact for Licensing</a> - ALL RIGHTS RESERVED
+        <button onclick="this.parentElement.style.display='none'" style="float: right; background: none; border: none; color: white; font-size: 16px; cursor: pointer; padding: 0 5px;">×</button>
+    </div>
+    <div style="height: 50px;"></div> <!-- Spacer for fixed patent banner -->
 
     <!-- Navigation -->
     <nav class="nav-container">
