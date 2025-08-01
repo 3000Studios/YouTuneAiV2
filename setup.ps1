@@ -7,7 +7,8 @@ Write-Host "🚀 YouTuneAI Quick Setup Starting..." -ForegroundColor Cyan
 try {
     $pythonVersion = python --version 2>&1
     Write-Host "✅ Python found: $pythonVersion" -ForegroundColor Green
-} catch {
+}
+catch {
     Write-Host "❌ Python is not installed. Please install Python 3.8+ first." -ForegroundColor Red
     Write-Host "   Download from: https://www.python.org/downloads/" -ForegroundColor Yellow
     exit 1
@@ -17,7 +18,8 @@ try {
 try {
     $pipVersion = pip --version 2>&1
     Write-Host "✅ pip found: $pipVersion" -ForegroundColor Green
-} catch {
+}
+catch {
     Write-Host "❌ pip is not installed. Please install pip first." -ForegroundColor Red
     exit 1
 }
@@ -27,7 +29,8 @@ Write-Host "📦 Installing Python dependencies..." -ForegroundColor Yellow
 try {
     pip install -r requirements.txt
     Write-Host "✅ Dependencies installed successfully" -ForegroundColor Green
-} catch {
+}
+catch {
     Write-Host "❌ Failed to install dependencies" -ForegroundColor Red
     Write-Host "   Error: $($_.Exception.Message)" -ForegroundColor Red
     exit 1
@@ -40,7 +43,8 @@ if (!(Test-Path ".env")) {
     Write-Host "   - OPENAI_API_KEY (from OpenAI)" -ForegroundColor White
     Write-Host "   - SFTP_HOST, SFTP_USERNAME, SFTP_PASSWORD (your hosting)" -ForegroundColor White
     Write-Host "   - WP_SITE_URL (your WordPress site)" -ForegroundColor White
-} else {
+}
+else {
     Write-Host "✅ .env file found" -ForegroundColor Green
 }
 
@@ -65,7 +69,8 @@ Write-Host "🧪 Testing AI controller..." -ForegroundColor Yellow
 try {
     python -c "from ai_controller import YouTuneAIController; print('AI Controller import successful')" 2>&1 | Out-Null
     Write-Host "✅ AI Controller ready" -ForegroundColor Green
-} catch {
+}
+catch {
     Write-Host "⚠️  AI Controller test failed - check your .env configuration" -ForegroundColor Yellow
 }
 
