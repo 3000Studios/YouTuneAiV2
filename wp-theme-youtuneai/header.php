@@ -28,7 +28,7 @@
 
     <!-- PATENT PENDING NOTICE BANNER -->
     <div id="patent-notice-banner" style="background: linear-gradient(90deg, #ff0000, #ff4444); color: white; padding: 8px; text-align: center; font-weight: bold; position: fixed; top: 0; width: 100%; z-index: 10000; box-shadow: 0 2px 10px rgba(0,0,0,0.3); font-size: 14px;">
-        🚨 PATENT PENDING TECHNOLOGY 🚨 Voice-Controlled Website System - FIRST-EVER INVENTION by Mr. Swain (3000Studios) - Filed Aug 1, 2025 - 
+        🚨 PATENT PENDING TECHNOLOGY 🚨 Voice-Controlled Website System - FIRST-EVER INVENTION by Mr. Swain (3000Studios) - Filed Aug 1, 2025 -
         <a href="mailto:mr.jwswain@gmail.com" style="color: yellow; text-decoration: underline;">Contact for Licensing</a> - ALL RIGHTS RESERVED
         <button onclick="this.parentElement.style.display='none'" style="float: right; background: none; border: none; color: white; font-size: 16px; cursor: pointer; padding: 0 5px;">×</button>
     </div>

@@ -239,26 +239,26 @@
 
 <!-- PATENT PENDING STRUCTURED DATA FOR SEARCH ENGINES -->
 <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Patent",
-  "name": "Voice-Controlled Real-Time Website Modification System",
-  "inventor": {
-    "@type": "Person",
-    "name": "Mr. Swain",
-    "affiliation": "3000Studios",
-    "email": "mr.jwswain@gmail.com"
-  },
-  "dateCreated": "2025-08-01",
-  "status": "Patent Pending",
-  "description": "First-ever voice-controlled website modification technology enabling direct voice commands to modify HTML, CSS, JavaScript, and PHP files in real-time with AI-powered deployment.",
-  "license": "Proprietary - Licensing Required",
-  "copyrightHolder": {
-    "@type": "Organization", 
-    "name": "3000Studios",
-    "founder": "Mr. Swain"
-  }
-}
+    {
+        "@context": "https://schema.org",
+        "@type": "Patent",
+        "name": "Voice-Controlled Real-Time Website Modification System",
+        "inventor": {
+            "@type": "Person",
+            "name": "Mr. Swain",
+            "affiliation": "3000Studios",
+            "email": "mr.jwswain@gmail.com"
+        },
+        "dateCreated": "2025-08-01",
+        "status": "Patent Pending",
+        "description": "First-ever voice-controlled website modification technology enabling direct voice commands to modify HTML, CSS, JavaScript, and PHP files in real-time with AI-powered deployment.",
+        "license": "Proprietary - Licensing Required",
+        "copyrightHolder": {
+            "@type": "Organization",
+            "name": "3000Studios",
+            "founder": "Mr. Swain"
+        }
+    }
 </script>
 
 <!-- COPYRIGHT AND PATENT NOTICE -->
@@ -270,7 +270,7 @@
     <p style="margin: 5px 0; color: #ffff00;">⚖️ ALL RIGHTS RESERVED - Licensing Required for Any Use</p>
     <p style="margin: 5px 0;">Contact: <a href="mailto:mr.jwswain@gmail.com" style="color: #00ff00;">mr.jwswain@gmail.com</a></p>
     <p style="margin: 10px 0; font-size: 12px; color: #ccc;">
-        This website demonstrates patent-pending voice-controlled technology. 
+        This website demonstrates patent-pending voice-controlled technology.
         Unauthorized use constitutes patent infringement and will result in federal litigation.
     </p>
 </div>
