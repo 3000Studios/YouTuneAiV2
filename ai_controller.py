@@ -17,14 +17,11 @@ Unauthorized use subject to legal action and monetary damages.
 """
 
 import os
-import sys
 import json
 import requests
-import subprocess
-import time
 from datetime import datetime
 import openai
-import speech_recognition as sr
+import speech_recognition as sr  # type: ignore
 import paramiko
 from typing import Dict, Any, Optional
 from dotenv import load_dotenv
@@ -41,7 +38,7 @@ class YouTuneAIController:
         openai.api_key = self.openai_key
         
         # SFTP Configuration (IONOS hosting)
-        self.sftp_config = {
+        self.sftp_config: Dict[str, Any] = {
             'host': os.getenv('SFTP_HOST', 'access-5017098454.webspace-host.com'),
             'username': os.getenv('SFTP_USERNAME', 'a132096'),
             'password': os.getenv('SFTP_PASSWORD', 'Gabby3000!!!'),

@@ -38,7 +38,7 @@
     <nav class="nav-container">
         <!-- Navigation Video Underlay -->
         <video class="nav-video-underlay" autoplay muted loop>
-            <source src="<?php echo get_template_directory_uri(); ?>/assets/video/nav-background.mp4" type="video/mp4">
+            <source src="http://youtuneai.com/wp-content/uploads/2025/08/Have_the_text_202507310519.mp4" type="video/mp4">
         </video>
 
         <div class="nav-menu">
