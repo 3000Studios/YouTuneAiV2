@@ -1,504 +1,480 @@
 <?php
 /*
-Template Name: Streaming Page
+Template Name: YouTuneAI Streaming Page
 */
+
 get_header(); ?>
 
 <div class="streaming-page">
-    <!-- Hero Section with Live Stream -->
-    <section class="stream-hero">
-        <div class="stream-container">
-            <h1 class="page-title" data-aos="fade-up">🎮 Live Gaming & Streaming</h1>
-            <p class="page-subtitle" data-aos="fade-up" data-aos-delay="200">
-                Watch live content, interact with streamers, and join the community
-            </p>
-        </div>
-
-        <!-- Main Live Stream Player -->
-        <div class="main-stream-player" data-aos="zoom-in" data-aos-delay="400">
-            <div class="stream-player">
-                <iframe
-                    src="https://player.twitch.tv/?channel=youtuneai&parent=youtuneai.com"
-                    height="400"
-                    width="100%"
-                    allowfullscreen>
-                </iframe>
+    <div class="streaming-hero">
+        <h1>Live Streaming Studio</h1>
+        <p>Professional streaming setup powered by AI</p>
+    </div>
+    
+    <div class="streaming-container">
+        <div class="main-stream">
+            <div class="stream-viewer" id="streamViewer">
+                <video id="localVideo" autoplay muted playsinline></video>
+                <div class="stream-overlay">
+                    <div class="stream-controls">
+                        <button id="startStreamBtn" class="stream-btn start">🔴 Start Stream</button>
+                        <button id="stopStreamBtn" class="stream-btn stop" disabled>⏹️ Stop Stream</button>
+                        <button id="toggleAudioBtn" class="stream-btn">🎤 Audio</button>
+                        <button id="toggleVideoBtn" class="stream-btn">📹 Video</button>
+                    </div>
+                </div>
             </div>
-
-            <div class="stream-info">
-                <h3>🔴 LIVE: AI-Powered Game Development</h3>
-                <p>Creating games with AI assistance • 1,247 viewers</p>
-                <div class="stream-actions">
-                    <button class="follow-btn">Follow</button>
-                    <button class="share-btn">Share</button>
-                    <button class="fullscreen-btn">Fullscreen</button>
+            
+            <div class="stream-settings">
+                <h3>Stream Settings</h3>
+                <div class="setting-group">
+                    <label>Stream Title:</label>
+                    <input type="text" id="streamTitle" placeholder="Enter stream title" value="YouTuneAI Live Stream">
+                </div>
+                <div class="setting-group">
+                    <label>Stream Quality:</label>
+                    <select id="streamQuality">
+                        <option value="720p">HD (720p)</option>
+                        <option value="1080p" selected>Full HD (1080p)</option>
+                        <option value="4K">4K Ultra HD</option>
+                    </select>
+                </div>
+                <div class="setting-group">
+                    <label>Stream Key:</label>
+                    <input type="password" id="streamKey" placeholder="Enter your stream key">
                 </div>
             </div>
         </div>
-    </section>
-
-    <!-- Featured Streams Grid -->
-    <section class="featured-streams">
-        <h2 class="section-title">Featured Streams</h2>
-
-        <div class="streams-grid">
-            <div class="stream-card" data-aos="fade-up">
-                <div class="stream-thumbnail">
-                    <img src="<?php echo get_template_directory_uri(); ?>/assets/images/stream-1.jpg" alt="Gaming Stream">
-                    <div class="live-badge">🔴 LIVE</div>
-                    <div class="viewer-count">892 viewers</div>
+        
+        <div class="stream-sidebar">
+            <div class="chat-section">
+                <h3>Live Chat</h3>
+                <div class="chat-messages" id="chatMessages">
+                    <div class="welcome-message">Welcome to YouTuneAI Live Stream!</div>
                 </div>
-                <div class="stream-details">
-                    <h4>Cyberpunk 2077 AI Mod</h4>
-                    <p>StreamerName • Gaming</p>
+                <div class="chat-input">
+                    <input type="text" id="chatInput" placeholder="Type a message...">
+                    <button id="sendChatBtn">Send</button>
                 </div>
             </div>
-
-            <div class="stream-card" data-aos="fade-up" data-aos-delay="100">
-                <div class="stream-thumbnail">
-                    <img src="<?php echo get_template_directory_uri(); ?>/assets/images/stream-2.jpg" alt="Music Stream">
-                    <div class="live-badge">🔴 LIVE</div>
-                    <div class="viewer-count">654 viewers</div>
+            
+            <div class="stream-stats">
+                <h3>Stream Statistics</h3>
+                <div class="stat-item">
+                    <span class="stat-label">Viewers:</span>
+                    <span class="stat-value" id="viewerCount">0</span>
                 </div>
-                <div class="stream-details">
-                    <h4>AI Music Production</h4>
-                    <p>MusicMaker • Music</p>
+                <div class="stat-item">
+                    <span class="stat-label">Duration:</span>
+                    <span class="stat-value" id="streamDuration">00:00:00</span>
                 </div>
-            </div>
-
-            <div class="stream-card" data-aos="fade-up" data-aos-delay="200">
-                <div class="stream-thumbnail">
-                    <img src="<?php echo get_template_directory_uri(); ?>/assets/images/stream-3.jpg" alt="Tutorial Stream">
-                    <div class="live-badge">🔴 LIVE</div>
-                    <div class="viewer-count">423 viewers</div>
-                </div>
-                <div class="stream-details">
-                    <h4>AI Art Creation Tutorial</h4>
-                    <p>ArtistAI • Tutorial</p>
+                <div class="stat-item">
+                    <span class="stat-label">Bitrate:</span>
+                    <span class="stat-value" id="streamBitrate">0 kbps</span>
                 </div>
             </div>
-        </div>
-    </section>
-
-    <!-- Stream Categories -->
-    <section class="stream-categories">
-        <h2 class="section-title">Browse by Category</h2>
-
-        <div class="categories-grid">
-            <div class="category-card" data-aos="flip-left">
-                <div class="category-icon">🎮</div>
-                <h3>Gaming</h3>
-                <p>1,247 live streams</p>
+            
+            <div class="ai-controls">
+                <h3>AI Stream Controls</h3>
+                <button class="ai-btn" onclick="aiCommand('enhance stream quality')">🔧 Enhance Quality</button>
+                <button class="ai-btn" onclick="aiCommand('add overlay graphics')">🎨 Add Graphics</button>
+                <button class="ai-btn" onclick="aiCommand('start background music')">🎵 Background Music</button>
+                <button class="ai-btn" onclick="aiCommand('switch camera angle')">📷 Switch Camera</button>
             </div>
-
-            <div class="category-card" data-aos="flip-left" data-aos-delay="100">
-                <div class="category-icon">🎵</div>
-                <h3>Music</h3>
-                <p>892 live streams</p>
-            </div>
-
-            <div class="category-card" data-aos="flip-left" data-aos-delay="200">
-                <div class="category-icon">🎨</div>
-                <h3>Creative</h3>
-                <p>567 live streams</p>
-            </div>
-
-            <div class="category-card" data-aos="flip-left" data-aos-delay="300">
-                <div class="category-icon">📚</div>
-                <h3>Education</h3>
-                <p>334 live streams</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Chat Integration -->
-    <div class="stream-chat" id="streamChat">
-        <div class="chat-header">
-            <h4>💬 Live Chat</h4>
-            <button class="chat-toggle">−</button>
-        </div>
-
-        <div class="chat-messages" id="chatMessages">
-            <div class="chat-message">
-                <span class="username">AIFan123:</span>
-                <span class="message">This AI integration is amazing! 🤖</span>
-            </div>
-            <div class="chat-message">
-                <span class="username">GamerPro:</span>
-                <span class="message">How do you trigger the voice commands?</span>
-            </div>
-            <div class="chat-message">
-                <span class="username">TechLover:</span>
-                <span class="message">Can we get a tutorial on this setup?</span>
-            </div>
-        </div>
-
-        <div class="chat-input-area">
-            <input type="text" placeholder="Type your message..." class="chat-input">
-            <button class="send-btn">Send</button>
         </div>
     </div>
 </div>
 
 <style>
-    /* Streaming Page Styles */
-    .streaming-page {
-        padding-top: 80px;
-        min-height: 100vh;
-    }
+.streaming-page {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+    color: white;
+    padding: 20px;
+}
 
-    .stream-hero {
-        padding: 50px 20px;
-        text-align: center;
-        background: linear-gradient(135deg, var(--secondary-bg), var(--primary-bg));
-    }
+.streaming-hero {
+    text-align: center;
+    margin-bottom: 40px;
+}
 
-    .stream-container {
-        max-width: 1200px;
-        margin: 0 auto;
-    }
+.streaming-hero h1 {
+    font-size: 3em;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+}
 
-    .main-stream-player {
-        max-width: 1000px;
-        margin: 40px auto;
-        background: var(--glass-bg);
-        border-radius: 20px;
-        overflow: hidden;
-        border: 1px solid rgba(255, 255, 255, 0.2);
-    }
+.streaming-container {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 30px;
+    max-width: 1400px;
+    margin: 0 auto;
+}
 
-    .stream-player iframe {
-        width: 100%;
-        height: 400px;
-        border: none;
-    }
+.main-stream {
+    background: rgba(255,255,255,0.1);
+    border-radius: 15px;
+    padding: 20px;
+    backdrop-filter: blur(10px);
+}
 
-    .stream-info {
-        padding: 20px;
-        background: rgba(0, 0, 0, 0.5);
-    }
+.stream-viewer {
+    position: relative;
+    background: #000;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 20px;
+}
 
-    .stream-info h3 {
-        color: var(--accent-color);
-        margin-bottom: 10px;
-    }
+#localVideo {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+}
 
-    .stream-actions {
-        display: flex;
-        gap: 15px;
-        margin-top: 15px;
-    }
+.stream-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(transparent, rgba(0,0,0,0.8));
+    padding: 20px;
+}
 
-    .stream-actions button {
-        padding: 8px 20px;
-        background: var(--accent-color);
-        border: none;
-        border-radius: 20px;
-        color: white;
-        cursor: pointer;
-        transition: all 0.3s ease;
-    }
+.stream-controls {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
 
-    .stream-actions button:hover {
-        background: #ff00ff;
-        transform: translateY(-2px);
-    }
+.stream-btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 25px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s;
+}
 
-    .featured-streams,
-    .stream-categories {
-        padding: 80px 20px;
-        max-width: 1200px;
-        margin: 0 auto;
-    }
+.stream-btn.start {
+    background: #e74c3c;
+    color: white;
+}
 
-    .streams-grid,
-    .categories-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        gap: 30px;
-        margin-top: 40px;
-    }
+.stream-btn.stop {
+    background: #95a5a6;
+    color: white;
+}
 
-    .stream-card {
-        background: var(--glass-bg);
-        border-radius: 15px;
-        overflow: hidden;
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        transition: all 0.3s ease;
-        cursor: pointer;
-    }
+.stream-btn:not(.start):not(.stop) {
+    background: #3498db;
+    color: white;
+}
 
-    .stream-card:hover {
-        transform: translateY(-10px);
-        box-shadow: 0 20px 40px rgba(0, 212, 255, 0.3);
-    }
+.stream-btn:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
 
-    .stream-thumbnail {
-        position: relative;
-        height: 200px;
-        overflow: hidden;
-    }
+.stream-settings {
+    background: rgba(255,255,255,0.1);
+    padding: 20px;
+    border-radius: 10px;
+}
 
-    .stream-thumbnail img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        transition: transform 0.3s ease;
-    }
+.setting-group {
+    margin-bottom: 15px;
+}
 
-    .stream-card:hover .stream-thumbnail img {
-        transform: scale(1.1);
-    }
+.setting-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
 
-    .live-badge {
-        position: absolute;
-        top: 10px;
-        left: 10px;
-        background: #ff0000;
-        color: white;
-        padding: 4px 12px;
-        border-radius: 15px;
-        font-size: 0.8rem;
-        font-weight: bold;
-    }
+.setting-group input,
+.setting-group select {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background: rgba(255,255,255,0.9);
+    color: #333;
+}
 
-    .viewer-count {
-        position: absolute;
-        bottom: 10px;
-        right: 10px;
-        background: rgba(0, 0, 0, 0.7);
-        color: white;
-        padding: 4px 8px;
-        border-radius: 10px;
-        font-size: 0.8rem;
-    }
+.stream-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
 
-    .stream-details {
-        padding: 20px;
-    }
+.chat-section,
+.stream-stats,
+.ai-controls {
+    background: rgba(255,255,255,0.1);
+    padding: 20px;
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+}
 
-    .stream-details h4 {
-        color: var(--accent-color);
-        margin-bottom: 5px;
-    }
+.chat-messages {
+    height: 200px;
+    overflow-y: auto;
+    background: rgba(0,0,0,0.3);
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
 
-    .category-card {
-        background: var(--glass-bg);
-        border-radius: 15px;
-        padding: 40px 20px;
-        text-align: center;
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        transition: all 0.3s ease;
-        cursor: pointer;
-    }
+.welcome-message {
+    color: #f39c12;
+    font-style: italic;
+    text-align: center;
+    padding: 10px;
+}
 
-    .category-card:hover {
-        transform: scale(1.05);
-        box-shadow: 0 0 30px rgba(0, 212, 255, 0.5);
-    }
+.chat-input {
+    display: flex;
+    gap: 10px;
+}
 
-    .category-icon {
-        font-size: 3rem;
-        margin-bottom: 15px;
-    }
+.chat-input input {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background: rgba(255,255,255,0.9);
+    color: #333;
+}
 
-    .category-card h3 {
-        color: var(--accent-color);
-        margin-bottom: 10px;
-    }
+.chat-input button {
+    padding: 10px 20px;
+    background: #27ae60;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
 
-    /* Chat Styles */
-    .stream-chat {
-        position: fixed;
-        right: 20px;
-        bottom: 20px;
-        width: 300px;
-        height: 400px;
-        background: var(--glass-bg);
-        border-radius: 15px;
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        backdrop-filter: blur(20px);
-        display: flex;
-        flex-direction: column;
-        z-index: 1000;
-    }
+.stat-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    padding: 5px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 5px;
+}
 
-    .chat-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 15px;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-    }
+.ai-btn {
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 12px;
+    background: linear-gradient(45deg, #8e44ad, #3498db);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s;
+}
 
-    .chat-toggle {
-        background: none;
-        border: none;
-        color: white;
-        font-size: 1.5rem;
-        cursor: pointer;
-    }
+.ai-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
 
-    .chat-messages {
-        flex: 1;
-        overflow-y: auto;
-        padding: 15px;
+@media (max-width: 768px) {
+    .streaming-container {
+        grid-template-columns: 1fr;
     }
-
-    .chat-message {
-        margin-bottom: 10px;
-        font-size: 0.9rem;
+    
+    .stream-controls {
+        flex-wrap: wrap;
     }
-
-    .username {
-        color: var(--accent-color);
-        font-weight: bold;
-    }
-
-    .message {
-        color: rgba(255, 255, 255, 0.9);
-    }
-
-    .chat-input-area {
-        display: flex;
-        padding: 15px;
-        border-top: 1px solid rgba(255, 255, 255, 0.2);
-    }
-
-    .chat-input {
-        flex: 1;
-        background: rgba(255, 255, 255, 0.1);
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        border-radius: 20px;
+    
+    .stream-btn {
+        font-size: 0.9em;
         padding: 8px 15px;
-        color: white;
-        margin-right: 10px;
     }
-
-    .send-btn {
-        background: var(--accent-color);
-        border: none;
-        border-radius: 20px;
-        padding: 8px 15px;
-        color: white;
-        cursor: pointer;
-    }
-
-    /* Mobile Responsive */
-    @media (max-width: 768px) {
-        .stream-chat {
-            width: 90%;
-            right: 5%;
-            bottom: 10px;
-        }
-
-        .main-stream-player {
-            margin: 20px;
-        }
-
-        .stream-actions {
-            flex-wrap: wrap;
-        }
-    }
+}
 </style>
 
 <script>
-    // Streaming page functionality
-    document.addEventListener('DOMContentLoaded', function() {
-        // Initialize chat
-        initializeChat();
+let localStream;
+let isStreaming = false;
+let streamStartTime;
+let streamTimer;
 
-        // Initialize stream interactions
-        initializeStreamFeatures();
-    });
-
-    function initializeChat() {
-        const chatInput = document.querySelector('.chat-input');
-        const sendBtn = document.querySelector('.send-btn');
-        const chatMessages = document.querySelector('.chat-messages');
-
-        function sendMessage() {
-            const message = chatInput.value.trim();
-            if (message) {
-                const messageElement = document.createElement('div');
-                messageElement.className = 'chat-message';
-                messageElement.innerHTML = `
-                <span class="username">You:</span>
-                <span class="message">${message}</span>
-            `;
-
-                chatMessages.appendChild(messageElement);
-                chatMessages.scrollTop = chatMessages.scrollHeight;
-
-                chatInput.value = '';
-            }
-        }
-
-        sendBtn.addEventListener('click', sendMessage);
-        chatInput.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                sendMessage();
-            }
+// Initialize streaming functionality
+async function initializeStreaming() {
+    try {
+        localStream = await navigator.mediaDevices.getUserMedia({ 
+            video: { width: 1920, height: 1080 }, 
+            audio: true 
         });
-
-        // Chat toggle
-        document.querySelector('.chat-toggle').addEventListener('click', function() {
-            const chat = document.getElementById('streamChat');
-            chat.style.display = chat.style.display === 'none' ? 'flex' : 'none';
-        });
+        
+        const video = document.getElementById('localVideo');
+        video.srcObject = localStream;
+        
+        console.log('Camera and microphone access granted');
+    } catch (error) {
+        console.error('Error accessing media devices:', error);
+        alert('Could not access camera/microphone. Please check permissions.');
     }
+}
 
-    function initializeStreamFeatures() {
-        // Stream card click handlers
-        document.querySelectorAll('.stream-card').forEach(card => {
-            card.addEventListener('click', function() {
-                // Open stream in main player
-                showNotification('Opening stream...', 'info');
-            });
-        });
-
-        // Category card click handlers
-        document.querySelectorAll('.category-card').forEach(card => {
-            card.addEventListener('click', function() {
-                const category = this.querySelector('h3').textContent;
-                showNotification(`Browsing ${category} streams...`, 'info');
-            });
-        });
-
-        // Stream action buttons
-        document.querySelectorAll('.stream-actions button').forEach(btn => {
-            btn.addEventListener('click', function(e) {
-                e.stopPropagation();
-                const action = this.textContent.toLowerCase();
-
-                switch (action) {
-                    case 'follow':
-                        showNotification('Following streamer!', 'success');
-                        this.textContent = 'Following';
-                        this.style.background = '#00ff00';
-                        break;
-                    case 'share':
-                        if (navigator.share) {
-                            navigator.share({
-                                title: 'YouTuneAI Live Stream',
-                                url: window.location.href
-                            });
-                        } else {
-                            navigator.clipboard.writeText(window.location.href);
-                            showNotification('Stream link copied to clipboard!', 'success');
-                        }
-                        break;
-                    case 'fullscreen':
-                        // Request fullscreen for stream player
-                        const player = document.querySelector('.stream-player iframe');
-                        if (player.requestFullscreen) {
-                            player.requestFullscreen();
-                        }
-                        break;
-                }
-            });
-        });
+// Start streaming
+function startStream() {
+    if (!localStream) {
+        alert('Please allow camera access first');
+        return;
     }
+    
+    isStreaming = true;
+    streamStartTime = Date.now();
+    
+    document.getElementById('startStreamBtn').disabled = true;
+    document.getElementById('stopStreamBtn').disabled = false;
+    
+    // Start stream timer
+    streamTimer = setInterval(updateStreamStats, 1000);
+    
+    // Simulate stream initialization
+    addChatMessage('System', 'Stream started successfully!');
+    updateViewerCount();
+    
+    console.log('Stream started');
+}
+
+// Stop streaming
+function stopStream() {
+    isStreaming = false;
+    
+    document.getElementById('startStreamBtn').disabled = false;
+    document.getElementById('stopStreamBtn').disabled = true;
+    
+    if (streamTimer) {
+        clearInterval(streamTimer);
+    }
+    
+    addChatMessage('System', 'Stream ended');
+    document.getElementById('viewerCount').textContent = '0';
+    
+    console.log('Stream stopped');
+}
+
+// Toggle audio
+function toggleAudio() {
+    if (localStream) {
+        const audioTracks = localStream.getAudioTracks();
+        audioTracks.forEach(track => {
+            track.enabled = !track.enabled;
+        });
+        
+        const btn = document.getElementById('toggleAudioBtn');
+        btn.textContent = audioTracks[0].enabled ? '🎤 Audio' : '🔇 Muted';
+    }
+}
+
+// Toggle video
+function toggleVideo() {
+    if (localStream) {
+        const videoTracks = localStream.getVideoTracks();
+        videoTracks.forEach(track => {
+            track.enabled = !track.enabled;
+        });
+        
+        const btn = document.getElementById('toggleVideoBtn');
+        btn.textContent = videoTracks[0].enabled ? '📹 Video' : '📹 Off';
+    }
+}
+
+// Update stream statistics
+function updateStreamStats() {
+    if (isStreaming && streamStartTime) {
+        const elapsed = Date.now() - streamStartTime;
+        const hours = Math.floor(elapsed / 3600000);
+        const minutes = Math.floor((elapsed % 3600000) / 60000);
+        const seconds = Math.floor((elapsed % 60000) / 1000);
+        
+        document.getElementById('streamDuration').textContent = 
+            `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        
+        // Simulate bitrate
+        const bitrate = Math.floor(Math.random() * 1000) + 2000;
+        document.getElementById('streamBitrate').textContent = `${bitrate} kbps`;
+    }
+}
+
+// Update viewer count
+function updateViewerCount() {
+    if (isStreaming) {
+        const viewers = Math.floor(Math.random() * 50) + 1;
+        document.getElementById('viewerCount').textContent = viewers;
+        setTimeout(updateViewerCount, 30000); // Update every 30 seconds
+    }
+}
+
+// Add chat message
+function addChatMessage(username, message) {
+    const chatMessages = document.getElementById('chatMessages');
+    const messageElement = document.createElement('div');
+    messageElement.innerHTML = `<strong>${username}:</strong> ${message}`;
+    messageElement.style.marginBottom = '5px';
+    chatMessages.appendChild(messageElement);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+}
+
+// Send chat message
+function sendChatMessage() {
+    const input = document.getElementById('chatInput');
+    const message = input.value.trim();
+    
+    if (message) {
+        addChatMessage('You', message);
+        input.value = '';
+        
+        // Simulate responses
+        setTimeout(() => {
+            const responses = [
+                'Great stream!',
+                'Loving the AI features!',
+                'How did you set this up?',
+                'Amazing quality!',
+                'Keep it up!'
+            ];
+            const randomResponse = responses[Math.floor(Math.random() * responses.length)];
+            addChatMessage('Viewer' + Math.floor(Math.random() * 100), randomResponse);
+        }, 2000);
+    }
+}
+
+// AI command execution
+function aiCommand(command) {
+    addChatMessage('AI System', `Executing command: ${command}`);
+    
+    // Simulate AI processing
+    setTimeout(() => {
+        addChatMessage('AI System', `Command "${command}" executed successfully!`);
+    }, 1500);
+}
+
+// Event listeners
+document.getElementById('startStreamBtn').addEventListener('click', startStream);
+document.getElementById('stopStreamBtn').addEventListener('click', stopStream);
+document.getElementById('toggleAudioBtn').addEventListener('click', toggleAudio);
+document.getElementById('toggleVideoBtn').addEventListener('click', toggleVideo);
+document.getElementById('sendChatBtn').addEventListener('click', sendChatMessage);
+
+document.getElementById('chatInput').addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') {
+        sendChatMessage();
+    }
+});
+
+// Initialize on page load
+document.addEventListener('DOMContentLoaded', initializeStreaming);
 </script>
 
 <?php get_footer(); ?>

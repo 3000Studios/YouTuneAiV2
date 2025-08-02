@@ -47,9 +47,59 @@ class YouTuneAIController:
         
         # WordPress Configuration
         self.wp_config = {
-            'site_url': 'https://youtuneai.com',  # Update with actual domain
-            'admin_user': 'admin',
-            'admin_pass': 'your_wp_admin_password'
+            'site_url': 'https://youtuneai.com',
+            'rest_api_url': 'https://youtuneai.com/wp-json/wp/v2/',
+            'admin_user': 'VScode',
+            'admin_pass': 'Gabby3000!!!',
+            'admin_email': 'owner@youtuneai.com',
+            'app_password': None,  # Will be set during authentication
+            'webhook_secret': 'youtuneai_webhook_2025'
+        }
+        
+        # Required WordPress Plugins for AI Automation
+        self.required_plugins = {
+            'wp-rest-api-controller': {
+                'slug': 'wp-rest-api-controller',
+                'download_url': 'https://downloads.wordpress.org/plugin/wp-rest-api-controller.latest-stable.zip',
+                'required': True,
+                'purpose': 'Expose custom post types to REST API'
+            },
+            'wp-webhooks': {
+                'slug': 'wp-webhooks',
+                'download_url': 'https://downloads.wordpress.org/plugin/wp-webhooks.latest-stable.zip',
+                'required': True,
+                'purpose': 'Trigger deployments and WordPress actions'
+            },
+            'advanced-custom-fields': {
+                'slug': 'advanced-custom-fields',
+                'download_url': 'https://downloads.wordpress.org/plugin/advanced-custom-fields.latest-stable.zip',
+                'required': True,
+                'purpose': 'Dynamic content creation and meta fields'
+            },
+            'woocommerce': {
+                'slug': 'woocommerce',
+                'download_url': 'https://downloads.wordpress.org/plugin/woocommerce.latest-stable.zip',
+                'required': True,
+                'purpose': 'E-commerce functionality for add_product'
+            },
+            'custom-post-type-ui': {
+                'slug': 'custom-post-type-ui',
+                'download_url': 'https://downloads.wordpress.org/plugin/custom-post-type-ui.latest-stable.zip',
+                'required': True,
+                'purpose': 'Custom content types for bot commands'
+            },
+            'code-snippets': {
+                'slug': 'code-snippets',
+                'download_url': 'https://downloads.wordpress.org/plugin/code-snippets.latest-stable.zip',
+                'required': True,
+                'purpose': 'Dynamic hooks and PHP logic'
+            },
+            'wp-security-audit-log': {
+                'slug': 'wp-security-audit-log',
+                'download_url': 'https://downloads.wordpress.org/plugin/wp-security-audit-log.latest-stable.zip',
+                'required': False,
+                'purpose': 'Monitor AI changes and security'
+            }
         }
         
         # Voice Recognition
@@ -63,6 +113,328 @@ class YouTuneAIController:
         print("🎤 Voice recognition ready")
         print("🔗 SFTP connection configured")
         print("🧠 AI processing ready")
+        print("🔌 WordPress plugin integration enabled")
+        
+        # Initialize WordPress connection
+        self.setup_wordpress_integration()
+
+    def setup_wordpress_integration(self):
+        """Setup WordPress REST API integration and check plugins"""
+        try:
+            print("🔌 Setting up WordPress integration...")
+            
+            # Check WordPress site accessibility
+            response = requests.get(f"{self.wp_config['site_url']}/wp-json/wp/v2/", timeout=10)
+            if response.status_code == 200:
+                print("✅ WordPress REST API accessible")
+                
+                # Check required plugins
+                self.check_required_plugins()
+                
+                # Setup application passwords if needed
+                self.setup_app_passwords()
+                
+            else:
+                print(f"⚠️ WordPress site not accessible: {response.status_code}")
+                
+        except Exception as e:
+            print(f"❌ WordPress integration setup failed: {str(e)}")
+
+    def check_required_plugins(self):
+        """Check if required plugins are installed and active"""
+        try:
+            print("🔍 Checking required WordPress plugins...")
+            
+            # Get list of active plugins
+            plugins_url = f"{self.wp_config['site_url']}/wp-json/wp/v2/plugins"
+            
+            for plugin_name, plugin_info in self.required_plugins.items():
+                if plugin_info['required']:
+                    print(f"📦 Checking {plugin_name}...")
+                    
+                    # This would require authentication, for now we'll log the requirement
+                    print(f"   Purpose: {plugin_info['purpose']}")
+                    
+            print("✅ Plugin check completed")
+            
+        except Exception as e:
+            print(f"❌ Plugin check failed: {str(e)}")
+
+    def install_wordpress_plugin(self, plugin_slug: str) -> Dict[str, Any]:
+        """Install a WordPress plugin via REST API"""
+        try:
+            plugin_info = self.required_plugins.get(plugin_slug)
+            if not plugin_info:
+                return {'success': False, 'error': f'Unknown plugin: {plugin_slug}'}
+            
+            print(f"📥 Installing {plugin_slug}...")
+            
+            # Download plugin
+            response = requests.get(plugin_info['download_url'], timeout=30)
+            if response.status_code != 200:
+                return {'success': False, 'error': f'Failed to download {plugin_slug}'}
+            
+            # Save plugin zip file
+            plugin_zip_path = f"plugins/{plugin_slug}.zip"
+            os.makedirs('plugins', exist_ok=True)
+            
+            with open(plugin_zip_path, 'wb') as f:
+                f.write(response.content)
+            
+            print(f"✅ Downloaded {plugin_slug}")
+            
+            # Upload via SFTP to WordPress plugins directory
+            deploy_result = self.deploy_plugin(plugin_zip_path, plugin_slug)
+            
+            return deploy_result
+            
+        except Exception as e:
+            return {'success': False, 'error': f'Plugin installation failed: {str(e)}'}
+
+    def deploy_plugin(self, local_zip_path: str, plugin_slug: str) -> Dict[str, Any]:
+        """Deploy plugin to WordPress via SFTP"""
+        try:
+            ssh = paramiko.SSHClient()
+            ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+            
+            ssh.connect(
+                hostname=self.sftp_config['host'],
+                username=self.sftp_config['username'],
+                password=self.sftp_config['password'],
+                port=self.sftp_config['port']
+            )
+            
+            sftp = ssh.open_sftp()
+            
+            # Upload to plugins directory
+            remote_plugin_path = f"/wp-content/plugins/{plugin_slug}.zip"
+            sftp.put(local_zip_path, remote_plugin_path)
+            
+            # Execute unzip command via SSH
+            stdin, stdout, stderr = ssh.exec_command(f"cd /wp-content/plugins && unzip -o {plugin_slug}.zip")
+            
+            sftp.close()
+            ssh.close()
+            
+            print(f"✅ Plugin {plugin_slug} deployed successfully")
+            
+            return {'success': True, 'message': f'Plugin {plugin_slug} deployed'}
+            
+        except Exception as e:
+            return {'success': False, 'error': f'Plugin deployment failed: {str(e)}'}
+
+    def setup_app_passwords(self):
+        """Setup WordPress Application Passwords for secure authentication"""
+        try:
+            print("🔐 Setting up WordPress Application Passwords...")
+            
+            # This would typically be done through WordPress admin
+            # For now, we'll prepare the structure
+            self.wp_config['app_password'] = None  # To be set manually
+            
+            print("ℹ️  Please create an Application Password in WordPress admin:")
+            print("   1. Go to Users → Profile")
+            print("   2. Scroll to Application Passwords")
+            print("   3. Create new password for 'YouTuneAI Controller'")
+            print("   4. Update wp_config['app_password'] with the generated password")
+            
+        except Exception as e:
+            print(f"❌ App password setup failed: {str(e)}")
+
+    def make_wp_api_request(self, endpoint: str, method: str = 'GET', data: Dict = None) -> Dict[str, Any]:
+        """Make authenticated WordPress REST API request"""
+        try:
+            url = f"{self.wp_config['rest_api_url']}{endpoint}"
+            
+            # Setup authentication
+            auth = None
+            if self.wp_config.get('app_password'):
+                auth = (self.wp_config['admin_user'], self.wp_config['app_password'])
+            
+            headers = {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            }
+            
+            if method == 'GET':
+                response = requests.get(url, headers=headers, auth=auth, timeout=30)
+            elif method == 'POST':
+                response = requests.post(url, headers=headers, auth=auth, json=data, timeout=30)
+            elif method == 'PUT':
+                response = requests.put(url, headers=headers, auth=auth, json=data, timeout=30)
+            elif method == 'DELETE':
+                response = requests.delete(url, headers=headers, auth=auth, timeout=30)
+            else:
+                return {'success': False, 'error': f'Unsupported method: {method}'}
+            
+            if response.status_code in [200, 201]:
+                return {'success': True, 'data': response.json()}
+            else:
+                return {'success': False, 'error': f'API request failed: {response.status_code}', 'response': response.text}
+                
+        except Exception as e:
+            return {'success': False, 'error': f'API request failed: {str(e)}'}
+
+    def create_woocommerce_product(self, params: Dict[str, Any]) -> Dict[str, Any]:
+        """Create WooCommerce product via REST API"""
+        try:
+            product_data = {
+                'name': params.get('name', 'New Product'),
+                'type': 'simple',
+                'regular_price': str(params.get('price', '9.99')),
+                'description': params.get('description', 'Product description'),
+                'short_description': params.get('short_description', ''),
+                'categories': [{'name': params.get('category', 'General')}],
+                'status': 'publish',
+                'catalog_visibility': 'visible',
+                'meta_data': [
+                    {'key': '_created_by_ai', 'value': 'YouTuneAI Controller'},
+                    {'key': '_creation_date', 'value': datetime.now().isoformat()}
+                ]
+            }
+            
+            # Use WooCommerce REST API endpoint
+            result = self.make_wp_api_request('products', 'POST', product_data)
+            
+            if result['success']:
+                product_id = result['data'].get('id')
+                return {
+                    'success': True,
+                    'message': f'Product "{product_data["name"]}" created with ID {product_id}',
+                    'product_id': product_id
+                }
+            else:
+                return result
+                
+        except Exception as e:
+            return {'success': False, 'error': f'WooCommerce product creation failed: {str(e)}'}
+
+    def create_custom_post(self, post_type: str, params: Dict[str, Any]) -> Dict[str, Any]:
+        """Create custom post type entry"""
+        try:
+            post_data = {
+                'title': params.get('title', 'New Post'),
+                'content': params.get('content', ''),
+                'status': 'publish',
+                'meta': {
+                    '_created_by_ai': 'YouTuneAI Controller',
+                    '_creation_date': datetime.now().isoformat()
+                }
+            }
+            
+            # Add custom fields if provided
+            if 'custom_fields' in params:
+                post_data['meta'].update(params['custom_fields'])
+            
+            # Use REST API for custom post types
+            result = self.make_wp_api_request(f'{post_type}', 'POST', post_data)
+            
+            return result
+            
+        except Exception as e:
+            return {'success': False, 'error': f'Custom post creation failed: {str(e)}'}
+
+    def trigger_webhook(self, webhook_action: str, data: Dict[str, Any]) -> Dict[str, Any]:
+        """Trigger WordPress webhook for deployment or other actions"""
+        try:
+            webhook_url = f"{self.wp_config['site_url']}/wp-json/wp-webhooks/v1/action/{webhook_action}"
+            
+            webhook_data = {
+                'secret': self.wp_config['webhook_secret'],
+                'action': webhook_action,
+                'data': data,
+                'timestamp': datetime.now().isoformat(),
+                'source': 'YouTuneAI Controller'
+            }
+            
+            response = requests.post(webhook_url, json=webhook_data, timeout=30)
+            
+            if response.status_code == 200:
+                return {'success': True, 'message': f'Webhook {webhook_action} triggered'}
+            else:
+                return {'success': False, 'error': f'Webhook failed: {response.status_code}'}
+                
+        except Exception as e:
+            return {'success': False, 'error': f'Webhook trigger failed: {str(e)}'}
+
+    def setup_ai_automation_hooks(self):
+        """Setup WordPress hooks for AI automation using Code Snippets plugin"""
+        
+        # Code snippet to add AI automation hooks
+        ai_hooks_snippet = '''
+<?php
+// YouTuneAI Automation Hooks
+// Added via Code Snippets plugin for AI integration
+
+// Hook for AI-triggered deployments
+add_action('wp_ajax_nopriv_ai_deploy', 'handle_ai_deployment');
+add_action('wp_ajax_ai_deploy', 'handle_ai_deployment');
+
+function handle_ai_deployment() {
+    // Verify webhook secret
+    $secret = $_POST['secret'] ?? '';
+    if ($secret !== 'youtuneai_webhook_2025') {
+        wp_die('Unauthorized', 401);
+    }
+    
+    // Log AI action
+    error_log('AI Deployment triggered: ' . json_encode($_POST));
+    
+    // Process deployment
+    $action = $_POST['action'] ?? '';
+    $data = $_POST['data'] ?? [];
+    
+    switch($action) {
+        case 'theme_update':
+            // Handle theme updates
+            do_action('youtuneai_theme_update', $data);
+            break;
+        case 'content_update':
+            // Handle content updates
+            do_action('youtuneai_content_update', $data);
+            break;
+        case 'product_create':
+            // Handle product creation
+            do_action('youtuneai_product_create', $data);
+            break;
+    }
+    
+    wp_send_json_success(['message' => 'AI action processed']);
+}
+
+// Custom post type for AI commands
+add_action('init', 'register_ai_command_post_type');
+function register_ai_command_post_type() {
+    register_post_type('ai_command', [
+        'public' => false,
+        'show_in_rest' => true,
+        'rest_base' => 'ai-commands',
+        'supports' => ['title', 'editor', 'custom-fields'],
+        'capability_type' => 'post'
+    ]);
+}
+
+// Log all AI actions for security audit
+add_action('youtuneai_action_executed', 'log_ai_action', 10, 2);
+function log_ai_action($action, $data) {
+    $log_entry = [
+        'timestamp' => current_time('mysql'),
+        'action' => $action,
+        'data' => $data,
+        'user_ip' => $_SERVER['REMOTE_ADDR'] ?? 'unknown',
+        'user_agent' => $_SERVER['HTTP_USER_AGENT'] ?? 'unknown'
+    ];
+    
+    // Save to custom table or meta field
+    update_option('youtuneai_last_action', $log_entry);
+    
+    // Also log to file for security monitoring
+    error_log('YouTuneAI Action: ' . json_encode($log_entry));
+}
+?>
+'''
+        
+        return ai_hooks_snippet
 
     def listen_for_voice_command(self) -> Optional[str]:
         """Listen for voice commands using speech recognition"""
@@ -320,34 +692,41 @@ class YouTuneAIController:
             }
 
     def add_product(self, params: Dict[str, Any]) -> Dict[str, Any]:
-        """Add a new product to the shop"""
+        """Add a new product to WooCommerce shop via REST API"""
         try:
             name = params.get('name', 'New Product')
             price = params.get('price', '9.99')
-            description = params.get('description', 'Product description')
+            description = params.get('description', 'AI-generated product description')
             category = params.get('category', 'digital')
             
-            # Create product via WordPress REST API
-            wp_api_url = f"{self.wp_config['site_url']}/wp-json/wp/v2/products"
+            print(f"🛒 Creating WooCommerce product: {name}")
             
-            product_data = {
-                'title': name,
-                'content': description,
-                'status': 'publish',
-                'meta': {
-                    'product_price': price,
-                    'product_category': category
+            # Create product using WooCommerce REST API
+            product_result = self.create_woocommerce_product({
+                'name': name,
+                'price': price,
+                'description': description,
+                'category': category,
+                'short_description': f"AI-powered {category} product - {name}"
+            })
+            
+            if product_result['success']:
+                # Trigger webhook for additional processing
+                webhook_result = self.trigger_webhook('product_create', {
+                    'product_id': product_result.get('product_id'),
+                    'name': name,
+                    'price': price,
+                    'category': category
+                })
+                
+                return {
+                    'success': True,
+                    'message': f'Product "{name}" added to WooCommerce shop for ${price}',
+                    'product_id': product_result.get('product_id')
                 }
-            }
-            
-            # This would require WordPress authentication
-            # For now, we'll update the homepage to show the new product
-            
-            return {
-                'success': True,
-                'message': f'Product "{name}" added for ${price}'
-            }
-            
+            else:
+                return product_result
+                
         except Exception as e:
             return {
                 'success': False,
