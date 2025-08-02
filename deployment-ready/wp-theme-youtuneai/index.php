@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Main template file for YouTuneAI Pro Theme
  * Revolutionary AI-powered WordPress theme with voice control
@@ -30,13 +29,13 @@ get_header(); ?>
 <canvas id="cyberBackground" class="cyber-background"></canvas>
 
 <div class="content-wrapper">
-
+    
     <!-- Hero Section -->
     <section class="hero-section fade-in">
         <div class="hero-content">
             <h1 class="hero-title"><?php echo get_theme_mod('homepage_title', 'YouTuneAI Pro'); ?></h1>
             <p class="hero-subtitle"><?php echo get_theme_mod('homepage_subtitle', 'Revolutionary AI-Powered Voice Control Website'); ?></p>
-
+            
             <div class="cta-buttons">
                 <a href="/streaming/" class="btn btn-primary">
                     <i class='bx bx-play-circle'></i>
@@ -57,7 +56,7 @@ get_header(); ?>
     <!-- Feature Gallery with Hover Effects -->
     <section class="gallery-section fade-in">
         <div class="gallery-grid">
-
+            
             <!-- Streaming Card -->
             <div class="gallery-item" onclick="location.href='/streaming/'">
                 <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?w=500" alt="Live Streaming" class="gallery-image">

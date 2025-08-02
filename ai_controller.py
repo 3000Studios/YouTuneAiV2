@@ -34,7 +34,7 @@ class YouTuneAIController:
         """Initialize the AI controller with all necessary configurations"""
         
         # OpenAI Configuration
-        self.openai_key = os.getenv('OPENAI_API_KEY')
+        self.openai_key: str = os.getenv('OPENAI_API_KEY', '')
         openai.api_key = self.openai_key
         
         # SFTP Configuration (IONOS hosting)
@@ -47,7 +47,7 @@ class YouTuneAIController:
         }
         
         # WordPress Configuration
-        self.wp_config = {
+        self.wp_config: Dict[str, Optional[str]] = {
             'site_url': os.getenv('WP_SITE_URL', 'https://youtuneai.com'),
             'rest_api_url': os.getenv('WP_API_URL', 'https://youtuneai.com/wp-json/wp/v2/'),
             'admin_user': os.getenv('WP_ADMIN_USER', 'VScode'),
@@ -58,13 +58,7 @@ class YouTuneAIController:
         }
         
         # Admin Access Credentials
-        self.admin_credentials = {
-            'username': os.getenv('ADMIN_USERNAME', 'Mr.jwswain@gmail.com'),
-            'password': os.getenv('ADMIN_PASSWORD', 'Gabby3000???')
-        }
-        
-        # Required WordPress Plugins for AI Automation
-        self.required_plugins = {
+        self.required_plugins: Dict[str, Dict[str, str]] = {
             'wp-rest-api-controller': {
                 'slug': 'wp-rest-api-controller',
                 'download_url': 'https://downloads.wordpress.org/plugin/wp-rest-api-controller.latest-stable.zip',
@@ -248,39 +242,26 @@ class YouTuneAIController:
         except Exception as e:
             print(f"❌ App password setup failed: {str(e)}")
 
-    def make_wp_api_request(self, endpoint: str, method: str = 'GET', data: Dict = None) -> Dict[str, Any]:
-        """Make authenticated WordPress REST API request"""
-        try:
-            url = f"{self.wp_config['rest_api_url']}{endpoint}"
-            
-            # Setup authentication
-            auth = None
-            if self.wp_config.get('app_password'):
-                auth = (self.wp_config['admin_user'], self.wp_config['app_password'])
-            
-            headers = {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
-            }
-            
-            if method == 'GET':
-                response = requests.get(url, headers=headers, auth=auth, timeout=30)
-            elif method == 'POST':
-                response = requests.post(url, headers=headers, auth=auth, json=data, timeout=30)
-            elif method == 'PUT':
-                response = requests.put(url, headers=headers, auth=auth, json=data, timeout=30)
-            elif method == 'DELETE':
-                response = requests.delete(url, headers=headers, auth=auth, timeout=30)
+    def make_wp_api_request(self, endpoint: str, method: str = 'GET', data: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
+        """Make a request to the WordPress API"""
+        headers = {
+            'Authorization': f'Bearer {self.wp_config.get("app_password", "")}'
+        }
+        url = f"{self.wp_config['rest_api_url']}{endpoint}"
+        response = requests.request(method, url, headers=headers, json=data, timeout=30)
+        return response.json()
+
+    def process_plugins(self):
+        """Process required plugins"""
+        for plugin_name, plugin_info in self.required_plugins.items():
+            download_url = plugin_info.get('download_url', '')
+            if not download_url:
+                continue
+            response = requests.get(download_url, timeout=30)
+            if response.status_code == 200:
+                print(f"Downloaded {plugin_name} successfully.")
             else:
-                return {'success': False, 'error': f'Unsupported method: {method}'}
-            
-            if response.status_code in [200, 201]:
-                return {'success': True, 'data': response.json()}
-            else:
-                return {'success': False, 'error': f'API request failed: {response.status_code}', 'response': response.text}
-                
-        except Exception as e:
-            return {'success': False, 'error': f'API request failed: {str(e)}'}
+                print(f"Failed to download {plugin_name}.")
 
     def create_woocommerce_product(self, params: Dict[str, Any]) -> Dict[str, Any]:
         """Create WooCommerce product via REST API"""

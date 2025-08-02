@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Template Name: Avatar Creator
  * Page for creating custom AI avatars
@@ -20,7 +19,7 @@ get_header(); ?>
         <div class="hero-content">
             <h1 class="cyber-title">AI Avatar Creator</h1>
             <p class="cyber-subtitle">Design Your Digital Identity • Voice Synthesis • Neural Networks</p>
-
+            
             <div class="avatar-stats">
                 <div class="stat-item">
                     <span class="stat-number">50K+</span>
@@ -43,7 +42,7 @@ get_header(); ?>
         <div class="cosmos-background">
             <div class="stars-container"></div>
         </div>
-
+        
         <div class="carousel-header">
             <h2>Interdimensional Avatar Selection</h2>
             <p>Choose from our collection of AI-generated personas</p>
@@ -51,7 +50,7 @@ get_header(); ?>
 
         <div class="carousel-container">
             <div class="carousel" id="avatarCarousel">
-
+                
                 <!-- Avatar Card 1 -->
                 <div class="avatar-card" data-avatar-id="1">
                     <div class="card-inner">
@@ -248,7 +247,7 @@ get_header(); ?>
         </div>
 
         <div class="studio-workspace">
-
+            
             <!-- Avatar Preview -->
             <div class="avatar-preview-panel">
                 <div class="preview-container">
@@ -274,7 +273,7 @@ get_header(); ?>
 
             <!-- Customization Panels -->
             <div class="customization-panels">
-
+                
                 <!-- Appearance Panel -->
                 <div class="custom-panel">
                     <h3>👤 Appearance</h3>
@@ -379,9 +378,9 @@ get_header(); ?>
             <h2>💎 Avatar Packages</h2>
             <p>Choose your subscription level</p>
         </div>
-
+        
         <div class="pricing-cards">
-
+            
             <!-- Basic Plan -->
             <div class="pricing-card">
                 <div class="card-header">
@@ -443,482 +442,477 @@ get_header(); ?>
 <audio id="voiceSamplePlayer" preload="none"></audio>
 
 <script>
-    // Avatar Creator Functionality
-    document.addEventListener('DOMContentLoaded', function() {
-        initializeAvatarCarousel();
-        initializeCyberBackground();
-        initializeCustomizationStudio();
-    });
+// Avatar Creator Functionality
+document.addEventListener('DOMContentLoaded', function() {
+    initializeAvatarCarousel();
+    initializeCyberBackground();
+    initializeCustomizationStudio();
+});
 
-    function initializeAvatarCarousel() {
-        const carousel = document.getElementById('avatarCarousel');
-        const cards = carousel.querySelectorAll('.avatar-card');
-        const totalCards = cards.length;
-        let currentIndex = 0;
-        let radius = window.innerWidth <= 768 ? 250 : 400;
+function initializeAvatarCarousel() {
+    const carousel = document.getElementById('avatarCarousel');
+    const cards = carousel.querySelectorAll('.avatar-card');
+    const totalCards = cards.length;
+    let currentIndex = 0;
+    let radius = window.innerWidth <= 768 ? 250 : 400;
 
-        function arrangeCards() {
-            cards.forEach((card, index) => {
-                const angle = (360 / totalCards) * index;
-                const x = Math.cos((angle * Math.PI) / 180) * radius;
-                const z = Math.sin((angle * Math.PI) / 180) * radius;
-
-                card.style.transform = `translate3d(${x}px, 0, ${z}px) rotateY(${-angle}deg)`;
-            });
-        }
-
-        function rotateCarousel(direction) {
-            currentIndex += direction;
-            const angle = (360 / totalCards) * currentIndex;
-            carousel.style.transform = `rotateY(${angle}deg)`;
-        }
-
-        // Initialize carousel
-        arrangeCards();
-
-        // Carousel controls
-        document.getElementById('prevBtn').addEventListener('click', () => rotateCarousel(-1));
-        document.getElementById('nextBtn').addEventListener('click', () => rotateCarousel(1));
-
-        // Auto-rotate
-        setInterval(() => rotateCarousel(1), 8000);
-    }
-
-    function initializeCyberBackground() {
-        const canvas = document.getElementById('cyberCanvas');
-        const ctx = canvas.getContext('2d');
-
-        function resizeCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
-
-        resizeCanvas();
-        window.addEventListener('resize', resizeCanvas);
-
-        // Create data streams
-        const streams = [];
-        for (let i = 0; i < 20; i++) {
-            streams.push({
-                x: Math.random() * canvas.width,
-                y: Math.random() * canvas.height,
-                length: Math.random() * 100 + 50,
-                speed: Math.random() * 2 + 1,
-                opacity: Math.random() * 0.5 + 0.3
-            });
-        }
-
-        function animate() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-            streams.forEach(stream => {
-                ctx.strokeStyle = `rgba(0, 255, 136, ${stream.opacity})`;
-                ctx.lineWidth = 2;
-                ctx.beginPath();
-                ctx.moveTo(stream.x, stream.y);
-                ctx.lineTo(stream.x, stream.y + stream.length);
-                ctx.stroke();
-
-                stream.y += stream.speed;
-                if (stream.y > canvas.height + stream.length) {
-                    stream.y = -stream.length;
-                    stream.x = Math.random() * canvas.width;
-                }
-            });
-
-            requestAnimationFrame(animate);
-        }
-
-        animate();
-    }
-
-    function initializeCustomizationStudio() {
-        // Voice sliders
-        document.getElementById('pitchSlider').addEventListener('input', function() {
-            document.getElementById('pitchValue').textContent = this.value;
-        });
-
-        document.getElementById('speedSlider').addEventListener('input', function() {
-            document.getElementById('speedValue').textContent = this.value;
-        });
-
-        document.getElementById('emotionSlider').addEventListener('input', function() {
-            document.getElementById('emotionValue').textContent = this.value;
+    function arrangeCards() {
+        cards.forEach((card, index) => {
+            const angle = (360 / totalCards) * index;
+            const x = Math.cos((angle * Math.PI) / 180) * radius;
+            const z = Math.sin((angle * Math.PI) / 180) * radius;
+            
+            card.style.transform = `translate3d(${x}px, 0, ${z}px) rotateY(${-angle}deg)`;
         });
     }
 
-    function selectAvatar(avatarType) {
-        if (avatarType === 'custom' || avatarType.includes('custom')) {
-            document.getElementById('customStudio').classList.remove('hidden');
-            document.querySelector('.avatar-carousel-section').style.display = 'none';
-        } else {
-            alert(`✨ ${avatarType} avatar selected! Configuring AI personality...`);
-            // Process avatar selection
-        }
+    function rotateCarousel(direction) {
+        currentIndex += direction;
+        const angle = (360 / totalCards) * currentIndex;
+        carousel.style.transform = `rotateY(${angle}deg)`;
     }
 
-    function playVoiceSample(sampleId) {
-        // In a real implementation, you would load actual voice samples
-        const audio = document.getElementById('voiceSamplePlayer');
-        audio.src = `<?php echo get_template_directory_uri(); ?>/assets/voice-samples/${sampleId}.mp3`;
-        audio.play().catch(() => {
-            // Fallback for browsers that block autoplay
-            alert(`🔊 Playing voice sample: ${sampleId}`);
+    // Initialize carousel
+    arrangeCards();
+
+    // Carousel controls
+    document.getElementById('prevBtn').addEventListener('click', () => rotateCarousel(-1));
+    document.getElementById('nextBtn').addEventListener('click', () => rotateCarousel(1));
+
+    // Auto-rotate
+    setInterval(() => rotateCarousel(1), 8000);
+}
+
+function initializeCyberBackground() {
+    const canvas = document.getElementById('cyberCanvas');
+    const ctx = canvas.getContext('2d');
+    
+    function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    }
+    
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
+    // Create data streams
+    const streams = [];
+    for (let i = 0; i < 20; i++) {
+        streams.push({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            length: Math.random() * 100 + 50,
+            speed: Math.random() * 2 + 1,
+            opacity: Math.random() * 0.5 + 0.3
         });
     }
 
-    function saveAvatar() {
-        alert('💾 Avatar saved successfully! Your AI persona is ready to deploy.');
-        // Send avatar data to server
-    }
-
-    function publishAvatar() {
-        alert('🚀 Avatar published! Your AI is now live and ready for voice control.');
-        // Deploy avatar to voice control system
-    }
-
-    function selectPlan(plan) {
-        alert(`🎯 ${plan.toUpperCase()} plan selected! Redirecting to checkout...`);
-        // Integrate with payment processing
-    }
-
-    // Voice interaction for avatar creator
-    if ('webkitSpeechRecognition' in window) {
-        const recognition = new webkitSpeechRecognition();
-        recognition.continuous = true;
-        recognition.interimResults = true;
-
-        recognition.onresult = function(event) {
-            const command = event.results[event.results.length - 1][0].transcript.toLowerCase();
-
-            if (command.includes('create avatar')) {
-                document.getElementById('customStudio').classList.remove('hidden');
-            } else if (command.includes('select') && command.includes('avatar')) {
-                // Voice avatar selection logic
-                const avatarTypes = ['cyber sage', 'tech guardian', 'neural artist', 'quantum explorer'];
-                const selectedAvatar = avatarTypes.find(type => command.includes(type));
-                if (selectedAvatar) {
-                    selectAvatar(selectedAvatar.replace(' ', '-'));
-                }
+    function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        
+        streams.forEach(stream => {
+            ctx.strokeStyle = `rgba(0, 255, 136, ${stream.opacity})`;
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(stream.x, stream.y);
+            ctx.lineTo(stream.x, stream.y + stream.length);
+            ctx.stroke();
+            
+            stream.y += stream.speed;
+            if (stream.y > canvas.height + stream.length) {
+                stream.y = -stream.length;
+                stream.x = Math.random() * canvas.width;
             }
-        };
-
-        // Auto-start voice recognition on page load
-        setTimeout(() => {
-            recognition.start();
-        }, 2000);
+        });
+        
+        requestAnimationFrame(animate);
     }
+    
+    animate();
+}
+
+function initializeCustomizationStudio() {
+    // Voice sliders
+    document.getElementById('pitchSlider').addEventListener('input', function() {
+        document.getElementById('pitchValue').textContent = this.value;
+    });
+    
+    document.getElementById('speedSlider').addEventListener('input', function() {
+        document.getElementById('speedValue').textContent = this.value;
+    });
+    
+    document.getElementById('emotionSlider').addEventListener('input', function() {
+        document.getElementById('emotionValue').textContent = this.value;
+    });
+}
+
+function selectAvatar(avatarType) {
+    if (avatarType === 'custom' || avatarType.includes('custom')) {
+        document.getElementById('customStudio').classList.remove('hidden');
+        document.querySelector('.avatar-carousel-section').style.display = 'none';
+    } else {
+        alert(`✨ ${avatarType} avatar selected! Configuring AI personality...`);
+        // Process avatar selection
+    }
+}
+
+function playVoiceSample(sampleId) {
+    // In a real implementation, you would load actual voice samples
+    const audio = document.getElementById('voiceSamplePlayer');
+    audio.src = `<?php echo get_template_directory_uri(); ?>/assets/voice-samples/${sampleId}.mp3`;
+    audio.play().catch(() => {
+        // Fallback for browsers that block autoplay
+        alert(`🔊 Playing voice sample: ${sampleId}`);
+    });
+}
+
+function saveAvatar() {
+    alert('💾 Avatar saved successfully! Your AI persona is ready to deploy.');
+    // Send avatar data to server
+}
+
+function publishAvatar() {
+    alert('🚀 Avatar published! Your AI is now live and ready for voice control.');
+    // Deploy avatar to voice control system
+}
+
+function selectPlan(plan) {
+    alert(`🎯 ${plan.toUpperCase()} plan selected! Redirecting to checkout...`);
+    // Integrate with payment processing
+}
+
+// Voice interaction for avatar creator
+if ('webkitSpeechRecognition' in window) {
+    const recognition = new webkitSpeechRecognition();
+    recognition.continuous = true;
+    recognition.interimResults = true;
+
+    recognition.onresult = function(event) {
+        const command = event.results[event.results.length - 1][0].transcript.toLowerCase();
+        
+        if (command.includes('create avatar')) {
+            document.getElementById('customStudio').classList.remove('hidden');
+        } else if (command.includes('select') && command.includes('avatar')) {
+            // Voice avatar selection logic
+            const avatarTypes = ['cyber sage', 'tech guardian', 'neural artist', 'quantum explorer'];
+            const selectedAvatar = avatarTypes.find(type => command.includes(type));
+            if (selectedAvatar) {
+                selectAvatar(selectedAvatar.replace(' ', '-'));
+            }
+        }
+    };
+
+    // Auto-start voice recognition on page load
+    setTimeout(() => {
+        recognition.start();
+    }, 2000);
+}
 </script>
 
 <style>
-    /* Avatar Creator Specific Styles */
-    .cyber-background-container {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100vw;
-        height: 100vh;
-        z-index: -1;
-        background: linear-gradient(45deg, #000428, #004e92);
-        overflow: hidden;
-    }
+/* Avatar Creator Specific Styles */
+.cyber-background-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    background: linear-gradient(45deg, #000428, #004e92);
+    overflow: hidden;
+}
 
-    .cyber-background-container::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background:
-            radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
-            radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%),
-            radial-gradient(circle at 40% 40%, rgba(120, 200, 255, 0.2) 0%, transparent 50%);
-    }
+.cyber-background-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(120, 200, 255, 0.2) 0%, transparent 50%);
+}
 
-    #cyberCanvas {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        pointer-events: none;
-    }
+#cyberCanvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
 
-    .avatar-carousel-section {
-        padding: 4rem 2rem;
-        perspective: 1000px;
-    }
+.avatar-carousel-section {
+    padding: 4rem 2rem;
+    perspective: 1000px;
+}
 
-    .carousel-container {
-        position: relative;
-        width: 100%;
-        height: 600px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
+.carousel-container {
+    position: relative;
+    width: 100%;
+    height: 600px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
-    .carousel {
-        position: relative;
-        width: 300px;
-        height: 400px;
-        transform-style: preserve-3d;
-        transition: transform 1s;
-    }
+.carousel {
+    position: relative;
+    width: 300px;
+    height: 400px;
+    transform-style: preserve-3d;
+    transition: transform 1s;
+}
 
-    .avatar-card {
-        position: absolute;
-        width: 280px;
-        height: 380px;
-        background: rgba(20, 20, 40, 0.9);
-        border: 2px solid var(--primary-color);
-        border-radius: 15px;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        backdrop-filter: blur(10px);
-    }
+.avatar-card {
+    position: absolute;
+    width: 280px;
+    height: 380px;
+    background: rgba(20, 20, 40, 0.9);
+    border: 2px solid var(--primary-color);
+    border-radius: 15px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+}
 
-    .avatar-card:hover {
-        transform: scale(1.05);
-        box-shadow: 0 20px 40px rgba(157, 0, 255, 0.4);
-    }
+.avatar-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 20px 40px rgba(157, 0, 255, 0.4);
+}
 
-    .card-inner {
-        position: relative;
-        width: 100%;
-        height: 100%;
-        transform-style: preserve-3d;
-        transition: transform 0.6s;
-    }
+.card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    transition: transform 0.6s;
+}
 
-    .avatar-card:hover .card-inner {
-        transform: rotateY(180deg);
-    }
+.avatar-card:hover .card-inner {
+    transform: rotateY(180deg);
+}
 
-    .card-front,
-    .card-back {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        backface-visibility: hidden;
-        padding: 1.5rem;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-    }
+.card-front, .card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
 
-    .card-back {
-        transform: rotateY(180deg);
-        background: rgba(40, 40, 80, 0.9);
-    }
+.card-back {
+    transform: rotateY(180deg);
+    background: rgba(40, 40, 80, 0.9);
+}
 
-    .avatar-preview img {
-        width: 100px;
-        height: 100px;
-        border-radius: 50%;
-        object-fit: cover;
-        border: 3px solid var(--secondary-color);
-        margin-bottom: 1rem;
-    }
+.avatar-preview img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid var(--secondary-color);
+    margin-bottom: 1rem;
+}
 
-    .avatar-traits,
-    .custom-features {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.5rem;
-        margin-top: 1rem;
-    }
+.avatar-traits, .custom-features {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
 
-    .trait,
-    .feature {
-        background: rgba(157, 0, 255, 0.2);
-        padding: 0.25rem 0.5rem;
-        border-radius: 15px;
-        font-size: 0.8rem;
-        border: 1px solid var(--primary-color);
-    }
+.trait, .feature {
+    background: rgba(157, 0, 255, 0.2);
+    padding: 0.25rem 0.5rem;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    border: 1px solid var(--primary-color);
+}
 
-    .customization-studio {
-        padding: 4rem 2rem;
-        background: rgba(5, 5, 16, 0.9);
-        backdrop-filter: blur(20px);
-    }
+.customization-studio {
+    padding: 4rem 2rem;
+    background: rgba(5, 5, 16, 0.9);
+    backdrop-filter: blur(20px);
+}
 
+.studio-workspace {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 3rem;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.avatar-preview-panel {
+    background: rgba(20, 20, 40, 0.8);
+    border-radius: 15px;
+    padding: 2rem;
+    border: 2px solid var(--primary-color);
+}
+
+.avatar-display img {
+    width: 100%;
+    max-width: 300px;
+    border-radius: 15px;
+    border: 3px solid var(--secondary-color);
+}
+
+.customization-panels {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.custom-panel {
+    background: rgba(20, 20, 40, 0.8);
+    border-radius: 15px;
+    padding: 1.5rem;
+    border: 1px solid var(--primary-color);
+}
+
+.option-buttons {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+.option-btn {
+    padding: 0.5rem 1rem;
+    border: 2px solid var(--secondary-color);
+    background: transparent;
+    color: var(--text-primary);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.option-btn.active, .option-btn:hover {
+    background: var(--secondary-color);
+    color: var(--background-dark);
+}
+
+.voice-slider, .trait-slider {
+    width: 100%;
+    margin-top: 0.5rem;
+    accent-color: var(--primary-color);
+}
+
+.color-picker {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+.color-option {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.color-option:hover {
+    border-color: var(--text-primary);
+    transform: scale(1.1);
+}
+
+.avatar-pricing {
+    padding: 4rem 2rem;
+    background: rgba(5, 5, 16, 0.95);
+}
+
+.pricing-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.pricing-card {
+    background: rgba(20, 20, 40, 0.9);
+    border: 2px solid var(--primary-color);
+    border-radius: 15px;
+    padding: 2rem;
+    text-align: center;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.pricing-card.featured {
+    border-color: var(--accent-color);
+    transform: scale(1.05);
+    box-shadow: 0 20px 40px rgba(255, 0, 229, 0.3);
+}
+
+.pricing-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(157, 0, 255, 0.4);
+}
+
+.price {
+    font-size: 2.5rem;
+    font-weight: 900;
+    color: var(--primary-color);
+    margin: 1rem 0;
+}
+
+.price span {
+    font-size: 1rem;
+    color: var(--text-secondary);
+}
+
+.badge {
+    position: absolute;
+    top: -10px;
+    right: 20px;
+    background: var(--accent-color);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.features {
+    list-style: none;
+    text-align: left;
+    margin: 2rem 0;
+}
+
+.features li {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.hidden {
+    display: none !important;
+}
+
+@media (max-width: 768px) {
     .studio-workspace {
-        display: grid;
-        grid-template-columns: 1fr 2fr;
-        gap: 3rem;
-        max-width: 1400px;
-        margin: 0 auto;
-    }
-
-    .avatar-preview-panel {
-        background: rgba(20, 20, 40, 0.8);
-        border-radius: 15px;
-        padding: 2rem;
-        border: 2px solid var(--primary-color);
-    }
-
-    .avatar-display img {
-        width: 100%;
-        max-width: 300px;
-        border-radius: 15px;
-        border: 3px solid var(--secondary-color);
-    }
-
-    .customization-panels {
-        display: flex;
-        flex-direction: column;
+        grid-template-columns: 1fr;
         gap: 2rem;
     }
-
-    .custom-panel {
-        background: rgba(20, 20, 40, 0.8);
-        border-radius: 15px;
-        padding: 1.5rem;
-        border: 1px solid var(--primary-color);
+    
+    .carousel {
+        width: 250px;
+        height: 350px;
     }
-
-    .option-buttons {
-        display: flex;
-        gap: 0.5rem;
-        margin-top: 0.5rem;
+    
+    .avatar-card {
+        width: 230px;
+        height: 320px;
     }
-
-    .option-btn {
-        padding: 0.5rem 1rem;
-        border: 2px solid var(--secondary-color);
-        background: transparent;
-        color: var(--text-primary);
-        border-radius: 8px;
-        cursor: pointer;
-        transition: all 0.3s ease;
-    }
-
-    .option-btn.active,
-    .option-btn:hover {
-        background: var(--secondary-color);
-        color: var(--background-dark);
-    }
-
-    .voice-slider,
-    .trait-slider {
-        width: 100%;
-        margin-top: 0.5rem;
-        accent-color: var(--primary-color);
-    }
-
-    .color-picker {
-        display: flex;
-        gap: 0.5rem;
-        margin-top: 0.5rem;
-    }
-
-    .color-option {
-        width: 30px;
-        height: 30px;
-        border-radius: 50%;
-        cursor: pointer;
-        border: 2px solid transparent;
-        transition: all 0.3s ease;
-    }
-
-    .color-option:hover {
-        border-color: var(--text-primary);
-        transform: scale(1.1);
-    }
-
-    .avatar-pricing {
-        padding: 4rem 2rem;
-        background: rgba(5, 5, 16, 0.95);
-    }
-
-    .pricing-cards {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        gap: 2rem;
-        max-width: 1200px;
-        margin: 0 auto;
-    }
-
-    .pricing-card {
-        background: rgba(20, 20, 40, 0.9);
-        border: 2px solid var(--primary-color);
-        border-radius: 15px;
-        padding: 2rem;
-        text-align: center;
-        position: relative;
-        transition: all 0.3s ease;
-    }
-
-    .pricing-card.featured {
-        border-color: var(--accent-color);
-        transform: scale(1.05);
-        box-shadow: 0 20px 40px rgba(255, 0, 229, 0.3);
-    }
-
-    .pricing-card:hover {
-        transform: translateY(-10px);
-        box-shadow: 0 20px 40px rgba(157, 0, 255, 0.4);
-    }
-
-    .price {
-        font-size: 2.5rem;
-        font-weight: 900;
-        color: var(--primary-color);
-        margin: 1rem 0;
-    }
-
-    .price span {
-        font-size: 1rem;
-        color: var(--text-secondary);
-    }
-
-    .badge {
-        position: absolute;
-        top: -10px;
-        right: 20px;
-        background: var(--accent-color);
-        color: white;
-        padding: 0.5rem 1rem;
-        border-radius: 20px;
-        font-size: 0.8rem;
-        font-weight: 600;
-    }
-
-    .features {
-        list-style: none;
-        text-align: left;
-        margin: 2rem 0;
-    }
-
-    .features li {
-        padding: 0.5rem 0;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    }
-
-    .hidden {
-        display: none !important;
-    }
-
-    @media (max-width: 768px) {
-        .studio-workspace {
-            grid-template-columns: 1fr;
-            gap: 2rem;
-        }
-
-        .carousel {
-            width: 250px;
-            height: 350px;
-        }
-
-        .avatar-card {
-            width: 230px;
-            height: 320px;
-        }
-    }
+}
 </style>
 
 <?php get_footer(); ?>
