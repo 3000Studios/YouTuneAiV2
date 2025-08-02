@@ -6,6 +6,7 @@
 .env.local
 .env.production
 .env.staging
+secrets.env
 *.key
 *.pem
 config.local.*
@@ -72,6 +73,7 @@ ai_logs/
 # Development
 .vscode/settings.json
 .vscode/launch.json
+connection_test_report.json
 *.log
 *.pid
 *.seed

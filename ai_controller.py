@@ -27,33 +27,43 @@ import openai
 import speech_recognition as sr
 import paramiko
 from typing import Dict, Any, Optional
+from dotenv import load_dotenv
+
+# Load secure credentials
+load_dotenv('secrets.env')
 
 class YouTuneAIController:
     def __init__(self):
         """Initialize the AI controller with all necessary configurations"""
         
         # OpenAI Configuration
-        self.openai_key = "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"
+        self.openai_key = os.getenv('OPENAI_API_KEY')
         openai.api_key = self.openai_key
         
         # SFTP Configuration (IONOS hosting)
         self.sftp_config = {
-            'host': 'access-5017098454.webspace-host.com',
-            'username': 'a132096',
-            'password': 'Gabby3000!!!',
-            'port': 22,
-            'remote_path': '/wp-content/themes/youtuneai/'
+            'host': os.getenv('SFTP_HOST', 'access-5017098454.webspace-host.com'),
+            'username': os.getenv('SFTP_USERNAME', 'a132096'),
+            'password': os.getenv('SFTP_PASSWORD', 'Gabby3000!!!'),
+            'port': int(os.getenv('SFTP_PORT', '22')),
+            'remote_path': os.getenv('SFTP_REMOTE_PATH', '/wp-content/themes/youtuneai/')
         }
         
         # WordPress Configuration
         self.wp_config = {
-            'site_url': 'https://youtuneai.com',
-            'rest_api_url': 'https://youtuneai.com/wp-json/wp/v2/',
-            'admin_user': 'VScode',
-            'admin_pass': 'Gabby3000!!!',
-            'admin_email': 'owner@youtuneai.com',
+            'site_url': os.getenv('WP_SITE_URL', 'https://youtuneai.com'),
+            'rest_api_url': os.getenv('WP_API_URL', 'https://youtuneai.com/wp-json/wp/v2/'),
+            'admin_user': os.getenv('WP_ADMIN_USER', 'VScode'),
+            'admin_pass': os.getenv('WP_ADMIN_PASS', 'Gabby3000!!!'),
+            'admin_email': os.getenv('NOTIFICATION_EMAIL', 'mr.jwswain@gmail.com'),
             'app_password': None,  # Will be set during authentication
-            'webhook_secret': 'youtuneai_webhook_2025'
+            'webhook_secret': os.getenv('WEBHOOK_SECRET', 'youtuneai_webhook_2025')
+        }
+        
+        # Admin Access Credentials
+        self.admin_credentials = {
+            'username': os.getenv('ADMIN_USERNAME', 'Mr.jwswain@gmail.com'),
+            'password': os.getenv('ADMIN_PASSWORD', 'Gabby3000???')
         }
         
         # Required WordPress Plugins for AI Automation
