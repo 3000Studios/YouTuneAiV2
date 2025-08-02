@@ -12,7 +12,7 @@ scp==0.14.5
 
 # Web and API requests
 requests==2.31.0
-urllib3==1.26.16
+urllib3==2.5.0
 
 # WordPress API integration
 python-wordpress-xmlrpc==2.3
@@ -48,7 +48,7 @@ vosk==0.3.45
 pyttsx3==2.90
 
 # Optional: Advanced AI features
-transformers==4.33.2
+transformers==4.52.1
 torch==2.0.1
 
 # Security and encryption
