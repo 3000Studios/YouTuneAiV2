@@ -1,0 +1,1 @@
+print('🎙️ Whisper Command Ready')
