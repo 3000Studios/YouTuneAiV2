@@ -1,0 +1,12 @@
+open sftp://a2486428:Gabby3000!!!@access-5017098454.webspace-host.com:22 
+cd /wp-content/themes/ 
+put -transfer=binary deployment-ready\wp-theme-youtuneai wp-theme-youtuneai 
+chmod 755 wp-theme-youtuneai 
+cd wp-theme-youtuneai 
+chmod 644 *.php 
+chmod 644 *.css 
+chmod 644 *.js 
+chmod 644 *.txt 
+chmod 644 *.md 
+ls -la 
+exit 
