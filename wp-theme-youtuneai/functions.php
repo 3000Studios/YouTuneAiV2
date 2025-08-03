@@ -22,6 +22,36 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
+// Include admin functions
+require_once get_template_directory() . '/admin-functions.php';
+
+// Create admin dashboard page
+function youtuneai_create_admin_page()
+{
+    $page_slug = 'admin-dashboard';
+    $page = get_page_by_path($page_slug);
+
+    if (!$page) {
+        $page_data = array(
+            'post_title' => 'Admin Dashboard',
+            'post_name' => $page_slug,
+            'post_content' => '',
+            'post_status' => 'publish',
+            'post_type' => 'page'
+        );
+
+        $page_id = wp_insert_post($page_data);
+
+        if ($page_id) {
+            update_post_meta($page_id, '_wp_page_template', 'page-admin-dashboard.php');
+        }
+    }
+}
+add_action('after_switch_theme', 'youtuneai_create_admin_page');
+if (!defined('ABSPATH')) {
+    exit;
+}
+
 // Theme setup
 function youtuneai_theme_setup()
 {

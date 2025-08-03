@@ -18,13 +18,39 @@ Unauthorized use subject to legal action and monetary damages.
 
 import os
 import json
-import requests
 from datetime import datetime
-import openai
-import speech_recognition as sr  # type: ignore
-import paramiko
-from typing import Dict, Any, Optional
-from dotenv import load_dotenv
+from typing import Dict, Any, Optional, Union, List
+
+try:
+    import requests
+except ImportError:
+    print("❌ requests not installed. Run: pip install requests")
+    requests = None
+
+try:
+    import openai
+except ImportError:
+    print("❌ openai not installed. Run: pip install openai==0.28.1")
+    openai = None
+
+try:
+    import speech_recognition as sr  # type: ignore
+except ImportError:
+    print("❌ SpeechRecognition not installed. Run: pip install SpeechRecognition")
+    sr = None
+
+try:
+    import paramiko
+except ImportError:
+    print("❌ paramiko not installed. Run: pip install paramiko")
+    paramiko = None
+
+try:
+    from dotenv import load_dotenv
+except ImportError:
+    print("❌ python-dotenv not installed. Run: pip install python-dotenv")
+    def load_dotenv(file_path: str) -> bool:
+        return False
 
 # Load secure credentials
 load_dotenv('secrets.env')
@@ -35,7 +61,8 @@ class YouTuneAIController:
         
         # OpenAI Configuration
         self.openai_key: str = os.getenv('OPENAI_API_KEY', '')
-        openai.api_key = self.openai_key
+        if openai is not None:
+            openai.api_key = self.openai_key
         
         # SFTP Configuration (IONOS hosting)
         self.sftp_config: Dict[str, Any] = {
@@ -58,7 +85,7 @@ class YouTuneAIController:
         }
         
         # Admin Access Credentials
-        self.required_plugins: Dict[str, Dict[str, str]] = {
+        self.required_plugins: Dict[str, Dict[str, Union[str, bool]]] = {
             'wp-rest-api-controller': {
                 'slug': 'wp-rest-api-controller',
                 'download_url': 'https://downloads.wordpress.org/plugin/wp-rest-api-controller.latest-stable.zip',
@@ -104,11 +131,15 @@ class YouTuneAIController:
         }
         
         # Voice Recognition
-        self.recognizer = sr.Recognizer()
-        self.microphone = sr.Microphone()
+        if sr is not None:
+            self.recognizer = sr.Recognizer()
+            self.microphone = sr.Microphone()
+        else:
+            self.recognizer = None
+            self.microphone = None
         
         # Command history
-        self.command_history = []
+        self.command_history: List[Dict[str, Any]] = []
         
         print("🚀 YouTuneAI Controller initialized!")
         print("🎤 Voice recognition ready")
@@ -123,6 +154,10 @@ class YouTuneAIController:
         """Setup WordPress REST API integration and check plugins"""
         try:
             print("🔌 Setting up WordPress integration...")
+            
+            if requests is None:
+                print("❌ requests library not available. Please install: pip install requests")
+                return
             
             # Check WordPress site accessibility
             response = requests.get(f"{self.wp_config['site_url']}/wp-json/wp/v2/", timeout=10)
@@ -164,6 +199,9 @@ class YouTuneAIController:
     def install_wordpress_plugin(self, plugin_slug: str) -> Dict[str, Any]:
         """Install a WordPress plugin via REST API"""
         try:
+            if requests is None:
+                return {'success': False, 'error': 'requests library not available'}
+                
             plugin_info = self.required_plugins.get(plugin_slug)
             if not plugin_info:
                 return {'success': False, 'error': f'Unknown plugin: {plugin_slug}'}
@@ -171,7 +209,11 @@ class YouTuneAIController:
             print(f"📥 Installing {plugin_slug}...")
             
             # Download plugin
-            response = requests.get(plugin_info['download_url'], timeout=30)
+            download_url = plugin_info.get('download_url')
+            if not isinstance(download_url, str):
+                return {'success': False, 'error': f'Invalid download URL for {plugin_slug}'}
+                
+            response = requests.get(download_url, timeout=30)
             if response.status_code != 200:
                 return {'success': False, 'error': f'Failed to download {plugin_slug}'}
             
@@ -195,6 +237,9 @@ class YouTuneAIController:
     def deploy_plugin(self, local_zip_path: str, plugin_slug: str) -> Dict[str, Any]:
         """Deploy plugin to WordPress via SFTP"""
         try:
+            if paramiko is None:
+                return {'success': False, 'error': 'paramiko library not available'}
+                
             ssh = paramiko.SSHClient()
             ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
             
@@ -244,18 +289,28 @@ class YouTuneAIController:
 
     def make_wp_api_request(self, endpoint: str, method: str = 'GET', data: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
         """Make a request to the WordPress API"""
-        headers = {
-            'Authorization': f'Bearer {self.wp_config.get("app_password", "")}'
-        }
-        url = f"{self.wp_config['rest_api_url']}{endpoint}"
-        response = requests.request(method, url, headers=headers, json=data, timeout=30)
-        return response.json()
+        try:
+            if requests is None:
+                return {'success': False, 'error': 'requests library not available'}
+                
+            headers = {
+                'Authorization': f'Bearer {self.wp_config.get("app_password", "")}'
+            }
+            url = f"{self.wp_config['rest_api_url']}{endpoint}"
+            response = requests.request(method, url, headers=headers, json=data, timeout=30)
+            return response.json()
+        except Exception as e:
+            return {'success': False, 'error': f'API request failed: {str(e)}'}
 
     def process_plugins(self):
         """Process required plugins"""
+        if requests is None:
+            print("❌ requests library not available for plugin processing")
+            return
+            
         for plugin_name, plugin_info in self.required_plugins.items():
             download_url = plugin_info.get('download_url', '')
-            if not download_url:
+            if not isinstance(download_url, str) or not download_url:
                 continue
             response = requests.get(download_url, timeout=30)
             if response.status_code == 200:
@@ -325,6 +380,9 @@ class YouTuneAIController:
     def trigger_webhook(self, webhook_action: str, data: Dict[str, Any]) -> Dict[str, Any]:
         """Trigger WordPress webhook for deployment or other actions"""
         try:
+            if requests is None:
+                return {'success': False, 'error': 'requests library not available'}
+                
             webhook_url = f"{self.wp_config['site_url']}/wp-json/wp-webhooks/v1/action/{webhook_action}"
             
             webhook_data = {
@@ -427,6 +485,10 @@ function log_ai_action($action, $data) {
     def listen_for_voice_command(self) -> Optional[str]:
         """Listen for voice commands using speech recognition"""
         try:
+            if sr is None or self.recognizer is None or self.microphone is None:
+                print("❌ Speech recognition not available. Install with: pip install SpeechRecognition pyaudio")
+                return None
+                
             print("🎤 Listening for your command...")
             
             with self.microphone as source:
@@ -444,19 +506,35 @@ function log_ai_action($action, $data) {
             
             return command.lower()
             
-        except sr.WaitTimeoutError:
-            print("⏰ No speech detected within timeout")
-            return None
-        except sr.UnknownValueError:
-            print("❌ Could not understand audio")
-            return None
-        except sr.RequestError as e:
-            print(f"❌ Speech recognition error: {e}")
-            return None
+        except Exception as timeout_error:
+            if "timeout" in str(timeout_error).lower():
+                print("⏰ No speech detected within timeout")
+                return None
+            elif "understand" in str(timeout_error).lower():
+                print("❌ Could not understand audio")
+                return None
+            elif "request" in str(timeout_error).lower():
+                print(f"❌ Speech recognition error: {timeout_error}")
+                return None
+            else:
+                print(f"❌ Unknown error: {timeout_error}")
+                return None
 
     def process_command_with_ai(self, command: str) -> Dict[str, Any]:
         """Process natural language commands using OpenAI GPT"""
         try:
+            if openai is None:
+                return {
+                    'success': False,
+                    'error': 'OpenAI library not available. Install with: pip install openai==0.28.1'
+                }
+                
+            if not self.openai_key:
+                return {
+                    'success': False,
+                    'error': 'OpenAI API key not configured. Set OPENAI_API_KEY in environment.'
+                }
+            
             prompt = f"""
             You are an AI assistant for a WordPress website called YouTuneAI. 
             Convert this user command into specific website actions:
@@ -581,6 +659,184 @@ function log_ai_action($action, $data) {
             return {
                 'success': False,
                 'error': f'Action execution failed: {str(e)}'
+            }
+
+    def change_theme_colors(self, params: Dict[str, Any]) -> Dict[str, Any]:
+        """Change theme colors dynamically"""
+        try:
+            primary_color = params.get('primary_color', '#007cba')
+            secondary_color = params.get('secondary_color', '#ffffff')
+            accent_color = params.get('accent_color', '#ff6b35')
+            
+            # Read current CSS
+            css_content = self.read_local_file('style.css')
+            if not css_content:
+                return {'success': False, 'error': 'Could not read style.css'}
+            
+            # Replace color variables or create new ones
+            color_replacements = {
+                '--primary-color': primary_color,
+                '--secondary-color': secondary_color,
+                '--accent-color': accent_color
+            }
+            
+            for variable, color in color_replacements.items():
+                if variable in css_content:
+                    # Replace existing color variable
+                    import re
+                    pattern = f'{variable}:\\s*[^;]*;'
+                    replacement = f'{variable}: {color};'
+                    css_content = re.sub(pattern, replacement, css_content)
+                else:
+                    # Add new color variable
+                    css_content = f":root {{\n  {variable}: {color};\n}}\n\n" + css_content
+            
+            # Write and deploy
+            self.write_local_file('style.css', css_content)
+            deploy_result = self.deploy_file('style.css')
+            
+            if deploy_result['success']:
+                return {
+                    'success': True,
+                    'message': f'Theme colors updated: Primary={primary_color}, Secondary={secondary_color}, Accent={accent_color}'
+                }
+            else:
+                return deploy_result
+                
+        except Exception as e:
+            return {
+                'success': False,
+                'error': f'Failed to change theme colors: {str(e)}'
+            }
+
+    def create_blog_post(self, params: Dict[str, Any]) -> Dict[str, Any]:
+        """Create a new blog post via WordPress REST API"""
+        try:
+            title = params.get('title', 'New Blog Post')
+            content = params.get('content', 'Blog post content')
+            # category = params.get('category', 'general')  # Future use
+            
+            post_data: Dict[str, Any] = {
+                'title': title,
+                'content': content,
+                'status': 'publish',
+                'categories': [1],  # Default category ID
+                'meta': {
+                    '_created_by_ai': 'YouTuneAI Controller',
+                    '_creation_date': datetime.now().isoformat()
+                }
+            }
+            
+            result = self.make_wp_api_request('posts', 'POST', post_data)
+            
+            if result.get('success'):
+                post_id = result.get('data', {}).get('id')
+                return {
+                    'success': True,
+                    'message': f'Blog post "{title}" created with ID {post_id}',
+                    'post_id': post_id
+                }
+            else:
+                return result
+                
+        except Exception as e:
+            return {
+                'success': False,
+                'error': f'Failed to create blog post: {str(e)}'
+            }
+
+    def update_navigation(self, params: Dict[str, Any]) -> Dict[str, Any]:
+        """Update website navigation menu"""
+        try:
+            action = params.get('action', 'add')
+            menu_item = params.get('menu_item', {})
+            
+            if action == 'add':
+                # Add new menu item
+                menu_data = {
+                    'title': menu_item.get('title', 'New Menu Item'),
+                    'url': menu_item.get('url', '#'),
+                    'menu-item-parent-id': menu_item.get('parent_id', 0),
+                    'position': menu_item.get('position', 1)
+                }
+                
+                result = self.make_wp_api_request('menus/items', 'POST', menu_data)
+                
+                return {
+                    'success': result.get('success', False),
+                    'message': f'Menu item "{menu_data["title"]}" {action}ed'
+                }
+            
+            elif action == 'remove':
+                # Remove menu item
+                item_id = menu_item.get('id')
+                if item_id:
+                    result = self.make_wp_api_request(f'menus/items/{item_id}', 'DELETE')
+                    return {
+                        'success': result.get('success', False),
+                        'message': f'Menu item with ID {item_id} removed'
+                    }
+                else:
+                    return {'success': False, 'error': 'Menu item ID required for removal'}
+            
+            return {'success': False, 'error': f'Unknown action: {action}'}
+                
+        except Exception as e:
+            return {
+                'success': False,
+                'error': f'Failed to update navigation: {str(e)}'
+            }
+        """Change the homepage background video"""
+        try:
+            video_theme = params.get('video_theme', 'space')
+            video_url = params.get('video_url')
+            
+            # Video URL mapping
+            video_urls = {
+                'space': 'https://cdn.pixabay.com/vimeo/459567622/space-47668.mp4',
+                'ocean': 'https://cdn.pixabay.com/vimeo/459567531/ocean-47667.mp4',
+                'city': 'https://cdn.pixabay.com/vimeo/459567642/city-47669.mp4',
+                'nature': 'https://cdn.pixabay.com/vimeo/459567652/nature-47670.mp4',
+                'gaming': 'https://cdn.pixabay.com/vimeo/459567662/gaming-47671.mp4',
+                'music': 'https://cdn.pixabay.com/vimeo/459567672/music-47672.mp4'
+            }
+            
+            if not video_url:
+                video_url = video_urls.get(video_theme, video_urls['space'])
+            
+            # Update the homepage template
+            homepage_content = self.read_local_file('page-home.php')
+            if homepage_content:
+                # Replace video source
+                updated_content = homepage_content.replace(
+                    'src="<?php echo get_template_directory_uri(); ?>/assets/video/background.mp4"',
+                    f'src="{video_url}"'
+                )
+                
+                # Write updated file
+                self.write_local_file('page-home.php', updated_content)
+                
+                # Deploy to server
+                deploy_result = self.deploy_file('page-home.php')
+                
+                if deploy_result['success']:
+                    return {
+                        'success': True,
+                        'message': f'Background video changed to {video_theme} theme',
+                        'video_url': video_url
+                    }
+                else:
+                    return deploy_result
+            else:
+                return {
+                    'success': False,
+                    'error': 'Could not read homepage template'
+                }
+                
+        except Exception as e:
+            return {
+                'success': False,
+                'error': f'Failed to change background video: {str(e)}'
             }
 
     def change_background_video(self, params: Dict[str, Any]) -> Dict[str, Any]:
@@ -724,6 +980,9 @@ function log_ai_action($action, $data) {
     def deploy_file(self, filename: str) -> Dict[str, Any]:
         """Deploy a single file to the server via SFTP"""
         try:
+            if paramiko is None:
+                return {'success': False, 'error': 'paramiko library not available. Install with: pip install paramiko'}
+                
             local_path = os.path.join('wp-theme-youtuneai', filename)
             remote_path = self.sftp_config['remote_path'] + filename
             
@@ -764,7 +1023,7 @@ function log_ai_action($action, $data) {
         """Deploy multiple files or entire theme"""
         try:
             files = params.get('files', [])
-            backup = params.get('backup', True)
+            # backup = params.get('backup', True)  # Future use for backup functionality
             
             if not files:
                 # Deploy all theme files
@@ -778,7 +1037,7 @@ function log_ai_action($action, $data) {
                 ]
             
             success_count = 0
-            failed_files = []
+            failed_files: List[str] = []
             
             for file in files:
                 result = self.deploy_file(file)
@@ -832,7 +1091,7 @@ function log_ai_action($action, $data) {
 
     def log_command(self, command: str, result: Dict[str, Any]):
         """Log command execution for debugging"""
-        log_entry = {
+        log_entry: Dict[str, Any] = {
             'timestamp': datetime.now().isoformat(),
             'command': command,
             'result': result

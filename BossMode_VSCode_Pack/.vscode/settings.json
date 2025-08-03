@@ -1,0 +1,12 @@
+{
+  "php.validate.executablePath": "C:/php/php.exe",
+  "codegpt.openaiApiKey": "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",
+  "liveServer.settings.port": 5501,
+  "liveServer.settings.root": "/",
+  "terminal.integrated.defaultProfile.windows": "PowerShell",
+  "files.autoSave": "afterDelay",
+  "files.associations": {
+    "*.php": "php",
+    "*.tpl": "html"
+  }
+}

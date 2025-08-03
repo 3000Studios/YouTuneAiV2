@@ -20,13 +20,126 @@ get_header(); ?>
 
 <!-- Hero Section -->
 <section class="hero-section" id="home">
-    <h1 class="hero-title" data-aos="fade-up">YouTuneAI</h1>
-    <p class="hero-subtitle" data-aos="fade-up" data-aos-delay="200">
-        AI-Powered Content Creation & Streaming Platform
-    </p>
-    <div class="hero-buttons" data-aos="fade-up" data-aos-delay="400">
-        <button class="cta-btn" onclick="openAdminHub()">🎙️ Voice Command</button>
-        <button class="cta-btn secondary" onclick="scrollToSection('gallery')">🛒 Shop</button>
+    <div class="hero-content">
+        <h1 class="hero-title" data-aos="fade-up">
+            <span class="gradient-text">YouTuneAI</span>
+            <div class="title-glow"></div>
+        </h1>
+        <p class="hero-subtitle" data-aos="fade-up" data-aos-delay="200">
+            Revolutionary AI-Powered Voice-Controlled Website Platform
+        </p>
+        <p class="hero-description" data-aos="fade-up" data-aos-delay="300">
+            The world's first patent-pending voice-controlled website modification system.
+            Create, stream, sell, and manage everything with simple voice commands.
+        </p>
+
+        <div class="hero-features" data-aos="fade-up" data-aos-delay="400">
+            <div class="feature-pill">🎤 Voice Control</div>
+            <div class="feature-pill">🤖 AI Integration</div>
+            <div class="feature-pill">📺 Live Streaming</div>
+            <div class="feature-pill">🎵 Music Creation</div>
+            <div class="feature-pill">🛒 E-commerce</div>
+        </div>
+
+        <div class="hero-buttons" data-aos="fade-up" data-aos-delay="500">
+            <button class="cta-btn primary" onclick="location.href='<?php echo home_url('/admin-dashboard'); ?>'">
+                <span>🎙️ Start Voice Control</span>
+                <div class="btn-glow"></div>
+            </button>
+            <button class="cta-btn secondary" onclick="scrollToSection('features')">
+                <span>✨ Explore Features</span>
+            </button>
+            <button class="cta-btn tertiary" onclick="location.href='<?php echo home_url('/streaming'); ?>'">
+                <span>📺 Go Live Now</span>
+            </button>
+        </div>
+
+        <div class="hero-stats" data-aos="fade-up" data-aos-delay="600">
+            <div class="stat-item">
+                <span class="stat-number">100K+</span>
+                <span class="stat-label">Voice Commands</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">50+</span>
+                <span class="stat-label">Languages</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">99.7%</span>
+                <span class="stat-label">Accuracy</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">24/7</span>
+                <span class="stat-label">AI Support</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Features Showcase Section -->
+<section class="features-showcase" id="features">
+    <div class="container">
+        <h2 class="section-title" data-aos="fade-up">
+            <span class="gradient-text">Revolutionary Features</span>
+        </h2>
+        <p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">
+            Experience the future of website management with our patent-pending technology
+        </p>
+
+        <div class="features-grid">
+            <div class="feature-card" data-aos="flip-left">
+                <div class="feature-icon">🎤</div>
+                <h3>Voice Control System</h3>
+                <p>Control your entire website with natural voice commands. Change designs, create content, manage products, and deploy updates - all hands-free.</p>
+                <div class="feature-demo">
+                    <button class="demo-btn" onclick="playDemo('voice')">Try Demo</button>
+                </div>
+            </div>
+
+            <div class="feature-card" data-aos="flip-left" data-aos-delay="100">
+                <div class="feature-icon">📺</div>
+                <h3>Professional Streaming</h3>
+                <p>Launch your streaming career with our AI-powered studio. Multi-platform streaming, real-time analytics, and voice-controlled scenes.</p>
+                <div class="feature-demo">
+                    <button class="demo-btn" onclick="location.href='<?php echo home_url('/streaming'); ?>'">Start Streaming</button>
+                </div>
+            </div>
+
+            <div class="feature-card" data-aos="flip-left" data-aos-delay="200">
+                <div class="feature-icon">🎵</div>
+                <h3>Music Studio</h3>
+                <p>Create, produce, and distribute music with AI assistance. Built-in instruments, effects, and direct distribution to Spotify, Apple Music, and more.</p>
+                <div class="feature-demo">
+                    <button class="demo-btn" onclick="location.href='<?php echo home_url('/music'); ?>'">Create Music</button>
+                </div>
+            </div>
+
+            <div class="feature-card" data-aos="flip-left" data-aos-delay="300">
+                <div class="feature-icon">🛒</div>
+                <h3>Voice Commerce</h3>
+                <p>Manage your online store entirely by voice. Add products, update inventory, process orders, and analyze sales - all through natural speech.</p>
+                <div class="feature-demo">
+                    <button class="demo-btn" onclick="scrollToSection('gallery')">View Shop</button>
+                </div>
+            </div>
+
+            <div class="feature-card" data-aos="flip-left" data-aos-delay="400">
+                <div class="feature-icon">👤</div>
+                <h3>AI Avatar Creator</h3>
+                <p>Generate custom AI avatars for virtual representation. Perfect for streaming, social media, and professional presentations.</p>
+                <div class="feature-demo">
+                    <button class="demo-btn" onclick="location.href='<?php echo home_url('/create-avatar'); ?>'">Create Avatar</button>
+                </div>
+            </div>
+
+            <div class="feature-card" data-aos="flip-left" data-aos-delay="500">
+                <div class="feature-icon">🤖</div>
+                <h3>AI Integration</h3>
+                <p>Advanced AI understands context and executes complex tasks. Natural language processing with machine learning optimization.</p>
+                <div class="feature-demo">
+                    <button class="demo-btn" onclick="location.href='<?php echo home_url('/ai-tools'); ?>'">Explore AI</button>
+                </div>
+            </div>
+        </div>
     </div>
 </section>
 
@@ -228,9 +341,16 @@ get_header(); ?>
         }
     }
 
-    // Admin hub functions
+    // Admin redirect function - BEAST MODE
+    function goToAdminDashboard() {
+        // Immediate redirect to password-protected admin dashboard
+        window.location.href = '<?php echo home_url("/admin-dashboard"); ?>';
+    }
+
+    // Legacy admin hub functions (kept for compatibility)
     function openAdminHub() {
-        document.getElementById('adminHub').classList.add('active');
+        // Redirect to secure dashboard instead
+        goToAdminDashboard();
     }
 
     function closeAdminHub() {

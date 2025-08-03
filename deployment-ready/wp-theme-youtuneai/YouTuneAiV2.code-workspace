@@ -1,0 +1,23 @@
+{
+	"folders": [
+		{
+			"path": "../.."
+		}
+	],
+	"settings": {
+		"terminal.integrated.env.windows": {
+			"DOTENV_CONFIG_PATH": "${workspaceFolder}/secrets.env"
+		},
+		"files.associations": {
+			"*.php": "php",
+			"*.env": "dotenv"
+		},
+		"emmet.includeLanguages": {
+			"php": "html"
+		},
+		"php.validate.enable": true,
+		"workbench.colorTheme": "Default Dark+",
+		"terminal.integrated.defaultProfile.windows": "PowerShell",
+		"extensions.ignoreRecommendations": false
+	}
+}

@@ -1,0 +1,21 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "🎤 Start Voice AI",
+      "type": "shell",
+      "command": "python",
+      "args": ["ai_controller.py"],
+      "isBackground": true,
+      "group": "test"
+    },
+    {
+      "label": "🔄 Watch for Deploy",
+      "type": "shell",
+      "command": "python",
+      "args": ["-c", "from watchdog.observers import Observer; from watchdog.events import FileSystemEventHandler; import subprocess; class Handler(FileSystemEventHandler): def on_modified(self, event): if event.src_path.endswith(('.php', '.css')): subprocess.run(['python', 'ai_controller.py', '--deploy-file', event.src_path]); observer = Observer(); observer.schedule(Handler(), 'wp-theme-youtuneai', recursive=True); observer.start(); observer.join()"],
+      "isBackground": true,
+      "group": "build"
+    }
+  ]
+}

@@ -1,27 +1,59 @@
 <?php
 /*
-Template Name: YouTuneAI Admin Dashboard
+Template Name: Admin Dashboard
 */
 
-// Security check - no WordPress user restrictions, custom password protection
+// Force authentication check
 session_start();
+
+// Admin credentials
+$admin_username = 'Mr.jwswain@gmail.com';
+$admin_password = 'Gabby3000!!!';
+
+// Handle login
+if (isset($_POST['admin_login'])) {
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+    
+    if ($username === $admin_username && $password === $admin_password) {
+        $_SESSION['admin_authenticated'] = true;
+        $_SESSION['admin_username'] = $username;
+    } else {
+        $login_error = "Invalid credentials";
+    }
+}
+
+// Handle logout
+if (isset($_GET['logout'])) {
+    session_destroy();
+    header('Location: ' . home_url('/admin-dashboard'));
+    exit;
+}
+
+// Check authentication
+$is_authenticated = isset($_SESSION['admin_authenticated']) && $_SESSION['admin_authenticated'] === true;
 
 get_header(); ?>
 
-<div id="adminAuth" class="admin-auth-overlay">
-    <div class="auth-modal">
-        <h2>🔐 Admin Access Required</h2>
-        <form id="authForm" onsubmit="return authenticateAdmin(event)">
+<?php if (!$is_authenticated): ?>
+<!-- Login Form -->
+<div class="admin-login-container">
+    <div class="login-form">
+        <h2>🔐 YouTuneAI Admin Access</h2>
+        <?php if (isset($login_error)): ?>
+            <div class="error-message"><?php echo $login_error; ?></div>
+        <?php endif; ?>
+        
+        <form method="POST" action="">
             <div class="form-group">
                 <label for="username">Username:</label>
-                <input type="email" id="username" required placeholder="Enter email">
+                <input type="email" name="username" id="username" required>
             </div>
             <div class="form-group">
                 <label for="password">Password:</label>
-                <input type="password" id="password" required placeholder="Enter password">
+                <input type="password" name="password" id="password" required>
             </div>
-            <button type="submit">Access Dashboard</button>
-            <div id="authError" class="auth-error"></div>
+            <button type="submit" name="admin_login" class="login-btn">Access Dashboard</button>
         </form>
     </div>
 </div>
@@ -384,16 +416,18 @@ get_header(); ?>
 
     .dashboard-card:hover {
         transform: translateY(-5px);
+        border-color: var(--neon-green);
+        box-shadow: 0 15px 30px rgba(0,255,65,0.2);
     }
 
     .dashboard-card h3 {
-        color: #2c3e50;
+        color: var(--luxury-black);
         margin-bottom: 10px;
     }
 
     .dashboard-card button {
-        background: #3498db;
-        color: white;
+        background: var(--neon-green);
+        color: var(--luxury-black);
         border: none;
         padding: 10px 20px;
         border-radius: 5px;
@@ -415,10 +449,10 @@ get_header(); ?>
 </style>
 
 <script>
-    // Admin authentication
+    // Admin authentication - BEAST SECURED
     const ADMIN_CREDENTIALS = {
         username: 'Mr.jwswain@gmail.com',
-        password: 'Gabby3000???'
+        password: 'Gabby3000!!!'
     };
 
     let isAuthenticated = false;

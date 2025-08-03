@@ -13,17 +13,24 @@ License: Commercial
 @import url('https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css');
 
 :root {
-  /* Color Scheme */
-  --primary-color: #9d00ff;
-  --secondary-color: #00e5ff;
-  --accent-color: #ff00e5;
-  --background-dark: #050510;
-  --background-card: rgba(20, 20, 40, 0.7);
+  /* New Luxury Color Scheme - Glossy Black/White Marble with Metals */
+  --primary-color: #1a1a1a; /* Glossy Black */
+  --secondary-color: #f8f8ff; /* Pure White Marble */
+  --accent-color: #00ff41; /* Neon Green */
+  --gold-color: #ffd700; /* Shining Gold */
+  --platinum-color: #e5e4e2; /* Platinum */
+  --diamond-color: #b9f2ff; /* Diamond Blue */
+  --silver-color: #c0c0c0; /* Silver */
+  --metal-blue: #1e3a8a; /* Deep Metal Blue */
+  --background-dark: #000000; /* Pure Black */
+  --background-card: rgba(26, 26, 26, 0.95); /* Glossy Black Glass */
   --text-primary: #ffffff;
-  --text-secondary: #b8b8ff;
-  --neon-glow: 0 0 10px rgba(157, 0, 255, 0.7), 0 0 20px rgba(157, 0, 255, 0.5);
-  --cyber-green: #00ff88;
-  --cyber-blue: #00d4ff;
+  --text-secondary: #e5e4e2; /* Platinum Text */
+  --neon-glow: 0 0 15px rgba(0, 255, 65, 0.8), 0 0 30px rgba(0, 255, 65, 0.5);
+  --gold-glow: 0 0 20px rgba(255, 215, 0, 0.8), 0 0 40px rgba(255, 215, 0, 0.4);
+  --diamond-glow: 0 0 25px rgba(185, 242, 255, 0.9), 0 0 50px rgba(185, 242, 255, 0.5);
+  --cyber-green: #00ff41;
+  --cyber-blue: #1e3a8a;
   
   /* Layout */
   --container-max-width: 1400px;
@@ -51,9 +58,26 @@ License: Commercial
 
 body {
   font-family: 'Orbitron', 'Arial', sans-serif;
-  background: var(--primary-bg);
+  background: linear-gradient(135deg, #000000 0%, #1a1a1a 50%, #000000 100%);
   color: white;
   overflow-x: hidden;
+  position: relative;
+}
+
+/* Marble Texture Overlay */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    radial-gradient(circle at 20% 80%, rgba(255, 215, 0, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(229, 228, 226, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 40% 40%, rgba(0, 255, 65, 0.05) 0%, transparent 50%);
+  z-index: -1;
+  pointer-events: none;
 }
 
 /* FULLSCREEN VIDEO BACKGROUND */
