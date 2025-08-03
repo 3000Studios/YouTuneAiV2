@@ -111,29 +111,93 @@ get_header(); ?>
         </div>
     </div>
 
-    <div class="dashboard-grid">
-        <div class="dashboard-card">
-            <h3>🛒 Products</h3>
-            <p>Manage WooCommerce products</p>
-            <button onclick="executeVoiceCommand('show products')">View Products</button>
-        </div>
+    <div class="dashboard-tabs">
+        <button class="tab-link active" onclick="openTab(event, 'content-tab')">📝 Content</button>
+        <button class="tab-link" onclick="openTab(event, 'theme-tab')">🎨 Theme</button>
+        <button class="tab-link" onclick="openTab(event, 'products-tab')">🛒 Products</button>
+        <button class="tab-link" onclick="openTab(event, 'users-tab')">👥 Users</button>
+        <button class="tab-link" onclick="openTab(event, 'analytics-tab')">📊 Analytics</button>
+    </div>
 
-        <div class="dashboard-card">
-            <h3>🎨 Theme</h3>
-            <p>Customize website appearance</p>
-            <button onclick="executeVoiceCommand('change theme colors')">Customize Theme</button>
+    <!-- Content Management Tab -->
+    <div id="content-tab" class="tab-content" style="display: block;">
+        <h3>Content Management</h3>
+        <div class="content-section">
+            <h4>Create New</h4>
+            <form id="create-content-form">
+                <select name="post_type" id="post-type-select">
+                    <option value="post">Post</option>
+                    <option value="page">Page</option>
+                </select>
+                <input type="text" name="title" placeholder="Title" required>
+                <textarea name="content" placeholder="Content..."></textarea>
+                <button type="submit">Create</button>
+            </form>
         </div>
-
-        <div class="dashboard-card">
-            <h3>📺 Videos</h3>
-            <p>Manage background videos</p>
-            <button onclick="executeVoiceCommand('change background video')">Change Video</button>
+        <div class="content-section">
+            <h4>Existing Content</h4>
+            <div id="content-list">
+                <!-- Content will be loaded here via AJAX -->
+                <p>Loading content...</p>
+            </div>
         </div>
+    </div>
 
-        <div class="dashboard-card">
-            <h3>📊 Analytics</h3>
-            <p>View site statistics</p>
-            <button onclick="executeVoiceCommand('show analytics')">View Stats</button>
+    <!-- Theme Customization Tab -->
+    <div id="theme-tab" class="tab-content">
+        <h3>Theme Customization</h3>
+        <form id="theme-options-form">
+            <div class="form-group">
+                <label for="primary-color">Primary Color:</label>
+                <input type="color" id="primary-color" name="primary_color" value="#1a1a1a">
+            </div>
+            <div class="form-group">
+                <label for="secondary-color">Secondary Color:</label>
+                <input type="color" id="secondary-color" name="secondary_color" value="#f8f8ff">
+            </div>
+            <div class="form-group">
+                <label for="accent-color">Accent Color (Neon Green):</label>
+                <input type="color" id="accent-color" name="accent_color" value="#00ff41">
+            </div>
+            <button type="submit">Save Theme Colors</button>
+        </form>
+    </div>
+
+    <!-- Product Management Tab -->
+    <div id="products-tab" class="tab-content">
+        <h3>Product Management</h3>
+        <div class="content-section">
+            <h4>Add New Product</h4>
+            <form id="add-product-form">
+                <input type="text" name="product_name" placeholder="Product Name" required>
+                <input type="text" name="product_price" placeholder="Price (e.g., 19.99)" required>
+                <textarea name="product_description" placeholder="Product Description..."></textarea>
+                <button type="submit">Add Product</button>
+            </form>
+        </div>
+        <div class="content-section">
+            <h4>Existing Products</h4>
+            <div id="product-list">
+                <!-- Products will be loaded here via AJAX -->
+                <p>Loading products...</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- User Management Tab -->
+    <div id="users-tab" class="tab-content">
+        <h3>User Management</h3>
+        <div id="user-list">
+            <!-- Users will be loaded here via AJAX -->
+            <p>Loading users...</p>
+        </div>
+    </div>
+
+    <!-- Analytics Tab -->
+    <div id="analytics-tab" class="tab-content">
+        <h3>Website Analytics</h3>
+        <div class="analytics-placeholder">
+            <p>Analytics dashboard coming soon.</p>
         </div>
     </div>
 

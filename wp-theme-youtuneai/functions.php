@@ -48,9 +48,6 @@ function youtuneai_create_admin_page()
     }
 }
 add_action('after_switch_theme', 'youtuneai_create_admin_page');
-if (!defined('ABSPATH')) {
-    exit;
-}
 
 // Theme setup
 function youtuneai_theme_setup()

@@ -18,6 +18,12 @@
 		"php.validate.enable": true,
 		"workbench.colorTheme": "Default Dark+",
 		"terminal.integrated.defaultProfile.windows": "PowerShell",
-		"extensions.ignoreRecommendations": false
+		"extensions.ignoreRecommendations": false,
+		"CodeGPT.apiKey": "OpenAI"
+	},
+	"extensions": {
+		"recommendations": [
+			"genieai.chatgpt-vscode"
+		]
 	}
 }

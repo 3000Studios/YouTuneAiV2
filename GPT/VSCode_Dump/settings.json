@@ -1,0 +1,29 @@
+{
+  "files.autoSave": "afterDelay",
+  "editor.formatOnSave": true,
+  "codeGPT.autoExecute": true,
+  "codeGPT.includeWorkspaceFiles": true,
+  "codeGPT.streamResponse": true,
+  "continue.useCopilot": true,
+  "continue.experimentalAutoExecute": true,
+  "continue.extraAgents": [
+    "copilot",
+    "genie",
+    "codegpt",
+    "openai-compiler"
+  ],
+  "git.autoCommit": true,
+  "git.autoPush": true,
+  "liveServer.settings.port": 5500,
+  "openai.apiKey": "auto-from-vault",
+  "files.associations": {
+    "*.sh": "aspnetcorerazor"
+  },
+  "redhat.telemetry.enabled": true,
+  "C_Cpp.default.compilerPath": "c:\\Users\\MrJws\\netwatch\\.vscode\\extensions.json",
+  "workbench.settings.applyToAllProfiles": [
+    "python.analysis.typeCheckingMode"
+  ],
+  "python.analysis.typeCheckingMode": "strict",
+  "php.validate.executablePath": ""
+}

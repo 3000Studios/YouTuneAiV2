@@ -32,16 +32,10 @@
         <a href="mailto:mr.jwswain@gmail.com" style="color: yellow; text-decoration: underline;">Contact for Licensing</a> - ALL RIGHTS RESERVED
         <button onclick="this.parentElement.style.display='none'" style="float: right; background: none; border: none; color: white; font-size: 16px; cursor: pointer; padding: 0 5px;">×</button>
     </div>
-    <div style="height: 50px;"></div> <!-- Spacer for fixed patent banner -->
+        <div style="height: 50px;"></div> <!-- Spacer for fixed patent banner -->
 
     <!-- Navigation -->
     <nav class="nav-container">
-        <!-- New Navigation Video Underlay -->
-        <video class="nav-video-underlay" autoplay muted loop>
-            <source src="https://videos.pexels.com/video-files/3129957/3129957-uhd_3840_2160_30fps.mp4" type="video/mp4">
-            <source src="https://videos.pexels.com/video-files/2278095/2278095-uhd_3840_2160_25fps.mp4" type="video/mp4">
-        </video>
-
         <div class="nav-menu">
             <div class="logo">
                 <a href="<?php echo home_url(); ?>">
@@ -99,6 +93,9 @@
             </div>
         </div>
     </nav>
+
+    <div id="main-content">
+        <!-- Main content starts here -->
 
     <!-- Auto-playing Background Music -->
     <audio id="backgroundMusic" loop preload="auto" style="display: none;">

@@ -5,12 +5,11 @@ Boss says it, Beast does it. NO QUESTIONS ASKED.
 """
 import os
 import time
-import json
 import paramiko
 import threading
-from datetime import datetime
+from typing import Dict, Callable
 from watchdog.observers import Observer
-from watchdog.events import FileSystemEventHandler
+from watchdog.events import FileSystemEventHandler, FileModifiedEvent, DirModifiedEvent
 
 # BEAST CONFIGURATION - NO MERCY
 WATCH_PATH = "c:/YouTuneAiV2/wp-theme-youtuneai"
@@ -22,12 +21,12 @@ REMOTE_PATH = "/wp-content/themes/youtuneai"
 
 class BeastDeployer:
     def __init__(self):
-        self.ssh_pool = []
-        self.deployment_queue = []
-        self.is_deploying = False
+        self.ssh_pool: list[paramiko.SSHClient] = []
+        self.deployment_queue: list[str] = []
+        self.is_deploying: bool = False
         print("🔥 CODEGPT BEAST INITIALIZED - READY TO DEVOUR TASKS")
     
-    def deploy_instantly(self, file_path):
+    def deploy_instantly(self, file_path: str) -> bool:
         """Deploy file with ZERO hesitation"""
         try:
             print(f"⚡ BEAST DEPLOYING: {file_path}")
@@ -55,7 +54,7 @@ class BeastDeployer:
             print(f"💀 BEAST RAGE: {str(e)}")
             return False
     
-    def auto_fix_and_deploy(self, file_path):
+    def auto_fix_and_deploy(self, file_path: str) -> None:
         """Auto-fix common issues and deploy"""
         try:
             with open(file_path, 'r', encoding='utf-8') as f:
@@ -80,36 +79,37 @@ class BeastDeployer:
             print(f"💀 AUTO-FIX FAILED: {str(e)}")
 
 class BeastWatcher(FileSystemEventHandler):
-    def __init__(self, deployer):
+    def __init__(self, deployer: BeastDeployer):
         self.deployer = deployer
-        self.last_modified = {}
+        self.last_modified: Dict[str, float] = {}
     
-    def on_modified(self, event):
-        if event.is_directory:
-            return
-        
-        file_path = event.src_path
-        
-        # Ignore temp files and non-essential files
-        if any(x in file_path.lower() for x in ['.tmp', '.swp', '.git', '__pycache__']):
-            return
-        
-        # Prevent duplicate deployments
-        now = time.time()
-        if file_path in self.last_modified and now - self.last_modified[file_path] < 2:
-            return
-        
-        self.last_modified[file_path] = now
-        
-        print(f"🔥 BEAST DETECTED CHANGE: {os.path.basename(file_path)}")
-        
-        # DEPLOY IMMEDIATELY IN BACKGROUND THREAD
-        threading.Thread(target=self.deployer.auto_fix_and_deploy, args=(file_path,), daemon=True).start()
+    def on_modified(self, event: FileModifiedEvent | DirModifiedEvent) -> None:
+        if isinstance(event, FileModifiedEvent):
+            file_path = event.src_path
+            
+            # Ensure file_path is a string
+            file_path = str(file_path)
+
+            # Ignore temp files and non-essential files
+            if any(x in file_path.lower() for x in ['.tmp', '.swp', '.git', '__pycache__']):
+                return
+            
+            # Prevent duplicate deployments
+            now = time.time()
+            if file_path in self.last_modified and now - self.last_modified[file_path] < 2:
+                return
+            
+            self.last_modified[file_path] = now
+            
+            print(f"🔥 BEAST DETECTED CHANGE: {os.path.basename(file_path)}")
+            
+            # DEPLOY IMMEDIATELY IN BACKGROUND THREAD
+            threading.Thread(target=self.deployer.auto_fix_and_deploy, args=(file_path,), daemon=True).start()
 
 class VoiceCommandBeast:
-    def __init__(self, deployer):
+    def __init__(self, deployer: BeastDeployer):
         self.deployer = deployer
-        self.commands = {
+        self.commands: Dict[str, Callable[[], None]] = {
             'deploy all': self.deploy_all_files,
             'fix admin': self.fix_admin_login,
             'update password': self.update_password,
@@ -178,7 +178,7 @@ class VoiceCommandBeast:
         
         print(f"💥 BEAST DEPLOYED {deployed} FILES - WEBSITE IS LIVE!")
     
-    def process_command(self, command):
+    def process_command(self, command: str) -> bool:
         """Process voice/text command"""
         command_lower = command.lower().strip()
         
@@ -190,6 +190,18 @@ class VoiceCommandBeast:
         
         print(f"🤔 BEAST CONFUSED BY: {command}")
         return False
+
+    def update_password(self) -> None:
+        """Stub for update_password method."""
+        pass
+
+    def change_theme_colors(self) -> None:
+        """Stub for change_theme_colors method."""
+        pass
+
+    def add_product(self) -> None:
+        """Stub for add_product method."""
+        pass
 
 def run_beast():
     """Run the CODEGPT BEAST"""

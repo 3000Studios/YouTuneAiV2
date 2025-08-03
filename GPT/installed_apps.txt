@@ -1,0 +1,64 @@
+
+DisplayName                                            Publisher                          DisplayVersion  InstallDate
+-----------                                            ---------                          --------------  -----------
+Advanced SystemCare                                    IObit                              18.4.0          20250712
+Android Studio                                         Google LLC                         2025.1          
+AVG Secure Browser                                     Gen Digital Inc.                   137.0.31047.122 20250721
+AVG Update Helper                                      AVG Technologies                   1.8.1693.6      20250721
+CyberLink PowerDirector 365                            CyberLink Corp.                    23.5.1811.0     
+Driver Booster 12                                      IObit                              12.6.0          20250801
+DroidCam Audio & Video Drivers (New)                   Dev47Apps                          7.1.0           
+DroidCam Client (New)                                  Dev47Apps                          7.1.0           
+Eclipse Temurin JDK with Hotspot 11.0.28+6 (x64)       Eclipse Adoptium                   11.0.28.6       20250728
+FileZilla 3.69.2                                       Tim Kosse                          3.69.2          
+Git                                                    The Git Development Community      2.50.1          20250718
+Google Chrome                                          Google LLC                         138.0.7204.184  20250801
+IDrive version 7.0.0.42                                IDrive Inc.,                       7.0.0.42        20250801
+IIS Express Application Compatibility Database for x64                                                    
+IIS Express Application Compatibility Database for x86                                                    
+IncrediBuild 10.24.2 (build 14861)                     Incredibuild                                       
+Incredibuild Manager 10.24.2 (Build 2302)              Incredibuild Software Ltd.         10.24.2.2302    20250728
+IObit Malware Fighter 12                               IObit                              12.4.0.1536     20250712
+IObit Software Updater                                 IObit                              8.0.0.6         20250726
+IObit SysInfo                                          IObit                              1.0.0.16        20250712
+IObit Uninstaller 14                                   IObit                              14.4.0.3        20250712
+iTop Data Recovery                                     iTop Inc.                          5.3.0.835       20250717
+LDPlayer                                               XUANZHI INTERNATIONAL CO., LIMITED 9.1.52          
+MongoDB Shell                                          MongoDB Inc.                       2.5.6           20250721
+Node.js                                                Node.js Foundation                 24.4.1          20250717
+NVIDIA Graphics Driver 566.24                          NVIDIA Corporation                 566.24          20250710
+NVIDIA Install Application                             NVIDIA Corporation                 2.1002.422.0    20250712
+NVIDIA PhysX System Software 9.23.1019                 NVIDIA Corporation                 9.23.1019       20250712
+OBS Studio                                             OBS Project                        31.1.1          
+obs-backgroundremoval version 1.1.13                   Roy Shilkrot                       1.1.13          20250716
+obs-websocket-compat version 4.9.1                     OBS Project                        4.9.1           20250716
+Oculus                                                 Facebook Technologies, LLC         1.103.0         
+Oh My Posh                                             Jan De Dobbeleer                   26.14.3         20250712
+OpenAL                                                                                                    
+Protected Folder                                       IObit                                              20250717
+Python 3.13.3 Core Interpreter (32-bit)                Python Software Foundation         3.13.3150.0     20250719
+Python 3.13.3 Development Libraries (32-bit)           Python Software Foundation         3.13.3150.0     20250719
+Python 3.13.3 Documentation (32-bit)                   Python Software Foundation         3.13.3150.0     20250719
+Python 3.13.3 Executables (32-bit)                     Python Software Foundation         3.13.3150.0     20250719
+Python 3.13.3 pip Bootstrap (32-bit)                   Python Software Foundation         3.13.3150.0     20250719
+Python 3.13.3 Standard Library (32-bit)                Python Software Foundation         3.13.3150.0     20250719
+Python 3.13.3 Tcl/Tk Support (32-bit)                  Python Software Foundation         3.13.3150.0     20250719
+Python 3.13.3 Test Suite (32-bit)                      Python Software Foundation         3.13.3150.0     20250719
+Python 3.13.5 Add to Path (64-bit)                     Python Software Foundation         3.13.5150.0     20250718
+Python 3.13.5 Core Interpreter (64-bit)                Python Software Foundation         3.13.5150.0     20250718
+Python 3.13.5 Development Libraries (64-bit)           Python Software Foundation         3.13.5150.0     20250718
+Python 3.13.5 Documentation (64-bit)                   Python Software Foundation         3.13.5150.0     20250718
+Python 3.13.5 Executables (64-bit)                     Python Software Foundation         3.13.5150.0     20250718
+Python 3.13.5 pip Bootstrap (64-bit)                   Python Software Foundation         3.13.5150.0     20250718
+Python 3.13.5 Standard Library (64-bit)                Python Software Foundation         3.13.5150.0     20250718
+Python 3.13.5 Tcl/Tk Support (64-bit)                  Python Software Foundation         3.13.5150.0     20250718
+Python 3.13.5 Test Suite (64-bit)                      Python Software Foundation         3.13.5150.0     20250718
+Python Launcher                                        Python Software Foundation         3.13.5150.0     20250718
+Smart Defrag 10                                        IObit                              10.4.0.441      20250712
+Splashtop Streamer                                     Splashtop Inc.                     3.7.4.4         20250723
+Unity 6000.1.12f1                                      Unity Technologies ApS             6000.1.12f1     
+Unity Hub 3.13.0                                       Unity Technologies Inc.            3.13.0          
+Vulkan Run Time Libraries 1.0.65.1                     LunarG, Inc.                       1.0.65.1        
+Web Companion                                          Lavasoft                           12.1.2.991      20250713
+Webull Desktop 8.17.1                                  Webull Company, Inc.               8.17.1          20250716
+
