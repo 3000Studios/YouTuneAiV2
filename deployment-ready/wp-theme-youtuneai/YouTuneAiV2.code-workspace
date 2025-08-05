@@ -19,8 +19,11 @@
 		"workbench.colorTheme": "Default Dark+",
 		"terminal.integrated.defaultProfile.windows": "PowerShell",
 		"extensions.ignoreRecommendations": false,
-		"CodeGPT.apiKey": "OpenAI",
-		"sourcery.token": "SOURCERY_TOKEN=sk-srcry-live-6xvSOMETHINGBADASS999YOURS"
+		"CodeGPT.apiKey": "CodeGPT Plus Beta",
+		"sourcery.token": "SOURCERY_TOKEN=sk-srcry-live-6xvSOMETHINGBADASS999YOURS",
+		"sftp.debug": true,
+		"sftp.downloadWhenOpenInRemoteExplorer": true,
+		"sftp.printDebugLog": true
 	},
 	"extensions": {
 		"recommendations": [
