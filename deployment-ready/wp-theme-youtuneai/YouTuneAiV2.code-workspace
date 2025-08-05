@@ -19,7 +19,8 @@
 		"workbench.colorTheme": "Default Dark+",
 		"terminal.integrated.defaultProfile.windows": "PowerShell",
 		"extensions.ignoreRecommendations": false,
-		"CodeGPT.apiKey": "OpenAI"
+		"CodeGPT.apiKey": "OpenAI",
+		"sourcery.token": "SOURCERY_TOKEN=sk-srcry-live-6xvSOMETHINGBADASS999YOURS"
 	},
 	"extensions": {
 		"recommendations": [

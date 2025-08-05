@@ -18,4 +18,15 @@
       "group": "build"
     }
   ]
+}<button onclick="startDictation()">Start Dictation</button>
+<textarea id="output"></textarea>
+<script>
+function startDictation() {
+  const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+  recognition.continuous = true;
+  recognition.onresult = (e) => {
+    document.getElementById('output').value = e.results[e.results.length-1][0].transcript;
+  };
+  recognition.start();
 }
+</script>
