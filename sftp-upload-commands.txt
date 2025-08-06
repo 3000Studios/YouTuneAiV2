@@ -1,0 +1,14 @@
+cd /wp-content/themes/
+put -r deployment-ready/wp-theme-youtuneai
+chmod 755 wp-theme-youtuneai
+cd wp-theme-youtuneai
+chmod 644 *.php
+chmod 644 *.css
+chmod 644 *.js
+chmod 644 *.txt
+chmod 644 *.md
+cd js
+chmod 644 *.js
+cd ..
+ls -la
+quit

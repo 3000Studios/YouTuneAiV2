@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Downloading WinSCP-5.21.8-Portable.zip :: WinSCP</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="https://winscp-static-746341.c.cdn77.org/assets/css/bootstrap-modified.css?v=102" />
+<link rel="stylesheet" href="https://winscp-static-746341.c.cdn77.org/assets/js/slick/slick.css?v=102" />
+<link rel="stylesheet" href="https://winscp-static-746341.c.cdn77.org/assets/css/styles-all.css?v=102" />
+<link rel="schema.DCTERMS" href="http://purl.org/dc/terms/" />
+<meta name="keywords" content="file manager,sftp client,scp client,ftp client,windows,secure file transfer,ftp,freeware" />
+<meta name="description" content="WinSCP is a free file manager for Windows supporting FTP, SFTP, S3 and WebDAV." />
+<meta name="google-site-verification" content="R-0cOllfdlHe93mQzthYHV_GUkAImaodzbyD5--pXOQ" />
+<link rel="shortcut icon" href="/favicon.ico" />
+<link rel="alternate" type="application/rss+xml" title="Project News" href="/feed.php" />
+
+<script>
+  if (top.frames.length!=0)
+  {
+    if (window.location.href.replace)
+      top.location.replace(self.location.href);
+    else
+      top.location.href=self.document.href;
+  }
+</script>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-22775137-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-22775137-1');
+</script>
+
+<script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId            : '215157521840905',
+      status           : true,
+      autoLogAppEvents : true,
+      xfbml            : true,
+      version          : 'v2.10'
+    });
+    FB.AppEvents.logPageView();
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+</script>
+
+<script async defer src="https://platform.twitter.com/widgets.js"></script>
+
+</head>
+
+<body>
+<svg xmlns="http://www.w3.org/2000/svg" width="95" height="15" class="hidden">
+<symbol id="star" viewBox="0 0 85 15" preserveAspectRatio="xMinYMax meet">
+    <path d="M4.108 14.63c-.17-.004-.327-.087-.428-.224-.1-.137-.135-.314-.092-.48L4.806 9.23 1.103 6.156C.925 6.01.855 5.77.926 5.547c.07-.22.267-.373.496-.386L6.2 4.888 7.93.36C8.015.143 8.22 0 8.45 0c.228 0 .434.143.516.36L10.7 4.887l4.776.274c.23.014.426.168.496.388s0 .463-.176.61l-3.703 3.07 1.217 4.698c.06.225-.023.463-.21.6-.184.137-.434.144-.626.017l-4.025-2.63-4.026 2.63c-.094.062-.204.092-.316.088z"  fill-rule="evenodd"/>
+</symbol>
+</svg>
+
+<div id="pageDownload">
+
+<div class="masthead">
+<div class="container">
+<nav class="navbar">
+<div class="container">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span>Menu</span>
+        </button>
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#search" aria-expanded="false" aria-controls="search">
+            <svg width="18" height="18" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg"><title>Toggle search</title><path d="M12.864 11.32h-.813l-.287-.277c1.01-1.173 1.616-2.697 1.616-4.353C13.38 2.995 10.383 0 6.69 0 2.995 0 0 2.995 0 6.69c0 3.694 2.995 6.69 6.69 6.69 1.656 0 3.18-.608 4.353-1.617l.278.288v.814L16.468 18 18 16.467l-5.136-5.146zm-6.174 0c-2.563 0-4.632-2.068-4.632-4.63 0-2.563 2.07-4.632 4.632-4.632s4.63 2.07 4.63 4.632-2.068 4.63-4.63 4.63z" fill="#FFF" fill-rule="evenodd" opacity="1"/>
+                <image src="/assets/images/search.png" xlink:href="" /><!-- fallback with IE fix -->
+            </svg>
+        </button>
+
+        <a class="navbar-brand" href="https://winscp.net/">
+            <img srcset="https://winscp-static-746341.c.cdn77.org/assets/images/logos/logo.png?v=102, https://winscp-static-746341.c.cdn77.org/assets/images/logos/logo@2x.png?v=102 2x, https://winscp-static-746341.c.cdn77.org/assets/images/logos/logo@3x.png?v=102 3x" src="https://winscp-static-746341.c.cdn77.org/assets/images/logos/logo.png?v=102" width="55" height="54" alt="">
+            <span class="navbar-brand-text">
+                <span class="navbar-brand-main"><span>WinSCP</span></span>
+                <span class="navbar-brand-strapline">
+                    <span>
+                        Free
+                    </span>
+                    <span>SFTP, SCP, S3 and FTP client</span>
+                    for <span>Windows</span>
+                </span>
+            </span>
+        </a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+        <ul class="nav nav-justified">
+            <li id="navbarHome"><a href="/eng/index.php">Home</a></li>
+            <li id="navbarNews"><a href="/eng/news.php">News</a></li>
+            <li id="navbarIntroduction"><a href="/eng/docs/introduction">Introduction</a></li>
+            <li id="navbarDownload"><a href="/eng/download.php">Download</a></li>
+            <li id="navbarInstall"><a href="/eng/docs/guide_install">Install</a></li>
+            <li id="navbarDocumentation"><a href="/eng/docs/">Documentation</a></li>
+            <li id="navbarForum"><a href="/forum/">Forum</a></li>
+        </ul>
+        <button type="button" class="navbar-toggle hidden-sm-block" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">Close</button>
+    </div>
+    <div id="search" class="navbar-collapse collapse">
+        <form action="/search.php" class="navbar-form navbar-right">
+            <div class="input-group">
+                <input name="q" type="text" class="form-control" placeholder="Search..." value="">
+                <span class="input-group-btn">
+                    <button name="sa" class="btn btn-default" type="submit">
+                        <svg width="18" height="18" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg"><title>Search</title><path d="M12.864 11.32h-.813l-.287-.277c1.01-1.173 1.616-2.697 1.616-4.353C13.38 2.995 10.383 0 6.69 0 2.995 0 0 2.995 0 6.69c0 3.694 2.995 6.69 6.69 6.69 1.656 0 3.18-.608 4.353-1.617l.278.288v.814L16.468 18 18 16.467l-5.136-5.146zm-6.174 0c-2.563 0-4.632-2.068-4.632-4.63 0-2.563 2.07-4.632 4.632-4.632s4.63 2.07 4.63 4.632-2.068 4.63-4.63 4.63z" fill="#FFF" fill-rule="evenodd" opacity=".5"/>
+                            <image src="/assets/images/search.png" xlink:href="" /><!-- fallback with IE fix -->
+                        </svg>
+                    </button>
+                </span>
+            </div>
+            <input type="hidden" name="refinement" value="Documentation" />
+        </form>
+        <button type="button" class="navbar-toggle hidden-sm-block" data-toggle="collapse" data-target="#search" aria-expanded="false" aria-controls="search">Close</button>
+    </div>
+</div>
+</nav>
+</div>
+</div>
+
+<script>
+    function countDownload()
+    {
+        gtag('event', 'CDN', { 'event_category': 'Downloads', 'event_label': 'WinSCP-5.21.8-Portable.zip' });
+    }
+</script>
+
+<main class="container main-content-container">
+
+<section class="download-info">
+    <div class="container text-center">
+        <h1>
+            Download WinSCP-5.21.8-Portable.zip        </h1>
+        <p>
+            <a rel="nofollow" onclick="countDownload();" href="https://cdn.winscp.net/files/WinSCP-5.21.8-Portable.zip?secure=byCGH7NAxxcr6Nqvn2ug7g==,1754127854" class="btn btn-primary btn-lg">Download</a>
+        </p>
+        <ul class="list-inline inks-small" style="margin-bottom: 0;">
+            <li><a href="#checksums">Checksums</a></li>
+        </ul>
+    </div>
+
+    <div class="row" style="margin-bottom: 1.5em;">
+        <div class="col-xs-12 col-sm-6">
+            <div class="promo-block">
+                <p class="promo-block-content">
+                    <em>Advertisement</em>
+                    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                    <ins class="adsbygoogle"
+                         style="display:block;min-height: 90px"
+                         data-ad-client="ca-pub-1682759925159355"
+                         data-ad-slot="7178522538"
+                         data-ad-format="rectangle"></ins>
+                    <script>
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>
+                </p>
+            </div>
+        </div>
+
+        <div class="col-xs-12 col-sm-6">
+            <div class="promo-block">
+                <p class="promo-block-content">
+                    <em>Advertisement</em>
+                    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                    <ins class="adsbygoogle"
+                         style="display:block;min-height: 90px"
+                         data-ad-client="ca-pub-1682759925159355"
+                         data-ad-slot="2472990763"
+                         data-ad-format="rectangle"></ins>
+                    <script>
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="container text-center">
+        <p><em>You are not downloading the latest release. If this was not intentional, please go back to <a href="/eng/download.php">download page</a>.</em></p>
+        <p>The <code>WinSCP-5.21.8-Portable.zip</code> is ZIP archive containing both WinSCP <a href="/eng/docs/executables">executables</a>, intended for <a href="/eng/docs/portable">portable use</a>.</p>
+    </div>
+</section>
+
+<div class="gradient-bg-reverse">
+    <section class="download-problems">
+        <div class="container text-center">
+            <h2>Problems with the download?</h2>
+            <ul class="list-inline inks-small">
+                <li><a rel="nofollow" href="https://cdn.winscp.net/files/WinSCP-5.21.8-Portable.zip?secure=byCGH7NAxxcr6Nqvn2ug7g==,1754127854">CDN download</a></li>
+                <li><a rel="nofollow" href="https://sourceforge.net/projects/winscp/files/WinSCP/5.21.8/WinSCP-5.21.8-Portable.zip/download">Alternative download</a></li>
+            </ul>
+        </div>
+    </section>
+
+    <div class="promo-block">
+        <p class="promo-block-content">
+            <em>Advertisement</em>
+            <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+            <ins class="adsbygoogle"
+                 style="display:block;min-height: 90px"
+                 data-ad-client="ca-pub-1682759925159355"
+                 data-ad-slot="3722713395"
+                 data-ad-format="auto"></ins>
+            <script>
+            (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </p>
+    </div>
+
+    <section class="download-checksums" id="checksums">
+        <div class="container text-center">
+            <h2>Checksums</h2>
+
+            <ul class="list-unstyled">
+                <li>SHA-256: a2fe8fab9ad3c6d640de407234c6949d9c3c39d7b775827abcc91a13b5d02504</li>
+                <li>SHA-1: eab9fa89a9317a7abe9e55b6b77b3ecde100fb16</li>
+            </ul>
+        </div>
+    </section>
+</div>
+
+<div class="social-widget-large social-facebook text-center">
+    <div class="fb-page" data-href="https://www.facebook.com/winscp/" data-tabs="timeline" data-height="400" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true">
+        <blockquote cite="https://www.facebook.com/winscp/" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/winscp/">WinSCP on Facebook</a></blockquote>
+    </div>
+</div>
+
+</main>
+
+<div class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 col-md-2 pull-right">
+                <div id="footerLanguage" class="btn-group dropup">
+                    <button type="button" class="btn btn-default dropdown-toggle btn-footer" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        English <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a href="/chs/">简体中文</a></li>
+                        <li><a href="/cht/">正體中文 (繁體)</a></li>
+                        <li><a href="/cs/">Česky</a></li>
+                        <li><a href="/da/">Danish</a></li>
+                        <li><a href="/de/">Deutsch</a></li>
+                        <li><a href="/eng/">English</a></li>
+                        <li><a href="/es/">Español (Castellano)</a></li>
+                        <li><a href="/et/">Eesti keel</a></li>
+                        <li><a href="/fr/">Français</a></li>
+                        <li><a href="/hr/">Hrvatski</a></li>
+                        <li><a href="/hu/">Magyar</a></li>
+                        <li><a href="/it/">Italiano</a></li>
+                        <li><a href="/jp/">日本語</a></li>
+                        <li><a href="/ko/">한국어</a></li>
+                        <li><a href="/lt/">Lietuvių</a></li>
+                        <li><a href="/nl/">Nederlands</a></li>
+                        <li><a href="/pl/">Polski</a></li>
+                        <li><a href="/ro/">Română</a></li>
+                        <li><a href="/ru/">Русский</a></li>
+                        <li><a href="/sk/">Slovensky</a></li>
+                        <li><a href="/srl/">Srpski</a></li>
+                        <li><a href="/uk/">Українська</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="col-sm-12 col-md-10">
+                <div class="col-xs-12 col-sm-3">
+                    <h2 class="footer-header">Documentation</h2>
+                    <ul class="list-unstyled">
+                        <li><a href="/eng/docs/getting_started">Quick Start</a></li>
+                        <li><a href="/eng/docs/guides">Guides</a></li>
+                        <li><a href="/eng/docs/free_ftp_client_for_windows">FTP Client</a></li>
+                        <li><a href="/eng/docs/free_sftp_client_for_windows">SFTP Client</a></li>
+                        <li><a href="/eng/docs/free_ssh_client_for_windows">SSH Client</a></li>
+                        <li><a href="/eng/docs/free_s3_client_for_windows">S3 Client</a></li>
+                        <li><a href="/eng/docs/languages">Languages</a></li>
+                        <li><a href="/eng/docs/scripting">Scripting</a></li>
+                        <li><a href="/eng/docs/library">.NET and COM Library</a></li>
+                        <li><a href="/eng/docs/commandline">Command Line Options</a></li>
+                        <li><a href="/eng/docs/portable">Portable Use</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-xs-12 col-sm-3">
+                    <h2 class="footer-header">Support</h2>
+                    <ul class="list-unstyled">
+                        <li><a href="/eng/docs/support">Get Support</a></li>
+                        <li><a href="/eng/docs/faq">FAQ</a></li>
+                        <li><a href="/eng/docs/troubleshooting">Troubleshooting</a></li>
+                        <li><a href="/forum/">Support Forum</a></li>
+                        <li><a href="/eng/docs/history">History</a></li>
+                        <li><a href="/tracker/">Bug Tracker</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-xs-12 col-sm-3">
+                    <h2 class="footer-header">Associations</h2>
+                    <ul class="list-unstyled">
+                        <li><a href="https://github.com/winscp/winscp">GitHub</a></li>
+                        <li><a href="https://sourceforge.net/projects/winscp/">SourceForge</a></li>
+                        <li><a href="https://teamforge.net/">TeamForge.net</a></li>
+                        <li><a href="https://www.dokuwiki.org/">DokuWiki</a></li>
+                        <li><a href="https://www.phpbb.com/">phpBB</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-xs-12 col-sm-3">
+                    <h2 class="footer-header">Follow Us</h2>
+                    <ul class="list-unstyled">
+                        <li><a rel="me" href="https://www.facebook.com/winscp/">Facebook</a></li>
+                        <li><a rel="me" href="https://x.com/winscpnet">X</a></li>
+                        <li><a rel="me" href="https://mastodon.social/@winscp">Mastodon</a></li>
+                        <li><a rel="me" href="https://bsky.app/profile/winscp.net">Bluesky</a></li>
+                        <li><a rel="me" href="https://www.linkedin.com/company/winscp/">LinkedIn</a></li>
+                        <li><a href="/feed.php">RSS News</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="row">
+                <p>
+                    &copy; All rights reserved 2000&ndash;2025, WinSCP.net
+                </p>
+
+                <ul class="list-inline">
+                    <li>
+                        <a href="/eng/docs/license">WinSCP License</a>
+                    </li>
+                    <li>
+                        <a href="/eng/docs/privacy">WinSCP Privacy Policy</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+</div>
+
+</div>
+
+<script defer src="https://winscp-static-746341.c.cdn77.org/assets/js/jquery.min.js?v=102"></script>
+<script defer src="https://winscp-static-746341.c.cdn77.org/assets/js/bootstrap.min.js?v=102"></script>
+
+<script defer src="https://winscp-static-746341.c.cdn77.org/assets/js/slick/slick.min.js?v=102"></script>
+
+<script defer src="https://winscp-static-746341.c.cdn77.org/assets/js/footer.js?v=102"></script>
+<script defer src="https://winscp-static-746341.c.cdn77.org/assets/js/svg-src-polyfill.js?v=102"></script>
+<script defer src="https://winscp-static-746341.c.cdn77.org/assets/js/slick-init.js?v=102"></script>
+</body>
+</html>

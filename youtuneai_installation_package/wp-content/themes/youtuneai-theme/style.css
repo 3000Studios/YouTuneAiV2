@@ -1,0 +1,55 @@
+/*
+Theme Name: YouTuneAI Theme
+Author: 3000Studios & GitHub Copilot
+Description: A custom theme for YouTuneAi.com with a corporate but wild, sexy, fun, animated, sharp, and expensive feel. All styles are auto-sizing, fully responsive, and feel expensive and alive.
+Version: 1.0
+*/
+
+:root {
+    --marble-white: #fdfdfd;
+    --black: #000000;
+    --platinum: #e5e4e2;
+    --neon-green: #39ff14;
+    --purple-rain: #6a0dad;
+    --velvet: #4c0027;
+    --ocean-blue: #0077be;
+    --diamond-silver: #b9f2ff;
+    --gunmetal: #2a3439;
+    --high-contrast-text: #ffffff;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Roboto:wght@400;700&display=swap');
+
+body {
+    background-color: var(--black);
+    color: var(--high-contrast-text);
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Orbitron', sans-serif;
+    text-transform: uppercase;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5), 0 0 10px var(--neon-green), 0 0 20px var(--purple-rain);
+}
+
+a {
+    color: var(--neon-green);
+    text-decoration: none;
+    transition: all 0.3s ease-in-out;
+}
+
+a:hover {
+    color: var(--high-contrast-text);
+    text-shadow: 0 0 5px var(--neon-green);
+}
+
+.container {
+    width: 90%;
+    margin: 0 auto;
+    max-width: 1200px;
+}
+
+/* Add more global styles here */

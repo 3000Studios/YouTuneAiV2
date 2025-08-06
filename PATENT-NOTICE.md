@@ -1,4 +1,4 @@
-# YouTuneAI - Patent Pending Technology
+![alt text](image.png)# YouTuneAI - Patent Pending Technology
 
 ## INTELLECTUAL PROPERTY NOTICE
 
