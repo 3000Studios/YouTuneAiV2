@@ -1,0 +1,45 @@
+name: Boss Man Copilot — Build and Release ZIP
+
+on:
+  push:
+    branches: [main, master]
+    tags: ["v*"]
+  release:
+    types: [published]
+
+jobs:
+  package-and-release:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repo
+      uses: actions/checkout@v4
+
+    - name: Set up file structure
+      run: |
+        mkdir -p bossman-copilot-wordpress-upgrade
+        cp -r theme bossman-copilot-wordpress-upgrade/ || true
+        cp -r plugins bossman-copilot-wordpress-upgrade/ || true
+        cp -r custom-code bossman-copilot-wordpress-upgrade/ || true
+        cp -r assets bossman-copilot-wordpress-upgrade/ || true
+        cp README.md bossman-copilot-wordpress-upgrade/ || true
+
+    - name: Create ZIP file
+      run: |
+        cd bossman-copilot-wordpress-upgrade
+        zip -r ../bossman-copilot-wordpress-upgrade.zip .
+        cd ..
+
+    - name: Upload ZIP as artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: bossman-copilot-wordpress-upgrade
+        path: bossman-copilot-wordpress-upgrade.zip
+
+    - name: Attach ZIP to GitHub Release
+      if: github.event_name == 'release'
+      uses: softprops/action-gh-release@v2
+      with:
+        files: bossman-copilot-wordpress-upgrade.zip
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
