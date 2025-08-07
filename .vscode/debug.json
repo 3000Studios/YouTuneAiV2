@@ -1,0 +1,41 @@
+{
+  "configurations": [
+    {
+      "name": "Python: Backend Server",
+      "type": "python",
+      "request": "launch",
+      "program": "${workspaceFolder}/backend/server.py",
+      "console": "integratedTerminal",
+      "envFile": "${workspaceFolder}/.env",
+      "cwd": "${workspaceFolder}"
+    },
+    {
+      "name": "Python: AI Controller",
+      "type": "python",
+      "request": "launch",
+      "program": "${workspaceFolder}/ai/voice_controller.py",
+      "console": "integratedTerminal",
+      "envFile": "${workspaceFolder}/.env",
+      "cwd": "${workspaceFolder}"
+    },
+    {
+      "name": "Python: Deployment Script",
+      "type": "python",
+      "request": "launch",
+      "program": "${workspaceFolder}/automation/deploy.py",
+      "console": "integratedTerminal",
+      "args": ["--debug"],
+      "envFile": "${workspaceFolder}/.env",
+      "cwd": "${workspaceFolder}"
+    },
+    {
+      "name": "Node.js: Frontend",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/frontend/server.js",
+      "console": "integratedTerminal",
+      "envFile": "${workspaceFolder}/.env",
+      "cwd": "${workspaceFolder}/frontend"
+    }
+  ]
+}
