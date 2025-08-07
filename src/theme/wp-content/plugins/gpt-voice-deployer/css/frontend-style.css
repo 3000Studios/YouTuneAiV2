@@ -1,0 +1,558 @@
+/**
+ * GPT Voice Deployer - Frontend Styles
+ * Boss Man J Edition - Public Interface Styling
+ * Version: 2.0.0
+ */
+
+/* Floating Voice Button */
+.gpt-voice-float {
+    position: fixed !important;
+    bottom: 80px !important;
+    right: 20px !important;
+    width: 60px !important;
+    height: 60px !important;
+    background: linear-gradient(45deg, #ff0080, #8000ff) !important;
+    border-radius: 50% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-size: 24px !important;
+    cursor: pointer !important;
+    z-index: 9999 !important;
+    box-shadow: 0 4px 20px rgba(255, 0, 128, 0.5) !important;
+    transition: all 0.3s ease !important;
+    color: white !important;
+    border: 2px solid rgba(255, 215, 0, 0.3) !important;
+}
+
+.gpt-voice-float:hover {
+    transform: scale(1.1) !important;
+    box-shadow: 0 6px 30px rgba(255, 0, 128, 0.7) !important;
+    border-color: rgba(255, 215, 0, 0.6) !important;
+}
+
+.gpt-voice-float:active {
+    transform: scale(0.95) !important;
+}
+
+/* Floating Button Tooltip */
+.gpt-voice-tooltip {
+    position: absolute !important;
+    bottom: 70px !important;
+    right: 0 !important;
+    background: rgba(0, 0, 0, 0.9) !important;
+    color: #ffd700 !important;
+    padding: 8px 12px !important;
+    border-radius: 6px !important;
+    font-size: 12px !important;
+    white-space: nowrap !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    transition: opacity 0.3s ease !important;
+    z-index: 10000 !important;
+    font-weight: bold !important;
+    border: 1px solid rgba(255, 215, 0, 0.3) !important;
+}
+
+.gpt-voice-float:hover .gpt-voice-tooltip {
+    opacity: 1 !important;
+}
+
+/* Voice Modal */
+.gpt-voice-modal {
+    display: none !important;
+    position: fixed !important;
+    z-index: 10000 !important;
+    left: 0 !important;
+    top: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    background-color: rgba(0, 0, 0, 0.85) !important;
+    backdrop-filter: blur(5px) !important;
+    -webkit-backdrop-filter: blur(5px) !important;
+}
+
+.gpt-voice-modal-content {
+    background: linear-gradient(135deg, #1a1a1a, #2d2d2d) !important;
+    margin: 5% auto !important;
+    padding: 35px !important;
+    border-radius: 20px !important;
+    width: 85% !important;
+    max-width: 650px !important;
+    color: white !important;
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.7) !important;
+    border: 2px solid rgba(255, 215, 0, 0.3) !important;
+    position: relative !important;
+    animation: modal-slide-in 0.4s ease-out !important;
+}
+
+@keyframes modal-slide-in {
+    from {
+        opacity: 0;
+        transform: translateY(-30px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.gpt-voice-modal-content::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #ffd700, #00ff41, #00d4ff, #ff0080, #ffd700);
+    border-radius: 20px 20px 0 0;
+    animation: rainbow-flow 3s linear infinite;
+}
+
+@keyframes rainbow-flow {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 200% 50%; }
+}
+
+.gpt-voice-modal-content h2 {
+    color: #ffd700 !important;
+    margin-bottom: 25px !important;
+    font-size: 26px !important;
+    font-weight: bold !important;
+    text-align: center !important;
+    text-shadow: 0 2px 10px rgba(255, 215, 0, 0.4) !important;
+    margin-top: 10px !important;
+}
+
+.gpt-voice-close {
+    color: #aaa !important;
+    float: right !important;
+    font-size: 32px !important;
+    font-weight: bold !important;
+    cursor: pointer !important;
+    transition: all 0.3s ease !important;
+    position: absolute !important;
+    top: 15px !important;
+    right: 20px !important;
+    width: 35px !important;
+    height: 35px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    border-radius: 50% !important;
+}
+
+.gpt-voice-close:hover {
+    color: #ff4757 !important;
+    background: rgba(255, 71, 87, 0.1) !important;
+    transform: scale(1.1) !important;
+}
+
+/* Voice Command Button */
+.gpt-voice-btn {
+    background: linear-gradient(45deg, #00ff41, #00d4ff) !important;
+    color: #1a1a1a !important;
+    border: none !important;
+    padding: 18px 35px !important;
+    border-radius: 30px !important;
+    font-size: 18px !important;
+    font-weight: bold !important;
+    cursor: pointer !important;
+    margin: 15px auto !important;
+    transition: all 0.3s ease !important;
+    text-transform: uppercase !important;
+    letter-spacing: 1px !important;
+    display: block !important;
+    box-shadow: 0 5px 20px rgba(0, 255, 65, 0.3) !important;
+    position: relative !important;
+    overflow: hidden !important;
+}
+
+.gpt-voice-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.5s;
+}
+
+.gpt-voice-btn:hover::before {
+    left: 100%;
+}
+
+.gpt-voice-btn:hover {
+    transform: scale(1.05) !important;
+    box-shadow: 0 8px 30px rgba(0, 255, 65, 0.5) !important;
+    background: linear-gradient(45deg, #00d4ff, #00ff41) !important;
+}
+
+.gpt-voice-btn:active {
+    transform: scale(0.98) !important;
+}
+
+/* Status Display */
+.gpt-voice-status {
+    background: rgba(255, 255, 255, 0.1) !important;
+    padding: 20px !important;
+    border-radius: 12px !important;
+    margin: 20px 0 !important;
+    border-left: 5px solid #00ff41 !important;
+    font-size: 16px !important;
+    font-weight: 500 !important;
+    position: relative !important;
+    min-height: 50px !important;
+    display: flex !important;
+    align-items: center !important;
+}
+
+.gpt-voice-status::before {
+    content: '🎙️';
+    margin-right: 10px;
+    font-size: 20px;
+}
+
+/* Result Display */
+.gpt-voice-result {
+    background: rgba(0, 0, 0, 0.4) !important;
+    padding: 20px !important;
+    border-radius: 12px !important;
+    margin: 20px 0 !important;
+    min-height: 120px !important;
+    font-family: 'Courier New', monospace !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    font-size: 14px !important;
+    line-height: 1.6 !important;
+    color: #00ff41 !important;
+    overflow-y: auto !important;
+    max-height: 300px !important;
+}
+
+/* Examples Section */
+.gpt-voice-examples {
+    margin-top: 25px !important;
+    padding: 20px !important;
+    background: rgba(255, 215, 0, 0.1) !important;
+    border-radius: 12px !important;
+    border-left: 5px solid #ffd700 !important;
+    border: 1px solid rgba(255, 215, 0, 0.2) !important;
+}
+
+.gpt-voice-examples h4 {
+    color: #ffd700 !important;
+    margin-bottom: 15px !important;
+    font-size: 18px !important;
+    font-weight: bold !important;
+}
+
+.gpt-voice-examples ul {
+    list-style: none !important;
+    padding-left: 0 !important;
+    margin: 0 !important;
+}
+
+.gpt-voice-examples li {
+    margin: 10px 0 !important;
+    padding: 8px 12px !important;
+    background: rgba(255, 255, 255, 0.05) !important;
+    border-radius: 8px !important;
+    position: relative !important;
+    padding-left: 35px !important;
+    transition: all 0.3s ease !important;
+    cursor: pointer !important;
+}
+
+.gpt-voice-examples li:hover {
+    background: rgba(255, 255, 255, 0.1) !important;
+    transform: translateX(5px) !important;
+}
+
+.gpt-voice-examples li:before {
+    content: '🗣️';
+    position: absolute !important;
+    left: 10px !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    font-size: 16px !important;
+}
+
+/* Animation Classes */
+.gpt-voice-pulse {
+    animation: gpt-voice-pulse 1.5s infinite !important;
+}
+
+@keyframes gpt-voice-pulse {
+    0% { 
+        transform: scale(1); 
+        box-shadow: 0 0 0 0 rgba(255, 0, 128, 0.7); 
+    }
+    70% { 
+        transform: scale(1.05); 
+        box-shadow: 0 0 0 15px rgba(255, 0, 128, 0); 
+    }
+    100% { 
+        transform: scale(1); 
+        box-shadow: 0 0 0 0 rgba(255, 0, 128, 0); 
+    }
+}
+
+.gpt-voice-processing {
+    background: linear-gradient(45deg, #ff6b35, #f7931e) !important;
+    animation: gpt-voice-processing 2s infinite !important;
+}
+
+@keyframes gpt-voice-processing {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+}
+
+.gpt-voice-success {
+    background: linear-gradient(45deg, #00ff41, #00d4ff) !important;
+    animation: gpt-voice-success 0.6s ease-in-out !important;
+}
+
+@keyframes gpt-voice-success {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+.gpt-voice-error {
+    background: linear-gradient(45deg, #ff4757, #ff3838) !important;
+    animation: gpt-voice-error 0.3s ease-in-out 3 !important;
+}
+
+@keyframes gpt-voice-error {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+}
+
+/* Typing Effect */
+.gpt-voice-typing {
+    display: inline-block !important;
+}
+
+.gpt-voice-typing:after {
+    content: '|' !important;
+    animation: gpt-voice-blink 1s infinite !important;
+    color: #00ff41 !important;
+}
+
+@keyframes gpt-voice-blink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0; }
+}
+
+/* Toast Notifications */
+.gpt-voice-frontend-toast {
+    position: fixed !important;
+    top: 100px !important;
+    right: 20px !important;
+    padding: 15px 20px !important;
+    border-radius: 10px !important;
+    color: white !important;
+    font-weight: bold !important;
+    z-index: 10001 !important;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.4) !important;
+    transform: translateX(100%) !important;
+    transition: transform 0.4s ease !important;
+    max-width: 320px !important;
+    font-size: 14px !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+}
+
+.gpt-voice-toast-success {
+    background: linear-gradient(45deg, #00ff41, #00d4ff) !important;
+    color: #1a1a1a !important;
+    border-color: rgba(0, 255, 65, 0.3) !important;
+}
+
+.gpt-voice-toast-error {
+    background: linear-gradient(45deg, #ff4757, #ff3838) !important;
+    border-color: rgba(255, 71, 87, 0.3) !important;
+}
+
+.gpt-voice-toast-info {
+    background: linear-gradient(45deg, #3742fa, #5f27cd) !important;
+    border-color: rgba(55, 66, 250, 0.3) !important;
+}
+
+.gpt-voice-frontend-toast.show {
+    transform: translateX(0) !important;
+}
+
+/* Command Result Display */
+.voice-command-result {
+    background: rgba(255, 255, 255, 0.05) !important;
+    padding: 20px !important;
+    border-radius: 12px !important;
+    margin: 20px 0 !important;
+    border: 1px solid rgba(0, 255, 65, 0.2) !important;
+}
+
+.voice-command-result h4 {
+    color: #ffd700 !important;
+    margin-bottom: 15px !important;
+    font-size: 16px !important;
+    border-bottom: 1px solid rgba(255, 215, 0, 0.3) !important;
+    padding-bottom: 8px !important;
+}
+
+.result-summary {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    margin: 15px 0 !important;
+}
+
+.success-indicator {
+    color: #00ff41 !important;
+    font-weight: bold !important;
+    font-size: 14px !important;
+}
+
+.timestamp {
+    color: #aaa !important;
+    font-size: 12px !important;
+    font-style: italic !important;
+}
+
+.code-info {
+    background: rgba(0, 0, 0, 0.3) !important;
+    padding: 12px !important;
+    border-radius: 8px !important;
+    margin: 10px 0 !important;
+    border-left: 3px solid #00d4ff !important;
+}
+
+.code-info p {
+    margin: 5px 0 !important;
+    color: #00d4ff !important;
+    font-weight: 500 !important;
+}
+
+.code-info small {
+    color: #aaa !important;
+    font-size: 11px !important;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .gpt-voice-modal-content {
+        width: 95% !important;
+        margin: 2% auto !important;
+        padding: 25px !important;
+    }
+    
+    .gpt-voice-modal-content h2 {
+        font-size: 22px !important;
+    }
+    
+    .gpt-voice-btn {
+        padding: 15px 25px !important;
+        font-size: 16px !important;
+    }
+    
+    .gpt-voice-float {
+        width: 55px !important;
+        height: 55px !important;
+        font-size: 22px !important;
+        bottom: 70px !important;
+    }
+    
+    .gpt-voice-result {
+        min-height: 80px !important;
+        font-size: 12px !important;
+    }
+    
+    .gpt-voice-frontend-toast {
+        max-width: 280px !important;
+        font-size: 13px !important;
+        right: 10px !important;
+    }
+    
+    .result-summary {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 8px !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .gpt-voice-modal-content {
+        width: 98% !important;
+        padding: 20px !important;
+        border-radius: 15px !important;
+    }
+    
+    .gpt-voice-examples li {
+        font-size: 13px !important;
+        padding: 6px 10px !important;
+        padding-left: 30px !important;
+    }
+    
+    .gpt-voice-float {
+        width: 50px !important;
+        height: 50px !important;
+        font-size: 20px !important;
+        bottom: 60px !important;
+        right: 15px !important;
+    }
+}
+
+/* Custom Scrollbar */
+.gpt-voice-result::-webkit-scrollbar {
+    width: 6px !important;
+}
+
+.gpt-voice-result::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.3) !important;
+    border-radius: 3px !important;
+}
+
+.gpt-voice-result::-webkit-scrollbar-thumb {
+    background: linear-gradient(45deg, #00ff41, #00d4ff) !important;
+    border-radius: 3px !important;
+}
+
+.gpt-voice-result::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(45deg, #ffd700, #ff0080) !important;
+}
+
+/* High Contrast Mode Support */
+@media (prefers-contrast: high) {
+    .gpt-voice-modal-content {
+        border: 3px solid white !important;
+    }
+    
+    .gpt-voice-btn {
+        border: 2px solid white !important;
+    }
+    
+    .gpt-voice-float {
+        border: 3px solid white !important;
+    }
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+    .gpt-voice-pulse,
+    .gpt-voice-processing,
+    .gpt-voice-success,
+    .gpt-voice-error,
+    .gpt-voice-typing {
+        animation: none !important;
+    }
+    
+    .gpt-voice-btn::before,
+    .gpt-voice-modal-content::before {
+        animation: none !important;
+    }
+    
+    * {
+        transition: none !important;
+    }
+}
