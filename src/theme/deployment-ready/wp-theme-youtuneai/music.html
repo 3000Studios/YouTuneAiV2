@@ -1,0 +1,1271 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>YouTuneAI - Diamond Music Studio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap"
+    rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+    rel="stylesheet">
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary-color: #00ffff;
+      --secondary-color: #e5e4e2;
+      --accent-color: #ffffff;
+      --platinum: #e5e4e2;
+      --gunmetal: #2a3439;
+      --diamond-glow: 0 0 20px rgba(0, 255, 255, 0.8), 0 0 40px rgba(0, 255, 255, 0.6);
+      --platinum-shine: 0 0 30px rgba(229, 228, 226, 0.8), 0 0 60px rgba(229, 228, 226, 0.4);
+      --marble-bg: linear-gradient(135deg, rgba(0, 0, 0, 0.9) 0%, rgba(42, 52, 57, 0.8) 50%, rgba(0, 0, 0, 0.9) 100%);
+    }
+
+    body {
+      font-family: 'Montserrat', 'Inter', sans-serif;
+      background: #000;
+      color: white;
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Marble Background */
+    .marble-background {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -3;
+      background-image: url('https://images.unsplash.com/photo-1578662996442-48f60103fc96?q=80&w=2070&auto=format&fit=crop');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+    }
+
+    /* Video Background Underlay */
+    .video-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -2;
+      opacity: 0.3;
+    }
+
+    .video-bg video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* Marble Overlay */
+    .marble-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      background: var(--marble-bg);
+      backdrop-filter: blur(1px);
+    }
+
+    /* Particles Container */
+    #particles-js {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    /* Navigation */
+    .nav-container {
+      position: relative;
+      top: 0;
+      width: 100%;
+      background: rgba(42, 52, 57, 0.15);
+      backdrop-filter: blur(20px);
+      padding: 20px 0;
+      z-index: 1000;
+      border-bottom: 2px solid rgba(0, 255, 255, 0.2);
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .nav-menu {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 30px;
+    }
+
+    .logo {
+      font-size: 2.5rem;
+      font-weight: 900;
+      color: var(--primary-color);
+      text-shadow: var(--diamond-glow);
+      animation: diamondPulse 3s ease-in-out infinite;
+      font-family: 'Montserrat', sans-serif;
+      letter-spacing: 2px;
+      text-decoration: none;
+    }
+
+    @keyframes diamondPulse {
+
+      0%,
+      100% {
+        text-shadow: var(--diamond-glow);
+        transform: scale(1);
+      }
+
+      50% {
+        text-shadow: 0 0 40px rgba(0, 255, 255, 1), 0 0 80px rgba(229, 228, 226, 0.8);
+        transform: scale(1.02);
+      }
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 25px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--platinum);
+      text-decoration: none;
+      padding: 12px 25px;
+      border-radius: 30px;
+      background: rgba(229, 228, 226, 0.1);
+      border: 2px solid transparent;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      font-weight: 600;
+      font-size: 0.95rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .nav-links a::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.4), transparent);
+      transition: left 0.5s;
+    }
+
+    .nav-links a:hover {
+      background: rgba(0, 255, 255, 0.1);
+      border-color: var(--primary-color);
+      box-shadow: var(--diamond-glow);
+      transform: translateY(-3px);
+      color: white;
+    }
+
+    .nav-links a:hover::before {
+      left: 100%;
+    }
+
+    .nav-links a.active {
+      background: rgba(0, 255, 255, 0.2);
+      border-color: var(--primary-color);
+      box-shadow: var(--diamond-glow);
+      color: white;
+    }
+
+    /* Music Header */
+    .music-header {
+      padding: 120px 20px 60px;
+      text-align: center;
+      position: relative;
+      z-index: 10;
+    }
+
+    .music-title {
+      font-size: 5rem;
+      font-weight: 900;
+      margin-bottom: 30px;
+      background: linear-gradient(135deg, #ffffff 0%, #00ffff 30%, #e5e4e2 70%, #ffffff 100%);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: var(--diamond-glow);
+      animation: diamondGlow 4s ease-in-out infinite;
+      font-family: 'Montserrat', sans-serif;
+      letter-spacing: 3px;
+    }
+
+    @keyframes diamondGlow {
+
+      0%,
+      100% {
+        text-shadow: var(--diamond-glow);
+        transform: scale(1);
+      }
+
+      25% {
+        text-shadow: 0 0 40px rgba(0, 255, 255, 1), 0 0 80px rgba(229, 228, 226, 0.6);
+        transform: scale(1.02);
+      }
+
+      50% {
+        text-shadow: var(--platinum-shine);
+        transform: scale(1.05);
+      }
+
+      75% {
+        text-shadow: 0 0 50px rgba(0, 255, 255, 0.9), 0 0 100px rgba(255, 255, 255, 0.3);
+        transform: scale(1.03);
+      }
+    }
+
+    .music-subtitle {
+      font-size: 2rem;
+      margin-bottom: 20px;
+      color: var(--platinum);
+      text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
+      font-weight: 600;
+    }
+
+    /* Main Music Player */
+    .main-player {
+      max-width: 1200px;
+      margin: 0 auto 60px;
+      padding: 0 20px;
+      position: relative;
+      z-index: 10;
+    }
+
+    .player-card {
+      background: rgba(229, 228, 226, 0.05);
+      backdrop-filter: blur(20px);
+      border: 2px solid rgba(0, 255, 255, 0.3);
+      border-radius: 30px;
+      padding: 40px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .player-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.1), transparent);
+      transition: left 0.6s;
+    }
+
+    .player-card:hover::before {
+      left: 100%;
+    }
+
+    .album-art {
+      width: 300px;
+      height: 300px;
+      background: linear-gradient(135deg, rgba(0, 255, 255, 0.3), rgba(229, 228, 226, 0.2));
+      border-radius: 50%;
+      margin: 0 auto 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 8rem;
+      animation: rotate 20s linear infinite;
+      border: 3px solid rgba(0, 255, 255, 0.5);
+      box-shadow: var(--diamond-glow);
+    }
+
+    @keyframes rotate {
+      from {
+        transform: rotate(0deg);
+      }
+
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    .track-info {
+      margin-bottom: 30px;
+    }
+
+    .track-title {
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: var(--primary-color);
+      margin-bottom: 10px;
+      text-shadow: var(--diamond-glow);
+    }
+
+    .track-artist {
+      font-size: 1.5rem;
+      color: var(--platinum);
+      margin-bottom: 20px;
+    }
+
+    .progress-container {
+      background: rgba(0, 0, 0, 0.5);
+      height: 8px;
+      border-radius: 4px;
+      margin: 20px 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .progress-bar {
+      height: 100%;
+      background: linear-gradient(90deg, var(--primary-color), var(--platinum));
+      width: 35%;
+      border-radius: 4px;
+      transition: width 0.3s ease;
+      box-shadow: var(--diamond-glow);
+    }
+
+    .time-display {
+      display: flex;
+      justify-content: space-between;
+      color: var(--platinum);
+      font-size: 0.9rem;
+      margin-top: 10px;
+    }
+
+    .player-controls {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 30px;
+      margin: 30px 0;
+    }
+
+    .control-btn {
+      background: rgba(229, 228, 226, 0.1);
+      border: 2px solid var(--primary-color);
+      color: var(--primary-color);
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .control-btn:hover {
+      background: var(--primary-color);
+      color: #000;
+      transform: scale(1.1);
+      box-shadow: var(--diamond-glow);
+    }
+
+    .play-btn {
+      width: 80px;
+      height: 80px;
+      font-size: 2rem;
+      background: linear-gradient(135deg, #00ffff 0%, #e5e4e2 50%, #00ffff 100%);
+      color: #000;
+    }
+
+    .volume-controls {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      justify-content: center;
+      margin: 20px 0;
+    }
+
+    .volume-slider {
+      width: 150px;
+      height: 6px;
+      background: rgba(0, 0, 0, 0.5);
+      border-radius: 3px;
+      outline: none;
+      cursor: pointer;
+    }
+
+    /* Music Library */
+    .music-library {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 20px 60px;
+      position: relative;
+      z-index: 10;
+    }
+
+    .library-header {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+
+    .section-title {
+      font-size: 3rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #00ffff 0%, #ffffff 50%, #e5e4e2 100%);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: var(--diamond-glow);
+      margin-bottom: 20px;
+    }
+
+    .library-categories {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-bottom: 40px;
+      flex-wrap: wrap;
+    }
+
+    .category-btn {
+      background: rgba(229, 228, 226, 0.1);
+      border: 2px solid rgba(0, 255, 255, 0.3);
+      color: var(--platinum);
+      padding: 12px 25px;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-weight: 600;
+    }
+
+    .category-btn:hover,
+    .category-btn.active {
+      background: rgba(0, 255, 255, 0.2);
+      border-color: var(--primary-color);
+      color: white;
+      box-shadow: var(--diamond-glow);
+    }
+
+    .tracks-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 30px;
+    }
+
+    .track-card {
+      background: rgba(229, 228, 226, 0.05);
+      backdrop-filter: blur(20px);
+      border: 2px solid rgba(0, 255, 255, 0.2);
+      border-radius: 20px;
+      padding: 25px;
+      transition: all 0.4s ease;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .track-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.1), transparent);
+      transition: left 0.6s;
+    }
+
+    .track-card:hover::before {
+      left: 100%;
+    }
+
+    .track-card:hover {
+      border-color: var(--primary-color);
+      box-shadow: var(--diamond-glow);
+      transform: translateY(-5px);
+    }
+
+    .track-thumbnail {
+      width: 80px;
+      height: 80px;
+      background: linear-gradient(135deg, rgba(0, 255, 255, 0.3), rgba(229, 228, 226, 0.2));
+      border-radius: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      margin-bottom: 20px;
+      border: 2px solid rgba(0, 255, 255, 0.3);
+    }
+
+    .track-details h3 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--platinum);
+      margin-bottom: 8px;
+    }
+
+    .track-artist-small {
+      color: rgba(229, 228, 226, 0.7);
+      margin-bottom: 12px;
+    }
+
+    .track-duration {
+      color: var(--primary-color);
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
+    .track-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 15px;
+    }
+
+    .action-btn {
+      background: none;
+      border: 1px solid var(--primary-color);
+      color: var(--primary-color);
+      padding: 6px 12px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 0.8rem;
+      transition: all 0.3s ease;
+    }
+
+    .action-btn:hover {
+      background: var(--primary-color);
+      color: #000;
+    }
+
+    /* Playlist Section */
+    .playlist-section {
+      max-width: 1200px;
+      margin: 60px auto 0;
+      padding: 0 20px;
+      position: relative;
+      z-index: 10;
+    }
+
+    .playlist-card {
+      background: rgba(229, 228, 226, 0.05);
+      backdrop-filter: blur(20px);
+      border: 2px solid rgba(0, 255, 255, 0.3);
+      border-radius: 25px;
+      padding: 40px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .playlist-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.1), transparent);
+      transition: left 0.6s;
+    }
+
+    .playlist-card:hover::before {
+      left: 100%;
+    }
+
+    .playlist-header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .playlist-title {
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: var(--primary-color);
+      text-shadow: var(--diamond-glow);
+      margin-bottom: 15px;
+    }
+
+    .playlist-items {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .playlist-item {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      background: rgba(42, 52, 57, 0.3);
+      border: 1px solid rgba(0, 255, 255, 0.2);
+      border-radius: 15px;
+      padding: 15px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .playlist-item:hover {
+      background: rgba(0, 255, 255, 0.1);
+      border-color: var(--primary-color);
+    }
+
+    .playlist-number {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--primary-color);
+      min-width: 30px;
+    }
+
+    .playlist-track-info {
+      flex: 1;
+    }
+
+    .playlist-track-title {
+      font-weight: 600;
+      color: var(--platinum);
+      margin-bottom: 3px;
+    }
+
+    .playlist-track-artist {
+      font-size: 0.9rem;
+      color: rgba(229, 228, 226, 0.7);
+    }
+
+    /* Diamond Sparkle Effect */
+    @keyframes sparkle {
+
+      0%,
+      100% {
+        opacity: 0;
+        transform: scale(0) rotate(0deg);
+      }
+
+      50% {
+        opacity: 1;
+        transform: scale(1) rotate(180deg);
+      }
+    }
+
+    .sparkle {
+      position: relative;
+    }
+
+    .sparkle::after {
+      content: '💎';
+      position: absolute;
+      top: -10px;
+      right: -10px;
+      opacity: 0;
+      animation: sparkle 2s ease-in-out infinite;
+      font-size: 1.2rem;
+    }
+
+    .sparkle:hover::after {
+      animation: sparkle 0.6s ease-in-out infinite;
+    }
+
+    /* Mobile Responsive */
+    @media (max-width: 768px) {
+      .music-title {
+        font-size: 3.5rem;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .album-art {
+        width: 200px;
+        height: 200px;
+        font-size: 5rem;
+      }
+
+      .track-title {
+        font-size: 2rem;
+      }
+
+      .player-controls {
+        gap: 20px;
+      }
+
+      .control-btn {
+        width: 50px;
+        height: 50px;
+        font-size: 1.2rem;
+      }
+
+      .play-btn {
+        width: 70px;
+        height: 70px;
+        font-size: 1.8rem;
+      }
+
+      .tracks-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .library-categories {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .category-btn {
+        width: 200px;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Marble Background -->
+  <div class="marble-background"></div>
+
+  <!-- Video Background -->
+  <div class="video-bg">
+    <video autoplay muted loop>
+      <source src="https://assets.codepen.io/1480814/video.mp4" type="video/mp4">
+    </video>
+  </div>
+
+  <!-- Marble Overlay -->
+  <div class="marble-overlay"></div>
+
+  <!-- Particles -->
+  <div id="particles-js"></div>
+
+  <!-- Navigation -->
+  <nav class="nav-container">
+    <div class="nav-menu">
+      <a href="clean_index.html" class="logo sparkle">YOUTUNEAI</a>
+      <ul class="nav-links">
+        <li><a href="clean_index.html" class="sparkle">🏠 Home</a></li>
+        <li><a href="shop.html" class="sparkle">🛒 Shop</a></li>
+        <li><a href="streaming.html" class="sparkle">🎮 Streaming</a></li>
+        <li><a href="music.html" class="sparkle active">🎵 Music</a></li>
+        <li><a href="ai-tools.html" class="sparkle">🧠 AI Tools</a></li>
+        <li><a href="#" onclick="openAdmin()" class="sparkle">⚡ ADMIN</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Music Header -->
+  <section class="music-header">
+    <h1 class="music-title sparkle">DIAMOND MUSIC</h1>
+    <h2 class="music-subtitle">Premium AI-Powered Music Studio</h2>
+  </section>
+
+  <!-- Main Music Player -->
+  <section class="main-player">
+    <div class="player-card sparkle">
+      <div class="album-art" id="albumArt">🎵</div>
+
+      <div class="track-info">
+        <h2 class="track-title" id="trackTitle">Diamond Jazz Fusion</h2>
+        <p class="track-artist" id="trackArtist">YouTuneAI Studio</p>
+      </div>
+
+      <div class="progress-container" onclick="seekTo(event)">
+        <div class="progress-bar" id="progressBar"></div>
+      </div>
+      <div class="time-display">
+        <span id="currentTime">2:34</span>
+        <span id="totalTime">5:47</span>
+      </div>
+
+      <div class="player-controls">
+        <button class="control-btn sparkle" onclick="previousTrack()">
+          <i class='bx bx-skip-previous'></i>
+        </button>
+        <button class="control-btn sparkle" onclick="rewind()">
+          <i class='bx bx-rewind'></i>
+        </button>
+        <button class="play-btn sparkle" onclick="togglePlay()" id="playButton">
+          <i class='bx bx-play' id="playIcon"></i>
+        </button>
+        <button class="control-btn sparkle" onclick="fastForward()">
+          <i class='bx bx-fast-forward'></i>
+        </button>
+        <button class="control-btn sparkle" onclick="nextTrack()">
+          <i class='bx bx-skip-next'></i>
+        </button>
+      </div>
+
+      <div class="volume-controls">
+        <button class="control-btn" onclick="toggleMute()">
+          <i class='bx bx-volume-full' id="volumeIcon"></i>
+        </button>
+        <input type="range" class="volume-slider" id="volumeSlider" min="0" max="100" value="75"
+          onchange="setVolume(this.value)">
+        <span id="volumeValue">75%</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Music Library -->
+  <section class="music-library">
+    <div class="library-header">
+      <h2 class="section-title sparkle">💎 Premium Music Library</h2>
+      <div class="library-categories">
+        <button class="category-btn active" data-category="all">All Tracks</button>
+        <button class="category-btn" data-category="jazz">Jazz</button>
+        <button class="category-btn" data-category="electronic">Electronic</button>
+        <button class="category-btn" data-category="ambient">Ambient</button>
+        <button class="category-btn" data-category="corporate">Corporate</button>
+        <button class="category-btn" data-category="cinematic">Cinematic</button>
+      </div>
+    </div>
+
+    <div class="tracks-grid" id="tracksGrid">
+      <!-- Tracks will be loaded here via JavaScript -->
+    </div>
+  </section>
+
+  <!-- Current Playlist -->
+  <section class="playlist-section">
+    <div class="playlist-card sparkle">
+      <div class="playlist-header">
+        <h3 class="playlist-title">🎧 Current Playlist</h3>
+        <p style="color: var(--platinum);">Diamond-Quality Curated Collection</p>
+      </div>
+      <div class="playlist-items" id="playlistItems">
+        <!-- Playlist items will be loaded here -->
+      </div>
+    </div>
+  </section>
+
+  <script>
+    // Initialize Particles (same as other pages)
+    particlesJS('particles-js', {
+      "particles": {
+        "number": {
+          "value": 100,
+          "density": {
+            "enable": true,
+            "value_area": 800
+          }
+        },
+        "color": {
+          "value": ["#00ffff", "#ffffff", "#e5e4e2"]
+        },
+        "shape": {
+          "type": "circle",
+          "stroke": {
+            "width": 0,
+            "color": "#000000"
+          },
+          "polygon": {
+            "nb_sides": 6
+          }
+        },
+        "opacity": {
+          "value": 0.7,
+          "random": true,
+          "anim": {
+            "enable": true,
+            "speed": 1,
+            "opacity_min": 0.3,
+            "sync": false
+          }
+        },
+        "size": {
+          "value": 3,
+          "random": true,
+          "anim": {
+            "enable": true,
+            "speed": 2,
+            "size_min": 0.5,
+            "sync": false
+          }
+        },
+        "line_linked": {
+          "enable": true,
+          "distance": 150,
+          "color": "#00ffff",
+          "opacity": 0.4,
+          "width": 1
+        },
+        "move": {
+          "enable": true,
+          "speed": 2,
+          "direction": "none",
+          "random": true,
+          "straight": false,
+          "out_mode": "out",
+          "bounce": false,
+          "attract": {
+            "enable": false,
+            "rotateX": 600,
+            "rotateY": 1200
+          }
+        }
+      },
+      "interactivity": {
+        "detect_on": "canvas",
+        "events": {
+          "onhover": {
+            "enable": true,
+            "mode": "repulse"
+          },
+          "onclick": {
+            "enable": true,
+            "mode": "push"
+          },
+          "resize": true
+        },
+        "modes": {
+          "grab": {
+            "distance": 400,
+            "line_linked": {
+              "opacity": 1
+            }
+          },
+          "bubble": {
+            "distance": 400,
+            "size": 40,
+            "duration": 2,
+            "opacity": 8,
+            "speed": 3
+          },
+          "repulse": {
+            "distance": 200,
+            "duration": 0.4
+          },
+          "push": {
+            "particles_nb": 4
+          },
+          "remove": {
+            "particles_nb": 2
+          }
+        }
+      },
+      "retina_detect": true
+    });
+
+    // Music Data
+    const musicTracks = [
+      {
+        id: 1,
+        title: "Diamond Jazz Fusion",
+        artist: "YouTuneAI Studio",
+        duration: "5:47",
+        category: "jazz",
+        icon: "🎷",
+        url: "https://cdn.pixabay.com/audio/2023/03/21/audio_128b151bbd.mp3"
+      },
+      {
+        id: 2,
+        title: "Platinum Ambient Dreams",
+        artist: "Crystal Soundscapes",
+        duration: "7:23",
+        category: "ambient",
+        icon: "🌙",
+        url: "https://cdn.pixabay.com/audio/2023/03/21/audio_128b151bbd.mp3"
+      },
+      {
+        id: 3,
+        title: "Corporate Diamond Shine",
+        artist: "Business Elite",
+        duration: "4:12",
+        category: "corporate",
+        icon: "💼",
+        url: "https://cdn.pixabay.com/audio/2023/03/21/audio_128b151bbd.mp3"
+      },
+      {
+        id: 4,
+        title: "Electronic Marble Flow",
+        artist: "Digital Premium",
+        duration: "6:35",
+        category: "electronic",
+        icon: "⚡",
+        url: "https://cdn.pixabay.com/audio/2023/03/21/audio_128b151bbd.mp3"
+      },
+      {
+        id: 5,
+        title: "Cinematic Platinum Score",
+        artist: "Epic Orchestral",
+        duration: "8:41",
+        category: "cinematic",
+        icon: "🎬",
+        url: "https://cdn.pixabay.com/audio/2023/03/21/audio_128b151bbd.mp3"
+      },
+      {
+        id: 6,
+        title: "Diamond Lounge Jazz",
+        artist: "Luxury Lounge",
+        duration: "5:18",
+        category: "jazz",
+        icon: "🥂",
+        url: "https://cdn.pixabay.com/audio/2023/03/21/audio_128b151bbd.mp3"
+      }
+    ];
+
+    // Player State
+    let currentTrack = 0;
+    let isPlaying = false;
+    let currentTime = 154; // 2:34 in seconds
+    let totalTime = 347; // 5:47 in seconds
+    let volume = 75;
+    let isMuted = false;
+    let progressInterval;
+
+    function loadTracks() {
+      const tracksGrid = document.getElementById('tracksGrid');
+      tracksGrid.innerHTML = '';
+
+      musicTracks.forEach((track, index) => {
+        const trackCard = document.createElement('div');
+        trackCard.className = 'track-card sparkle';
+        trackCard.innerHTML = `
+          <div class="track-thumbnail">${track.icon}</div>
+          <div class="track-details">
+            <h3>${track.title}</h3>
+            <p class="track-artist-small">${track.artist}</p>
+            <p class="track-duration">${track.duration}</p>
+          </div>
+          <div class="track-actions">
+            <button class="action-btn" onclick="playTrack(${index})">Play</button>
+            <button class="action-btn" onclick="addToPlaylist(${index})">Add</button>
+            <button class="action-btn" onclick="downloadTrack(${index})">Download</button>
+          </div>
+        `;
+        tracksGrid.appendChild(trackCard);
+      });
+    }
+
+    function loadPlaylist() {
+      const playlistItems = document.getElementById('playlistItems');
+      playlistItems.innerHTML = '';
+
+      musicTracks.forEach((track, index) => {
+        const playlistItem = document.createElement('div');
+        playlistItem.className = 'playlist-item';
+        playlistItem.onclick = () => playTrack(index);
+        playlistItem.innerHTML = `
+          <div class="playlist-number">${index + 1}</div>
+          <div class="playlist-track-info">
+            <div class="playlist-track-title">${track.title}</div>
+            <div class="playlist-track-artist">${track.artist}</div>
+          </div>
+          <div style="color: var(--primary-color); font-weight: 600;">${track.duration}</div>
+        `;
+        playlistItems.appendChild(playlistItem);
+      });
+    }
+
+    function playTrack(index) {
+      currentTrack = index;
+      const track = musicTracks[index];
+
+      document.getElementById('trackTitle').textContent = track.title;
+      document.getElementById('trackArtist').textContent = track.artist;
+      document.getElementById('albumArt').textContent = track.icon;
+      document.getElementById('totalTime').textContent = track.duration;
+
+      // Reset progress
+      currentTime = 0;
+      updateProgress();
+
+      if (isPlaying) {
+        startProgress();
+      }
+
+      showNotification(`🎵 Now playing: ${track.title}`);
+    }
+
+    function togglePlay() {
+      const playIcon = document.getElementById('playIcon');
+
+      if (isPlaying) {
+        isPlaying = false;
+        playIcon.className = 'bx bx-play';
+        clearInterval(progressInterval);
+        showNotification('⏸️ Music paused');
+      } else {
+        isPlaying = true;
+        playIcon.className = 'bx bx-pause';
+        startProgress();
+        showNotification('▶️ Music playing');
+      }
+    }
+
+    function startProgress() {
+      progressInterval = setInterval(() => {
+        if (currentTime < totalTime) {
+          currentTime++;
+          updateProgress();
+        } else {
+          nextTrack();
+        }
+      }, 1000);
+    }
+
+    function updateProgress() {
+      const progressPercent = (currentTime / totalTime) * 100;
+      document.getElementById('progressBar').style.width = progressPercent + '%';
+
+      const minutes = Math.floor(currentTime / 60);
+      const seconds = currentTime % 60;
+      document.getElementById('currentTime').textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+    }
+
+    function seekTo(event) {
+      const progressContainer = event.target.closest('.progress-container');
+      const rect = progressContainer.getBoundingClientRect();
+      const clickX = event.clientX - rect.left;
+      const progressPercent = clickX / rect.width;
+
+      currentTime = Math.floor(progressPercent * totalTime);
+      updateProgress();
+
+      showNotification(`⏭️ Seeked to ${Math.floor(currentTime / 60)}:${(currentTime % 60).toString().padStart(2, '0')}`);
+    }
+
+    function previousTrack() {
+      currentTrack = currentTrack > 0 ? currentTrack - 1 : musicTracks.length - 1;
+      playTrack(currentTrack);
+    }
+
+    function nextTrack() {
+      currentTrack = currentTrack < musicTracks.length - 1 ? currentTrack + 1 : 0;
+      playTrack(currentTrack);
+    }
+
+    function rewind() {
+      currentTime = Math.max(0, currentTime - 15);
+      updateProgress();
+      showNotification('⏪ Rewound 15 seconds');
+    }
+
+    function fastForward() {
+      currentTime = Math.min(totalTime, currentTime + 15);
+      updateProgress();
+      showNotification('⏩ Fast forwarded 15 seconds');
+    }
+
+    function setVolume(value) {
+      volume = value;
+      document.getElementById('volumeValue').textContent = value + '%';
+
+      if (isMuted && value > 0) {
+        toggleMute();
+      }
+
+      showNotification(`🔊 Volume: ${value}%`);
+    }
+
+    function toggleMute() {
+      const volumeIcon = document.getElementById('volumeIcon');
+      const volumeSlider = document.getElementById('volumeSlider');
+
+      if (isMuted) {
+        isMuted = false;
+        volumeIcon.className = 'bx bx-volume-full';
+        volumeSlider.value = volume;
+        showNotification('🔊 Audio unmuted');
+      } else {
+        isMuted = true;
+        volumeIcon.className = 'bx bx-volume-mute';
+        volumeSlider.value = 0;
+        showNotification('🔇 Audio muted');
+      }
+
+      document.getElementById('volumeValue').textContent = volumeSlider.value + '%';
+    }
+
+    function addToPlaylist(index) {
+      const track = musicTracks[index];
+      showNotification(`➕ Added "${track.title}" to playlist`);
+    }
+
+    function downloadTrack(index) {
+      const track = musicTracks[index];
+      showNotification(`⬇️ Downloading "${track.title}"... (Demo)`);
+    }
+
+    // Category filtering
+    document.addEventListener('click', function (e) {
+      if (e.target.classList.contains('category-btn')) {
+        // Update active category
+        document.querySelectorAll('.category-btn').forEach(btn => btn.classList.remove('active'));
+        e.target.classList.add('active');
+
+        const category = e.target.dataset.category;
+        filterTracks(category);
+      }
+    });
+
+    function filterTracks(category) {
+      const filteredTracks = category === 'all' ? musicTracks : musicTracks.filter(track => track.category === category);
+      const tracksGrid = document.getElementById('tracksGrid');
+      tracksGrid.innerHTML = '';
+
+      filteredTracks.forEach((track, index) => {
+        const trackCard = document.createElement('div');
+        trackCard.className = 'track-card sparkle';
+        trackCard.innerHTML = `
+          <div class="track-thumbnail">${track.icon}</div>
+          <div class="track-details">
+            <h3>${track.title}</h3>
+            <p class="track-artist-small">${track.artist}</p>
+            <p class="track-duration">${track.duration}</p>
+          </div>
+          <div class="track-actions">
+            <button class="action-btn" onclick="playTrack(${musicTracks.indexOf(track)})">Play</button>
+            <button class="action-btn" onclick="addToPlaylist(${musicTracks.indexOf(track)})">Add</button>
+            <button class="action-btn" onclick="downloadTrack(${musicTracks.indexOf(track)})">Download</button>
+          </div>
+        `;
+        tracksGrid.appendChild(trackCard);
+      });
+    }
+
+    function showNotification(message) {
+      const notification = document.createElement('div');
+      notification.style.cssText = `
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: rgba(42, 52, 57, 0.95);
+        backdrop-filter: blur(20px);
+        border: 2px solid rgba(0, 255, 255, 0.5);
+        border-radius: 15px;
+        padding: 20px 30px;
+        color: white;
+        font-weight: 600;
+        z-index: 999999;
+        text-align: center;
+        box-shadow: 0 0 30px rgba(0, 255, 255, 0.3);
+      `;
+      notification.textContent = message;
+      document.body.appendChild(notification);
+
+      setTimeout(() => {
+        notification.remove();
+      }, 3000);
+    }
+
+    // Initialize on load
+    document.addEventListener('DOMContentLoaded', function () {
+      loadTracks();
+      loadPlaylist();
+      playTrack(0);
+
+      console.log('🎵 YouTuneAI Diamond Music Studio Ready');
+      console.log('🎧 Premium music player loaded');
+      console.log('💎 Diamond-quality audio library active');
+      console.log('🎼 Interactive playlist system enabled');
+    });
+  </script>
+</body>
+
+</html>

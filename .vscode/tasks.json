@@ -1,197 +1,73 @@
 {
-    "tasks": [
-        {
-            "args": [
-                "ai_controller.py",
-                "--deploy-all"
-            ],
-            "command": "python",
-            "group": "build",
-            "label": "\ud83d\ude80 Deploy YouTuneAI Theme",
-            "options": {
-                "cwd": "${workspaceFolder}"
-            },
-            "presentation": {
-                "clear": false,
-                "echo": true,
-                "focus": false,
-                "panel": "new",
-                "reveal": "always",
-                "showReuseMessage": true
-            },
-            "problemMatcher": [],
-            "type": "shell"
-        },
-        {
-            "args": [
-                "ai_controller.py"
-            ],
-            "command": "python",
-            "group": "test",
-            "isBackground": true,
-            "label": "\ud83c\udfa4 Start Voice Controller",
-            "options": {
-                "cwd": "${workspaceFolder}"
-            },
-            "presentation": {
-                "clear": true,
-                "echo": true,
-                "focus": true,
-                "panel": "new",
-                "reveal": "always",
-                "showReuseMessage": false
-            },
-            "problemMatcher": [],
-            "type": "shell"
-        },
-        {
-            "args": [
-                "--show-versions",
-                "--status"
-            ],
-            "command": "code",
-            "group": "test",
-            "label": "\ud83d\udd0e Show VS Code Settings",
-            "presentation": {
-                "clear": false,
-                "echo": true,
-                "focus": false,
-                "panel": "shared",
-                "reveal": "always",
-                "showReuseMessage": true
-            },
-            "problemMatcher": [],
-            "type": "shell"
-        },
-        {
-            "args": [
-                "-c",
-                "import sys; import os; print(sys.version); print(sys.executable); print(os.environ.get('VIRTUAL_ENV', 'No Virtual Env'))"
-            ],
-            "command": "python",
-            "group": "test",
-            "label": "\ud83e\udde0 Show Python & Env Info",
-            "presentation": {
-                "clear": false,
-                "echo": true,
-                "focus": false,
-                "panel": "shared",
-                "reveal": "always",
-                "showReuseMessage": true
-            },
-            "problemMatcher": [],
-            "type": "shell"
-        },
-        {
-            "args": [
-                "--list-extensions"
-            ],
-            "command": "code",
-            "group": "test",
-            "label": "\uD83D\uDEA8 Security Check: Active Extensions",
-            "presentation": {
-                "clear": false,
-                "echo": true,
-                "focus": false,
-                "panel": "shared",
-                "reveal": "always",
-                "showReuseMessage": true
-            },
-            "problemMatcher": [],
-            "type": "shell"
-        },
-        {
-            "args": [
-                "list"
-            ],
-            "command": "pip",
-            "group": "test",
-            "label": "\ud83d\udce6 List All Installed Packages",
-            "presentation": {
-                "clear": false,
-                "echo": true,
-                "focus": false,
-                "panel": "shared",
-                "reveal": "always",
-                "showReuseMessage": true
-            },
-            "problemMatcher": [],
-            "type": "shell"
-        },
-        {
-            "args": [],
-            "command": "pytest",
-            "group": "test",
-            "label": "\ud83e\uddea Run Tests",
-            "presentation": {
-                "clear": false,
-                "echo": true,
-                "focus": false,
-                "panel": "shared",
-                "reveal": "always",
-                "showReuseMessage": true
-            },
-            "problemMatcher": [],
-            "type": "shell"
-        },
-        {
-            "args": [
-                "install",
-                "-r",
-                "requirements.txt"
-            ],
-            "command": "pip",
-            "group": "build",
-            "label": "📦 Install Python Dependencies",
-            "presentation": {
-                "clear": false,
-                "echo": true,
-                "focus": false,
-                "panel": "shared",
-                "reveal": "always",
-                "showReuseMessage": true
-            },
-            "problemMatcher": [],
-            "type": "shell"
-        },
-        {
-            "args": [
-                "-Command",
-                "Write-Host '🚀 Setting up YouTuneAI Environment...' -ForegroundColor Cyan; if (!(Test-Path '.env')) { Copy-Item '.env.example' '.env'; Write-Host '✅ Created .env file - please configure your API keys' -ForegroundColor Green } else { Write-Host '✅ .env file already exists' -ForegroundColor Green }; Write-Host '📋 Next steps:' -ForegroundColor Yellow; Write-Host '1. Edit .env file with your API keys' -ForegroundColor White; Write-Host '2. Run: Install Python Dependencies' -ForegroundColor White; Write-Host '3. Run: Start Voice Controller' -ForegroundColor White"
-            ],
-            "command": "powershell",
-            "group": "build",
-            "label": "🔧 Setup Environment",
-            "presentation": {
-                "clear": false,
-                "echo": true,
-                "focus": false,
-                "panel": "shared",
-                "reveal": "always",
-                "showReuseMessage": true
-            },
-            "problemMatcher": [],
-            "type": "shell"
-        },
-        {
-            "args": [
-                "-c",
-                "import openai; print('✅ OpenAI library imported successfully'); from ai_controller import YouTuneAIController; controller = YouTuneAIController(); print('✅ AI Controller initialized successfully')"
-            ],
-            "command": "python",
-            "group": "test",
-            "label": "🧪 Test AI Connection",
-            "presentation": {
-                "clear": false,
-                "echo": true,
-                "focus": false,
-                "panel": "shared",
-                "reveal": "always",
-                "showReuseMessage": true
-            },
-            "problemMatcher": [],
-            "type": "shell"
-        }
-    ],
-    "version": "2.0.0"
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "\ud83d\ude80 Deploy YouTuneAI Theme",
+      "type": "shell",
+      "command": "python",
+      "args": [
+        "src/deployment/working_deployment_controller.py"
+      ],
+      "group": "build",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "presentation": {
+        "echo": true,
+        "reveal": "always"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "\ud83e\uddea Test Deployment Connection",
+      "type": "shell",
+      "command": "python",
+      "args": [
+        "-c",
+        "from src.deployment.working_deployment_controller import YouTuneAIDeploymentController; c = YouTuneAIDeploymentController(); status = c.get_deployment_status(); print('\u2705 Connection test passed' if status['server_accessible'] else '\u274c Connection failed')"
+      ],
+      "group": "test",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      }
+    },
+    {
+      "label": "\ud83d\udce6 Install Dependencies",
+      "type": "shell",
+      "command": "pip",
+      "args": [
+        "install",
+        "-r",
+        "requirements.txt"
+      ],
+      "group": "build",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      }
+    },
+    {
+      "label": "\ud83e\uddf9 Clean Project",
+      "type": "shell",
+      "command": "python",
+      "args": [
+        "project_cleaner_ultimate.py"
+      ],
+      "group": "build",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      }
+    },
+    {
+      "label": "\ud83c\udfa8 Upload CSS Only",
+      "type": "shell",
+      "command": "python",
+      "args": [
+        "src/deployment/direct_css_upload.py"
+      ],
+      "group": "build",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      }
+    }
+  ]
 }

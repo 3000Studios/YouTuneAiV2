@@ -1,2 +1,0 @@
-<?php
-// woocommerce main file

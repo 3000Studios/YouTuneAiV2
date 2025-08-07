@@ -1,1 +1,0 @@
-print('🎙️ Whisper Command Ready')

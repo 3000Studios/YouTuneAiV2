@@ -1,0 +1,1194 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>YouTuneAI - Diamond Streaming Center</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap"
+    rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+    rel="stylesheet">
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary-color: #00ffff;
+      --secondary-color: #e5e4e2;
+      --accent-color: #ffffff;
+      --platinum: #e5e4e2;
+      --gunmetal: #2a3439;
+      --diamond-glow: 0 0 20px rgba(0, 255, 255, 0.8), 0 0 40px rgba(0, 255, 255, 0.6);
+      --platinum-shine: 0 0 30px rgba(229, 228, 226, 0.8), 0 0 60px rgba(229, 228, 226, 0.4);
+      --marble-bg: linear-gradient(135deg, rgba(0, 0, 0, 0.9) 0%, rgba(42, 52, 57, 0.8) 50%, rgba(0, 0, 0, 0.9) 100%);
+    }
+
+    body {
+      font-family: 'Montserrat', 'Inter', sans-serif;
+      background: #000;
+      color: white;
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Marble Background */
+    .marble-background {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -3;
+      background-image: url('https://images.unsplash.com/photo-1578662996442-48f60103fc96?q=80&w=2070&auto=format&fit=crop');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+    }
+
+    /* Video Background Underlay */
+    .video-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -2;
+      opacity: 0.3;
+    }
+
+    .video-bg video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* Marble Overlay */
+    .marble-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      background: var(--marble-bg);
+      backdrop-filter: blur(1px);
+    }
+
+    /* Particles Container */
+    #particles-js {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    /* Navigation */
+    .nav-container {
+      position: relative;
+      top: 0;
+      width: 100%;
+      background: rgba(42, 52, 57, 0.15);
+      backdrop-filter: blur(20px);
+      padding: 20px 0;
+      z-index: 1000;
+      border-bottom: 2px solid rgba(0, 255, 255, 0.2);
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .nav-menu {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 30px;
+    }
+
+    .logo {
+      font-size: 2.5rem;
+      font-weight: 900;
+      color: var(--primary-color);
+      text-shadow: var(--diamond-glow);
+      animation: diamondPulse 3s ease-in-out infinite;
+      font-family: 'Montserrat', sans-serif;
+      letter-spacing: 2px;
+      text-decoration: none;
+    }
+
+    @keyframes diamondPulse {
+
+      0%,
+      100% {
+        text-shadow: var(--diamond-glow);
+        transform: scale(1);
+      }
+
+      50% {
+        text-shadow: 0 0 40px rgba(0, 255, 255, 1), 0 0 80px rgba(229, 228, 226, 0.8);
+        transform: scale(1.02);
+      }
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 25px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--platinum);
+      text-decoration: none;
+      padding: 12px 25px;
+      border-radius: 30px;
+      background: rgba(229, 228, 226, 0.1);
+      border: 2px solid transparent;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      font-weight: 600;
+      font-size: 0.95rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .nav-links a::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.4), transparent);
+      transition: left 0.5s;
+    }
+
+    .nav-links a:hover {
+      background: rgba(0, 255, 255, 0.1);
+      border-color: var(--primary-color);
+      box-shadow: var(--diamond-glow);
+      transform: translateY(-3px);
+      color: white;
+    }
+
+    .nav-links a:hover::before {
+      left: 100%;
+    }
+
+    .nav-links a.active {
+      background: rgba(0, 255, 255, 0.2);
+      border-color: var(--primary-color);
+      box-shadow: var(--diamond-glow);
+      color: white;
+    }
+
+    /* Audio Player */
+    .audio-player {
+      position: fixed;
+      top: 20px;
+      right: 30px;
+      z-index: 1001;
+      background: rgba(42, 52, 57, 0.9);
+      backdrop-filter: blur(20px);
+      padding: 10px 20px;
+      border-radius: 25px;
+      border: 1px solid rgba(0, 255, 255, 0.3);
+    }
+
+    .audio-player audio {
+      width: 200px;
+      height: 30px;
+    }
+
+    /* Streaming Header */
+    .streaming-header {
+      padding: 120px 20px 60px;
+      text-align: center;
+      position: relative;
+      z-index: 10;
+    }
+
+    .streaming-title {
+      font-size: 5rem;
+      font-weight: 900;
+      margin-bottom: 30px;
+      background: linear-gradient(135deg, #ffffff 0%, #00ffff 30%, #e5e4e2 70%, #ffffff 100%);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: var(--diamond-glow);
+      animation: diamondGlow 4s ease-in-out infinite;
+      font-family: 'Montserrat', sans-serif;
+      letter-spacing: 3px;
+    }
+
+    @keyframes diamondGlow {
+
+      0%,
+      100% {
+        text-shadow: var(--diamond-glow);
+        transform: scale(1);
+      }
+
+      25% {
+        text-shadow: 0 0 40px rgba(0, 255, 255, 1), 0 0 80px rgba(229, 228, 226, 0.6);
+        transform: scale(1.02);
+      }
+
+      50% {
+        text-shadow: var(--platinum-shine);
+        transform: scale(1.05);
+      }
+
+      75% {
+        text-shadow: 0 0 50px rgba(0, 255, 255, 0.9), 0 0 100px rgba(255, 255, 255, 0.3);
+        transform: scale(1.03);
+      }
+    }
+
+    .streaming-subtitle {
+      font-size: 2rem;
+      margin-bottom: 20px;
+      color: var(--platinum);
+      text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
+      font-weight: 600;
+    }
+
+    /* Live Status */
+    .live-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(255, 0, 0, 0.2);
+      border: 2px solid #ff0000;
+      border-radius: 25px;
+      padding: 10px 20px;
+      margin: 20px 0;
+      animation: livePulse 2s ease-in-out infinite;
+    }
+
+    @keyframes livePulse {
+
+      0%,
+      100% {
+        box-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
+      }
+
+      50% {
+        box-shadow: 0 0 40px rgba(255, 0, 0, 0.8);
+      }
+    }
+
+    .live-dot {
+      width: 12px;
+      height: 12px;
+      background: #ff0000;
+      border-radius: 50%;
+      animation: blink 1s ease-in-out infinite;
+    }
+
+    @keyframes blink {
+
+      0%,
+      100% {
+        opacity: 1;
+      }
+
+      50% {
+        opacity: 0.3;
+      }
+    }
+
+    /* Main Streaming Interface */
+    .streaming-main {
+      padding: 40px 20px;
+      max-width: 1400px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 10;
+    }
+
+    .streaming-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 30px;
+      margin-bottom: 40px;
+    }
+
+    /* Video Player */
+    .video-player {
+      background: rgba(229, 228, 226, 0.05);
+      backdrop-filter: blur(20px);
+      border: 2px solid rgba(0, 255, 255, 0.3);
+      border-radius: 25px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .video-screen {
+      width: 100%;
+      height: 500px;
+      background: linear-gradient(135deg, rgba(0, 0, 0, 0.9), rgba(42, 52, 57, 0.7));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .play-button {
+      width: 100px;
+      height: 100px;
+      background: rgba(0, 255, 255, 0.2);
+      border: 3px solid var(--primary-color);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 2rem;
+      color: var(--primary-color);
+    }
+
+    .play-button:hover {
+      transform: scale(1.1);
+      box-shadow: var(--diamond-glow);
+    }
+
+    .video-controls {
+      padding: 20px;
+      background: rgba(0, 0, 0, 0.7);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .control-group {
+      display: flex;
+      gap: 15px;
+      align-items: center;
+    }
+
+    .control-btn {
+      background: none;
+      border: 2px solid var(--primary-color);
+      color: var(--primary-color);
+      padding: 10px 15px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 1rem;
+    }
+
+    .control-btn:hover {
+      background: var(--primary-color);
+      color: #000;
+      box-shadow: var(--diamond-glow);
+    }
+
+    /* Chat Panel */
+    .chat-panel {
+      background: rgba(229, 228, 226, 0.05);
+      backdrop-filter: blur(20px);
+      border: 2px solid rgba(0, 255, 255, 0.3);
+      border-radius: 25px;
+      display: flex;
+      flex-direction: column;
+      height: 600px;
+    }
+
+    .chat-header {
+      padding: 20px;
+      border-bottom: 2px solid rgba(0, 255, 255, 0.2);
+      text-align: center;
+    }
+
+    .chat-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--primary-color);
+      text-shadow: var(--diamond-glow);
+    }
+
+    .viewer-count {
+      color: var(--platinum);
+      margin-top: 5px;
+    }
+
+    .chat-messages {
+      flex: 1;
+      padding: 20px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .chat-message {
+      background: rgba(42, 52, 57, 0.3);
+      border: 1px solid rgba(0, 255, 255, 0.2);
+      border-radius: 15px;
+      padding: 10px 15px;
+      animation: slideIn 0.3s ease;
+    }
+
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .message-user {
+      font-weight: 600;
+      color: var(--primary-color);
+      margin-bottom: 3px;
+    }
+
+    .message-text {
+      color: var(--platinum);
+      font-size: 0.9rem;
+    }
+
+    .chat-input {
+      padding: 20px;
+      border-top: 2px solid rgba(0, 255, 255, 0.2);
+      display: flex;
+      gap: 10px;
+    }
+
+    .chat-input input {
+      flex: 1;
+      background: rgba(0, 0, 0, 0.6);
+      border: 2px solid rgba(0, 255, 255, 0.3);
+      border-radius: 15px;
+      padding: 10px 15px;
+      color: white;
+      font-size: 1rem;
+    }
+
+    .chat-input input:focus {
+      outline: none;
+      border-color: var(--primary-color);
+      box-shadow: var(--diamond-glow);
+    }
+
+    .send-btn {
+      background: linear-gradient(135deg, #00ffff 0%, #e5e4e2 50%, #00ffff 100%);
+      color: #000;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 15px;
+      cursor: pointer;
+      font-weight: 700;
+      transition: all 0.3s ease;
+    }
+
+    .send-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--diamond-glow);
+    }
+
+    /* Streaming Stats */
+    .streaming-stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+      margin-bottom: 40px;
+    }
+
+    .stat-card {
+      background: rgba(229, 228, 226, 0.05);
+      backdrop-filter: blur(20px);
+      border: 2px solid rgba(0, 255, 255, 0.2);
+      border-radius: 25px;
+      padding: 30px;
+      text-align: center;
+      transition: all 0.4s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .stat-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.1), transparent);
+      transition: left 0.6s;
+    }
+
+    .stat-card:hover::before {
+      left: 100%;
+    }
+
+    .stat-card:hover {
+      border-color: var(--primary-color);
+      box-shadow: var(--diamond-glow);
+      transform: translateY(-5px);
+    }
+
+    .stat-icon {
+      font-size: 3rem;
+      color: var(--primary-color);
+      margin-bottom: 15px;
+      text-shadow: var(--diamond-glow);
+    }
+
+    .stat-number {
+      font-size: 2.5rem;
+      font-weight: 900;
+      color: var(--platinum);
+      margin-bottom: 10px;
+    }
+
+    .stat-label {
+      color: rgba(229, 228, 226, 0.8);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    /* Stream Controls */
+    .stream-controls {
+      background: rgba(229, 228, 226, 0.05);
+      backdrop-filter: blur(20px);
+      border: 2px solid rgba(0, 255, 255, 0.2);
+      border-radius: 25px;
+      padding: 40px;
+      text-align: center;
+    }
+
+    .controls-title {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 30px;
+      color: var(--primary-color);
+      text-shadow: var(--diamond-glow);
+    }
+
+    .control-buttons {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 30px;
+    }
+
+    .stream-btn {
+      padding: 15px 30px;
+      border: none;
+      border-radius: 20px;
+      font-size: 1.1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    .stream-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+      transition: left 0.6s;
+    }
+
+    .stream-btn:hover::before {
+      left: 100%;
+    }
+
+    .start-stream {
+      background: linear-gradient(135deg, #00ff00 0%, #32cd32 100%);
+      color: #000;
+    }
+
+    .start-stream:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 0 30px rgba(0, 255, 0, 0.6);
+    }
+
+    .pause-stream {
+      background: linear-gradient(135deg, #ffa500 0%, #ff8c00 100%);
+      color: #000;
+    }
+
+    .pause-stream:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 0 30px rgba(255, 165, 0, 0.6);
+    }
+
+    .stop-stream {
+      background: linear-gradient(135deg, #ff0000 0%, #dc143c 100%);
+      color: white;
+    }
+
+    .stop-stream:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 0 30px rgba(255, 0, 0, 0.6);
+    }
+
+    .settings-btn {
+      background: linear-gradient(135deg, #00ffff 0%, #e5e4e2 50%, #00ffff 100%);
+      color: #000;
+    }
+
+    .settings-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--diamond-glow);
+    }
+
+    /* Diamond Sparkle Effect */
+    @keyframes sparkle {
+
+      0%,
+      100% {
+        opacity: 0;
+        transform: scale(0) rotate(0deg);
+      }
+
+      50% {
+        opacity: 1;
+        transform: scale(1) rotate(180deg);
+      }
+    }
+
+    .sparkle {
+      position: relative;
+    }
+
+    .sparkle::after {
+      content: '💎';
+      position: absolute;
+      top: -10px;
+      right: -10px;
+      opacity: 0;
+      animation: sparkle 2s ease-in-out infinite;
+      font-size: 1.2rem;
+    }
+
+    .sparkle:hover::after {
+      animation: sparkle 0.6s ease-in-out infinite;
+    }
+
+    /* Mobile Responsive */
+    @media (max-width: 768px) {
+      .streaming-title {
+        font-size: 3.5rem;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .streaming-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .video-screen {
+        height: 300px;
+      }
+
+      .chat-panel {
+        height: 400px;
+      }
+
+      .streaming-stats {
+        grid-template-columns: 1fr;
+      }
+
+      .control-buttons {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .stream-btn {
+        width: 100%;
+        max-width: 300px;
+      }
+
+      .audio-player {
+        right: 10px;
+        top: 10px;
+      }
+
+      .audio-player audio {
+        width: 150px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Marble Background -->
+  <div class="marble-background"></div>
+
+  <!-- Video Background -->
+  <div class="video-bg">
+    <video autoplay muted loop>
+      <source src="https://assets.codepen.io/1480814/video.mp4" type="video/mp4">
+    </video>
+  </div>
+
+  <!-- Marble Overlay -->
+  <div class="marble-overlay"></div>
+
+  <!-- Particles -->
+  <div id="particles-js"></div>
+
+  <!-- Audio Player -->
+  <div class="audio-player">
+    <audio controls autoplay loop>
+      <source src="https://cdn.pixabay.com/audio/2023/03/21/audio_128b151bbd.mp3" type="audio/mpeg">
+      Your browser does not support the audio element.
+    </audio>
+  </div>
+
+  <!-- Navigation -->
+  <nav class="nav-container">
+    <div class="nav-menu">
+      <a href="clean_index.html" class="logo sparkle">YOUTUNEAI</a>
+      <ul class="nav-links">
+        <li><a href="clean_index.html" class="sparkle">🏠 Home</a></li>
+        <li><a href="shop.html" class="sparkle">🛒 Shop</a></li>
+        <li><a href="streaming.html" class="sparkle active">🎮 Streaming</a></li>
+        <li><a href="music.html" class="sparkle">🎵 Music</a></li>
+        <li><a href="ai-tools.html" class="sparkle">🧠 AI Tools</a></li>
+        <li><a href="#" onclick="openAdmin()" class="sparkle">⚡ ADMIN</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Streaming Header -->
+  <section class="streaming-header">
+    <h1 class="streaming-title sparkle">DIAMOND STREAMING</h1>
+    <h2 class="streaming-subtitle">Professional Live Streaming Platform</h2>
+    <div class="live-status">
+      <div class="live-dot"></div>
+      <span style="color: #ff0000; font-weight: 700;">● LIVE</span>
+      <span style="color: var(--platinum);">Premium Stream Active</span>
+    </div>
+  </section>
+
+  <!-- Main Streaming Interface -->
+  <section class="streaming-main">
+    <div class="streaming-grid">
+      <!-- Video Player -->
+      <div class="video-player sparkle">
+        <div class="video-screen">
+          <div class="play-button" onclick="toggleStream()">
+            <i class='bx bx-play' id="playIcon"></i>
+          </div>
+        </div>
+        <div class="video-controls">
+          <div class="control-group">
+            <button class="control-btn" onclick="toggleStream()">
+              <i class='bx bx-play' id="controlIcon"></i>
+            </button>
+            <button class="control-btn" onclick="toggleMute()">
+              <i class='bx bx-volume-full' id="volumeIcon"></i>
+            </button>
+            <button class="control-btn" onclick="toggleFullscreen()">
+              <i class='bx bx-fullscreen'></i>
+            </button>
+          </div>
+          <div class="control-group">
+            <span style="color: var(--platinum);">Quality: </span>
+            <button class="control-btn">1080p</button>
+            <button class="control-btn">720p</button>
+            <button class="control-btn">480p</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Chat Panel -->
+      <div class="chat-panel sparkle">
+        <div class="chat-header">
+          <div class="chat-title">💎 Diamond Chat</div>
+          <div class="viewer-count">👥 1,247 viewers online</div>
+        </div>
+        <div class="chat-messages" id="chatMessages">
+          <div class="chat-message">
+            <div class="message-user">💎 DiamondUser123</div>
+            <div class="message-text">This stream quality is incredible! 🔥</div>
+          </div>
+          <div class="chat-message">
+            <div class="message-user">⚡ PlatinumViewer</div>
+            <div class="message-text">Love the marble theme! When's the next stream?</div>
+          </div>
+          <div class="chat-message">
+            <div class="message-user">🎮 StreamFan2025</div>
+            <div class="message-text">This is the most premium streaming platform I've ever seen!</div>
+          </div>
+        </div>
+        <div class="chat-input">
+          <input type="text" id="chatInput" placeholder="Enter your message..." onkeypress="checkChatEnter(event)">
+          <button class="send-btn sparkle" onclick="sendMessage()">Send</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Streaming Stats -->
+    <div class="streaming-stats">
+      <div class="stat-card sparkle">
+        <div class="stat-icon">👥</div>
+        <div class="stat-number" id="viewerCount">1,247</div>
+        <div class="stat-label">Live Viewers</div>
+      </div>
+      <div class="stat-card sparkle">
+        <div class="stat-icon">💖</div>
+        <div class="stat-number" id="likeCount">3,892</div>
+        <div class="stat-label">Likes</div>
+      </div>
+      <div class="stat-card sparkle">
+        <div class="stat-icon">📡</div>
+        <div class="stat-number">4K</div>
+        <div class="stat-label">Stream Quality</div>
+      </div>
+      <div class="stat-card sparkle">
+        <div class="stat-icon">⏱️</div>
+        <div class="stat-number" id="streamTime">02:47:33</div>
+        <div class="stat-label">Stream Duration</div>
+      </div>
+    </div>
+
+    <!-- Stream Controls -->
+    <div class="stream-controls sparkle">
+      <h2 class="controls-title">💎 Stream Command Center</h2>
+      <div class="control-buttons">
+        <button class="stream-btn start-stream sparkle" onclick="startStream()">
+          <i class='bx bx-play'></i> Start Stream
+        </button>
+        <button class="stream-btn pause-stream sparkle" onclick="pauseStream()">
+          <i class='bx bx-pause'></i> Pause Stream
+        </button>
+        <button class="stream-btn stop-stream sparkle" onclick="stopStream()">
+          <i class='bx bx-stop'></i> Stop Stream
+        </button>
+        <button class="stream-btn settings-btn sparkle" onclick="openStreamSettings()">
+          <i class='bx bx-cog'></i> Settings
+        </button>
+      </div>
+      <p style="color: rgba(229, 228, 226, 0.8); margin-top: 20px;">
+        Professional streaming controls with diamond-grade quality and real-time analytics
+      </p>
+    </div>
+  </section>
+
+  <script>
+    // Initialize Particles (same as other pages)
+    particlesJS('particles-js', {
+      "particles": {
+        "number": {
+          "value": 100,
+          "density": {
+            "enable": true,
+            "value_area": 800
+          }
+        },
+        "color": {
+          "value": ["#00ffff", "#ffffff", "#e5e4e2"]
+        },
+        "shape": {
+          "type": "circle",
+          "stroke": {
+            "width": 0,
+            "color": "#000000"
+          },
+          "polygon": {
+            "nb_sides": 6
+          }
+        },
+        "opacity": {
+          "value": 0.7,
+          "random": true,
+          "anim": {
+            "enable": true,
+            "speed": 1,
+            "opacity_min": 0.3,
+            "sync": false
+          }
+        },
+        "size": {
+          "value": 3,
+          "random": true,
+          "anim": {
+            "enable": true,
+            "speed": 2,
+            "size_min": 0.5,
+            "sync": false
+          }
+        },
+        "line_linked": {
+          "enable": true,
+          "distance": 150,
+          "color": "#00ffff",
+          "opacity": 0.4,
+          "width": 1
+        },
+        "move": {
+          "enable": true,
+          "speed": 2,
+          "direction": "none",
+          "random": true,
+          "straight": false,
+          "out_mode": "out",
+          "bounce": false,
+          "attract": {
+            "enable": false,
+            "rotateX": 600,
+            "rotateY": 1200
+          }
+        }
+      },
+      "interactivity": {
+        "detect_on": "canvas",
+        "events": {
+          "onhover": {
+            "enable": true,
+            "mode": "repulse"
+          },
+          "onclick": {
+            "enable": true,
+            "mode": "push"
+          },
+          "resize": true
+        },
+        "modes": {
+          "grab": {
+            "distance": 400,
+            "line_linked": {
+              "opacity": 1
+            }
+          },
+          "bubble": {
+            "distance": 400,
+            "size": 40,
+            "duration": 2,
+            "opacity": 8,
+            "speed": 3
+          },
+          "repulse": {
+            "distance": 200,
+            "duration": 0.4
+          },
+          "push": {
+            "particles_nb": 4
+          },
+          "remove": {
+            "particles_nb": 2
+          }
+        }
+      },
+      "retina_detect": true
+    });
+
+    // Streaming functionality
+    let isPlaying = false;
+    let isMuted = false;
+    let streamTime = 0;
+    let streamInterval;
+
+    function toggleStream() {
+      const playIcon = document.getElementById('playIcon');
+      const controlIcon = document.getElementById('controlIcon');
+
+      if (isPlaying) {
+        pauseStream();
+      } else {
+        startStream();
+      }
+    }
+
+    function startStream() {
+      isPlaying = true;
+      document.getElementById('playIcon').className = 'bx bx-pause';
+      document.getElementById('controlIcon').className = 'bx bx-pause';
+
+      // Start stream timer
+      streamInterval = setInterval(() => {
+        streamTime++;
+        updateStreamTime();
+        updateViewerCount();
+      }, 1000);
+
+      showNotification('🎮 Stream started! Diamond quality active');
+    }
+
+    function pauseStream() {
+      isPlaying = false;
+      document.getElementById('playIcon').className = 'bx bx-play';
+      document.getElementById('controlIcon').className = 'bx bx-play';
+
+      clearInterval(streamInterval);
+      showNotification('⏸️ Stream paused');
+    }
+
+    function stopStream() {
+      isPlaying = false;
+      streamTime = 0;
+      document.getElementById('playIcon').className = 'bx bx-play';
+      document.getElementById('controlIcon').className = 'bx bx-play';
+
+      clearInterval(streamInterval);
+      updateStreamTime();
+      showNotification('⏹️ Stream stopped');
+    }
+
+    function toggleMute() {
+      const volumeIcon = document.getElementById('volumeIcon');
+      isMuted = !isMuted;
+
+      if (isMuted) {
+        volumeIcon.className = 'bx bx-volume-mute';
+        showNotification('🔇 Audio muted');
+      } else {
+        volumeIcon.className = 'bx bx-volume-full';
+        showNotification('🔊 Audio unmuted');
+      }
+    }
+
+    function toggleFullscreen() {
+      showNotification('🖥️ Fullscreen mode activated');
+    }
+
+    function updateStreamTime() {
+      const hours = Math.floor(streamTime / 3600);
+      const minutes = Math.floor((streamTime % 3600) / 60);
+      const seconds = streamTime % 60;
+
+      const timeString = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+      document.getElementById('streamTime').textContent = timeString;
+    }
+
+    function updateViewerCount() {
+      const baseCount = 1247;
+      const variation = Math.floor(Math.random() * 20) - 10; // ±10 viewers
+      document.getElementById('viewerCount').textContent = (baseCount + variation).toLocaleString();
+
+      // Update likes occasionally
+      if (Math.random() < 0.1) {
+        const currentLikes = parseInt(document.getElementById('likeCount').textContent.replace(',', ''));
+        document.getElementById('likeCount').textContent = (currentLikes + Math.floor(Math.random() * 5) + 1).toLocaleString();
+      }
+    }
+
+    // Chat functionality
+    const chatMessages = [
+      { user: '💎 DiamondStreamer', message: 'Welcome to the diamond stream everyone!' },
+      { user: '🎮 GameMaster2025', message: 'This quality is insane! 4K streaming at its finest' },
+      { user: '⚡ PlatinumFan', message: 'Love the marble aesthetic! So premium' },
+      { user: '🌟 StreamKing', message: 'Best streaming platform ever created!' },
+      { user: '💫 DiamondViewer', message: 'The particles in the background are so cool!' },
+      { user: '🔥 UltraUser', message: 'This is the future of streaming platforms' }
+    ];
+
+    function sendMessage() {
+      const input = document.getElementById('chatInput');
+      const message = input.value.trim();
+
+      if (message) {
+        addChatMessage('🎤 You', message);
+        input.value = '';
+
+        // Simulate response after 1-3 seconds
+        setTimeout(() => {
+          const randomMsg = chatMessages[Math.floor(Math.random() * chatMessages.length)];
+          addChatMessage(randomMsg.user, randomMsg.message);
+        }, Math.random() * 2000 + 1000);
+      }
+    }
+
+    function addChatMessage(user, message) {
+      const chatContainer = document.getElementById('chatMessages');
+      const messageDiv = document.createElement('div');
+      messageDiv.className = 'chat-message';
+      messageDiv.innerHTML = `
+        <div class="message-user">${user}</div>
+        <div class="message-text">${message}</div>
+      `;
+
+      chatContainer.appendChild(messageDiv);
+      chatContainer.scrollTop = chatContainer.scrollHeight;
+
+      // Keep only last 10 messages
+      while (chatContainer.children.length > 10) {
+        chatContainer.removeChild(chatContainer.firstChild);
+      }
+    }
+
+    function checkChatEnter(event) {
+      if (event.key === 'Enter') {
+        sendMessage();
+      }
+    }
+
+    function openStreamSettings() {
+      showNotification('⚙️ Stream settings panel opened');
+    }
+
+    function showNotification(message) {
+      const notification = document.createElement('div');
+      notification.style.cssText = `
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: rgba(42, 52, 57, 0.95);
+        backdrop-filter: blur(20px);
+        border: 2px solid rgba(0, 255, 255, 0.5);
+        border-radius: 15px;
+        padding: 20px 30px;
+        color: white;
+        font-weight: 600;
+        z-index: 999999;
+        text-align: center;
+        box-shadow: 0 0 30px rgba(0, 255, 255, 0.3);
+      `;
+      notification.textContent = message;
+      document.body.appendChild(notification);
+
+      setTimeout(() => {
+        notification.remove();
+      }, 3000);
+    }
+
+    // Auto-add chat messages periodically
+    setInterval(() => {
+      if (isPlaying) {
+        const randomMsg = chatMessages[Math.floor(Math.random() * chatMessages.length)];
+        addChatMessage(randomMsg.user, randomMsg.message);
+      }
+    }, 15000);
+
+    // Initialize on load
+    document.addEventListener('DOMContentLoaded', function () {
+      console.log('🎮 YouTuneAI Diamond Streaming Center Ready');
+      console.log('📡 Professional streaming features loaded');
+      console.log('💎 Premium chat system active');
+      console.log('📊 Real-time analytics enabled');
+    });
+  </script>
+</body>
+
+</html>

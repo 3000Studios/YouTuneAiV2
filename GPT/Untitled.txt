@@ -1,6 +1,0 @@
-
-Vultr DNS Introduction
-You can learn more about Vultr DNS and its features on the Introduction to Vultr DNS guide.
-Vultr Name Servers
-ns1.vultr.com
-ns2.vultr.com

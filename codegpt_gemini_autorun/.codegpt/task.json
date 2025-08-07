@@ -1,6 +1,0 @@
-{
-  "prompt": "Unzip wp_plugin_sync_bundle.zip, upload each plugin in plugins/ using .vscode/sftp.json, and log the results to plugin_upload_log.md.",
-  "model": "gemini-2.5-flash",
-  "agentMode": true,
-  "autoRun": true
-}

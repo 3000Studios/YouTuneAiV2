@@ -1,1 +1,0 @@
-# AI automation + offline sync logic

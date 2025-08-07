@@ -1,1 +1,0 @@
-# Monetization logic to generate daily revenue
