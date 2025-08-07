@@ -1,0 +1,173 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* YouTuneAi V2 Custom Styles */
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap');
+
+@layer base {
+  html {
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+  
+  body {
+    @apply bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900;
+    @apply text-white min-h-screen;
+    background-image: 
+      radial-gradient(circle at 25% 25%, rgba(0, 255, 255, 0.05) 0%, transparent 50%),
+      radial-gradient(circle at 75% 75%, rgba(229, 228, 226, 0.03) 0%, transparent 50%);
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-gradient-to-r from-diamond-cyan to-primary-500 hover:from-primary-500 hover:to-diamond-cyan;
+    @apply text-white font-semibold px-6 py-3 rounded-lg;
+    @apply transition-all duration-300 ease-in-out;
+    @apply shadow-lg hover:shadow-xl hover:scale-105;
+    @apply border border-diamond-cyan/20 hover:border-diamond-cyan/40;
+  }
+  
+  .btn-secondary {
+    @apply bg-transparent border-2 border-diamond-platinum text-diamond-platinum;
+    @apply hover:bg-diamond-platinum hover:text-diamond-gunmetal;
+    @apply font-semibold px-6 py-3 rounded-lg;
+    @apply transition-all duration-300 ease-in-out;
+    @apply hover:shadow-lg hover:scale-105;
+  }
+  
+  .card-glass {
+    @apply bg-white/5 backdrop-blur-sm border border-white/10;
+    @apply rounded-2xl p-6 shadow-2xl;
+    @apply hover:bg-white/10 transition-all duration-300;
+  }
+  
+  .text-gradient {
+    @apply bg-gradient-to-r from-diamond-cyan via-white to-diamond-platinum;
+    @apply bg-clip-text text-transparent;
+  }
+  
+  .diamond-glow {
+    box-shadow: 
+      0 0 20px rgba(0, 255, 255, 0.3),
+      0 0 40px rgba(0, 255, 255, 0.1),
+      inset 0 0 20px rgba(0, 255, 255, 0.05);
+  }
+  
+  .marble-bg {
+    background-image: url('https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+  }
+  
+  .sparkle {
+    position: relative;
+  }
+  
+  .sparkle::before {
+    content: '✨';
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    animation: sparkle 1.5s ease-in-out infinite;
+    font-size: 0.8rem;
+  }
+  
+  .nav-link {
+    @apply relative text-diamond-platinum hover:text-diamond-cyan;
+    @apply transition-all duration-300 ease-in-out;
+    @apply border-b-2 border-transparent hover:border-diamond-cyan;
+  }
+  
+  .loading-spinner {
+    @apply animate-spin-slow text-diamond-cyan;
+    filter: drop-shadow(0 0 10px rgba(0, 255, 255, 0.5));
+  }
+}
+
+@layer utilities {
+  .perspective-1000 {
+    perspective: 1000px;
+  }
+  
+  .preserve-3d {
+    transform-style: preserve-3d;
+  }
+  
+  .backface-hidden {
+    backface-visibility: hidden;
+  }
+  
+  .rotate-y-180 {
+    transform: rotateY(180deg);
+  }
+}
+
+/* Particle System Background */
+.particles-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(to bottom, #00ffff, #06b6d4);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(to bottom, #06b6d4, #00ffff);
+}
+
+/* Selection color */
+::selection {
+  background: rgba(0, 255, 255, 0.2);
+  color: white;
+}
+
+/* Focus styles */
+.focus-visible\:ring-diamond-cyan:focus-visible {
+  --tw-ring-color: rgb(0 255 255 / 0.5);
+}
+
+/* Animation keyframes for particles */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-20px) rotate(180deg);
+  }
+}
+
+@keyframes glow-pulse {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(0, 255, 255, 0.6);
+  }
+}
+
+.float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.glow-pulse {
+  animation: glow-pulse 2s ease-in-out infinite;
+}

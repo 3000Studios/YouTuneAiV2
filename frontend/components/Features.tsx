@@ -1,0 +1,1 @@
+export function Features() { return (<section className="py-20"><div className="container mx-auto px-6 text-center"><h2 className="text-4xl font-bold text-gradient mb-8">Features Section</h2><p className="text-diamond-platinum/70">This section is under development and will be implemented in the next phase.</p></div></section>) }
