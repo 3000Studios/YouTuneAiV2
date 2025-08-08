@@ -1,0 +1,42 @@
+# Build outputs
+assets/css/dist/
+assets/js/dist/
+node_modules/
+*.log
+
+# WordPress
+wp-config.php
+wp-content/uploads/
+wp-content/cache/
+
+# Development
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+
+# IDE
+.vscode/
+.idea/
+*.sublime-*
+
+# Environment
+.env
+.env.local
+.env.production
+
+# Backup files
+*.backup
+*.bak
+
+# Temporary files
+*.tmp
+*.temp
+
+# Cache
+.cache/
+tmp/
+
+# Coverage reports
+coverage/
+*.lcov
