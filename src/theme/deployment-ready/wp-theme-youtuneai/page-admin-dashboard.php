@@ -613,7 +613,7 @@ function executeCommand(command, source) {
         command: command,
         source: source,
         timestamp: new Date().toISOString(),
-        auth_token: btoa(ADMIN_CREDENTIALS.username + ':' + ADMIN_CREDENTIALS.password)
+        auth_token: btoa('secure_auth_token_' + csrfToken)
     };
     
     // Simulate API call to AI controller
