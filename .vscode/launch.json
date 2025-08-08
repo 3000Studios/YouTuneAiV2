@@ -1,0 +1,21 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "\ud83d\udc1b Debug Deployment Controller",
+      "type": "python",
+      "request": "launch",
+      "program": "${workspaceFolder}/src/deployment/working_deployment_controller.py",
+      "console": "integratedTerminal",
+      "cwd": "${workspaceFolder}"
+    },
+    {
+      "name": "\ud83e\uddf9 Debug Cleaner",
+      "type": "python",
+      "request": "launch",
+      "program": "${workspaceFolder}/project_cleaner_ultimate.py",
+      "console": "integratedTerminal",
+      "cwd": "${workspaceFolder}"
+    }
+  ]
+}

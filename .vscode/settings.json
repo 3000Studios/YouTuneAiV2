@@ -1,0 +1,385 @@
+{
+  // YouTuneAI Development Environment Settings
+  // Optimized for AI-powered development with premium tooling
+
+  // Python Configuration (Existing)
+  "python.defaultInterpreterPath": "./.venv/Scripts/python.exe",
+  "python.terminal.activateEnvironment": true,
+  "python.analysis.typeCheckingMode": "basic",
+  "python.formatting.provider": "black",
+
+  // Editor Configuration
+  "editor.tabSize": 2,
+  "editor.insertSpaces": true,
+  "editor.formatOnSave": true,
+  "editor.formatOnPaste": true,
+  "editor.formatOnType": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll": "explicit",
+    "source.organizeImports": "explicit",
+    "source.removeUnusedImports": "explicit"
+  },
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.fontSize": 14,
+  "editor.fontFamily": "'Cascadia Code', 'JetBrains Mono', 'Fira Code', Consolas, monospace",
+  "editor.fontLigatures": true,
+  "editor.lineHeight": 1.6,
+  "editor.minimap.enabled": true,
+  "editor.minimap.scale": 2,
+  "editor.wordWrap": "on",
+  "editor.bracketPairColorization.enabled": true,
+  "editor.guides.bracketPairs": true,
+  "editor.inlineSuggest.enabled": true,
+  "editor.suggest.insertMode": "replace",
+  "editor.acceptSuggestionOnEnter": "on",
+
+  // File Management
+  "files.trimTrailingWhitespace": true,
+  "files.insertFinalNewline": true,
+  "files.trimFinalNewlines": true,
+  "files.autoSave": "afterDelay",
+  "files.autoSaveDelay": 700,
+  "files.encoding": "utf8",
+  "files.eol": "\n",
+  "files.associations": {
+    "*.php": "php",
+    "*.html": "html",
+    "*.css": "css",
+    "*.js": "javascript",
+    "*.json": "jsonc",
+    "*.md": "markdown",
+    "*.txt": "plaintext"
+  },
+  "files.exclude": {
+    "**/__pycache__": true,
+    "**/*.pyc": true,
+    "**/logs/*.log": true,
+    "**/backups/*": true,
+    "**/node_modules": true,
+    "**/bower_components": true,
+    "**/.git": false,
+    "**/.DS_Store": true,
+    "**/Thumbs.db": true,
+    "**/build": false,
+    "**/dist": false
+  },
+
+  // Explorer Configuration
+  "explorer.fileNesting.enabled": true,
+  "explorer.fileNesting.patterns": {
+    "*.py": "${capture}.pyc",
+    "requirements.txt": "requirements*.txt",
+    "package.json": "package-lock.json"
+  },
+  "explorer.confirmDelete": false,
+  "explorer.confirmDragAndDrop": false,
+  "explorer.compactFolders": false,
+  "explorer.sortOrder": "type",
+
+  // Git Configuration
+  "git.autofetch": true,
+  "git.confirmSync": false,
+  "git.enableSmartCommit": true,
+  "git.postCommitCommand": "sync",
+  "git.showPushSuccessNotification": true,
+  "git.suggestSmartCommit": false,
+  "git.timeline.date": "committed",
+  "git.openRepositoryInParentFolders": "always",
+
+  // GitLens Configuration
+  "gitlens.currentLine.enabled": true,
+  "gitlens.currentLine.pullRequests.enabled": false,
+  "gitlens.codeLens.enabled": true,
+  "gitlens.codeLens.authors.enabled": true,
+  "gitlens.codeLens.recentChange.enabled": true,
+  "gitlens.hovers.currentLine.over": "line",
+  "gitlens.statusBar.enabled": true,
+  "gitlens.views.repositories.files.layout": "tree",
+
+  // Workbench & Theme Configuration
+  "workbench.iconTheme": "material-icon-theme",
+  "workbench.colorTheme": "Default Dark Modern",
+  "workbench.startupEditor": "welcomePage",
+  "workbench.editor.enablePreview": false,
+  "workbench.editor.enablePreviewFromQuickOpen": false,
+  "workbench.tree.indent": 20,
+  "workbench.colorCustomizations": {
+    "terminal.background": "#1a1a1a",
+    "terminal.foreground": "#ffffff",
+    "editorBracketHighlight.foreground1": "#00ff41",
+    "editorBracketHighlight.foreground2": "#00d4ff",
+    "editorBracketHighlight.foreground3": "#ffd700"
+  },
+
+  // Prettier Configuration
+  "prettier.singleQuote": true,
+  "prettier.trailingComma": "es5",
+  "prettier.tabWidth": 2,
+  "prettier.semi": true,
+  "prettier.printWidth": 100,
+  "prettier.useTabs": false,
+  "prettier.arrowParens": "avoid",
+  "prettier.bracketSpacing": true,
+  "prettier.endOfLine": "lf",
+  "prettier.htmlWhitespaceSensitivity": "css",
+  "prettier.quoteProps": "as-needed",
+
+  // Language-Specific Formatting
+  "[html]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  },
+  "[css]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  },
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  },
+  "[php]": {
+    "editor.defaultFormatter": "bmewburn.vscode-intelephense-client",
+    "editor.formatOnSave": true
+  },
+  "[markdown]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.wordWrap": "on"
+  },
+
+  // SFTP Configuration (Natizyskunk.sftp)
+  "sftp.syncMode": "update",
+  "sftp.uploadOnSave": true,
+  "sftp.downloadOnOpen": false,
+  "sftp.remotePath": "/path/to/your/wp-content/themes/your-theme",
+  "sftp.host": "your-ftp-or-sftp-host.com",
+  "sftp.username": "your-ftp-user",
+  "sftp.password": "your-ftp-pass",
+  "sftp.protocol": "sftp",
+  "sftp.port": 22,
+  "sftp.ignore": [
+    "**/.vscode/**",
+    "**/.git/**",
+    "**/.DS_Store",
+    "**/Thumbs.db",
+    "**/node_modules/**",
+    "**/*.log"
+  ],
+  "sftp.watcher": {
+    "files": "**/*",
+    "autoUpload": true,
+    "autoDelete": false
+  },
+
+  // FTP-Sync Configuration (ms-vscode.vscode-ftp-sync)
+  "ftp-sync.remotePath": "/path/to/your/wp-content/themes/your-theme",
+  "ftp-sync.host": "your-ftp-host.com",
+  "ftp-sync.username": "your-ftp-user",
+  "ftp-sync.password": "your-ftp-pass",
+  "ftp-sync.protocol": "SFTP",
+  "ftp-sync.port": 22,
+  "ftp-sync.uploadOnSave": true,
+  "ftp-sync.passive": false,
+  "ftp-sync.debug": false,
+  "ftp-sync.privateKeyPath": null,
+  "ftp-sync.passphrase": null,
+  "ftp-sync.agent": null,
+  "ftp-sync.secure": false,
+  "ftp-sync.secureOptions": null,
+  "ftp-sync.ignore": [
+    "**/.vscode/**",
+    "**/.git/**",
+    "**/.DS_Store",
+    "**/Thumbs.db",
+    "**/node_modules/**",
+    "**/*.log",
+    "**/build/**",
+    "**/dist/**"
+  ],
+
+  // Live Server Configuration
+  "liveServer.settings.port": 5501,
+  "liveServer.settings.root": "/",
+  "liveServer.settings.CustomBrowser": "chrome",
+  "liveServer.settings.AdvanceCustomBrowserCmdLine": "",
+  "liveServer.settings.NoBrowser": false,
+  "liveServer.settings.ignoreFiles": [".vscode/**", "**/*.scss", "**/*.sass", "**/*.ts"],
+  "liveServer.settings.donotShowInfoMsg": false,
+  "liveServer.settings.donotVerifyTags": false,
+  "liveServer.settings.host": "localhost",
+  "liveServer.settings.proxy": {
+    "enable": false,
+    "baseUri": "/",
+    "proxyUri": "http://127.0.0.1:80"
+  },
+  "liveServer.settings.https": {
+    "enable": false,
+    "cert": "",
+    "key": "",
+    "passphrase": ""
+  },
+
+  // Remote SSH Configuration
+  "remote.SSH.remotePlatform": {
+    "your-ssh-host.com": "linux"
+  },
+  "remote.SSH.configFile": "~/.ssh/config",
+  "remote.SSH.connectTimeout": 15,
+  "remote.SSH.enableDynamicForwarding": true,
+  "remote.SSH.maxReconnectionAttempts": 8,
+  "remote.SSH.showLoginTerminal": true,
+
+  // Docker Configuration
+  "docker.showStartPage": false,
+  "docker.promptOnSystemPrune": true,
+  "docker.truncateLongRegistryPaths": false,
+  "docker.truncateMaxLength": 10,
+
+  // GitHub Copilot Configuration
+  "github.copilot.enable": {
+    "*": true,
+    "yaml": true,
+    "plaintext": true,
+    "markdown": true,
+    "javascript": true,
+    "typescript": true,
+    "html": true,
+    "css": true,
+    "php": true,
+    "json": true,
+    "jsonc": true
+  },
+  "github.copilot.advanced": {
+    "secret_key": "default",
+    "length": 500,
+    "temperature": "",
+    "top_p": "",
+    "stops": {
+      "*": ["\n\n\n"]
+    }
+  },
+  "github.copilot.chat.localeOverride": "en",
+
+  // Live Share Configuration
+  "liveshare.audio": false,
+  "liveshare.allowGuestCommandControl": false,
+  "liveshare.allowGuestTaskControl": false,
+  "liveshare.authenticationProvider": "Microsoft",
+  "liveshare.connectionMode": "auto",
+  "liveshare.guestApprovalRequired": false,
+  "liveshare.joinDebugSessionOption": "Automatic",
+  "liveshare.notebooks": true,
+  "liveshare.publishWorkspaceInfo": true,
+  "liveshare.shareExternalFiles": false,
+  "liveshare.showInStatusBar": "whileCollaborating",
+
+  // ESLint Configuration
+  "eslint.alwaysShowStatus": true,
+  "eslint.format.enable": true,
+  "eslint.run": "onSave",
+  "eslint.validate": ["javascript", "typescript", "html", "vue", "react"],
+
+  // Auto Tag Configuration
+  "auto-close-tag.activationOnLanguage": [
+    "html",
+    "xml",
+    "php",
+    "javascript",
+    "typescript",
+    "jsx",
+    "tsx",
+    "vue",
+    "svelte"
+  ],
+  "auto-close-tag.enableAutoCloseTag": true,
+  "auto-close-tag.enableAutoCloseSelfClosingTag": true,
+  "auto-rename-tag.activationOnLanguage": [
+    "html",
+    "xml",
+    "php",
+    "javascript",
+    "typescript",
+    "jsx",
+    "tsx",
+    "vue",
+    "svelte"
+  ],
+
+  // Terminal Configuration
+  "terminal.integrated.fontSize": 14,
+  "terminal.integrated.fontFamily": "'Cascadia Code', 'JetBrains Mono', 'Fira Code', Consolas, monospace",
+  "terminal.integrated.shell.windows": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+  "terminal.integrated.defaultProfile.windows": "PowerShell",
+  "terminal.integrated.profiles.windows": {
+    "PowerShell": {
+      "source": "PowerShell",
+      "icon": "terminal-powershell"
+    },
+    "Command Prompt": {
+      "path": "C:\\Windows\\System32\\cmd.exe",
+      "args": [],
+      "icon": "terminal-cmd"
+    },
+    "Git Bash": {
+      "source": "Git Bash"
+    }
+  },
+
+  // Performance & Security
+  "extensions.autoUpdate": true,
+  "extensions.autoCheckUpdates": true,
+  "security.workspace.trust.untrustedFiles": "open",
+  "security.workspace.trust.banner": "never",
+  "security.workspace.trust.startupPrompt": "never",
+
+  // Search Configuration
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/bower_components": true,
+    "**/*.code-search": true,
+    "**/build": true,
+    "**/dist": true,
+    "**/.git": true,
+    "**/.DS_Store": true,
+    "**/Thumbs.db": true,
+    "**/*.log": true
+  },
+  "search.useRipgrep": true,
+  "search.smartCase": true,
+
+  // Debugging Configuration
+  "debug.allowBreakpointsEverywhere": true,
+  "debug.inlineValues": "on",
+  "debug.showInStatusBar": "always",
+
+  // Emmet Configuration
+  "emmet.includeLanguages": {
+    "javascript": "javascriptreact",
+    "typescript": "typescriptreact",
+    "php": "html"
+  },
+  "emmet.triggerExpansionOnTab": true,
+  "emmet.showExpandedAbbreviation": "always",
+
+  // Breadcrumbs
+  "breadcrumbs.enabled": true,
+  "breadcrumbs.filePath": "on",
+  "breadcrumbs.symbolPath": "on",
+
+  // YouTuneAI Specific Settings
+  "youtuneai.development.mode": true,
+  "youtuneai.theme.premium": true,
+  "youtuneai.voice.commands.enabled": true,
+  "youtuneai.deployment.auto": true
+}

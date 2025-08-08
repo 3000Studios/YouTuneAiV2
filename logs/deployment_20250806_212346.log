@@ -1,0 +1,48 @@
+[2025-08-06 21:23:46] [INFO] Controller initialized successfully
+[2025-08-06 21:23:47] [INFO] Starting full deployment pipeline...
+[2025-08-06 21:23:47] [INFO] Starting theme package creation...
+[2025-08-06 21:23:47] [INFO] Creating package: youtuneai-theme-v5.0-20250806_212347.zip
+[2025-08-06 21:23:47] [INFO] Added to package: ai-controller-integration.php
+[2025-08-06 21:23:47] [INFO] Added to package: footer.php
+[2025-08-06 21:23:47] [INFO] Added to package: functions.php
+[2025-08-06 21:23:47] [INFO] Added to package: header.php
+[2025-08-06 21:23:47] [INFO] Added to package: index.php
+[2025-08-06 21:23:47] [INFO] Added to package: page-admin-dashboard.php
+[2025-08-06 21:23:47] [INFO] Added to package: page-avatar-creator.php
+[2025-08-06 21:23:47] [INFO] Added to package: page-home.php
+[2025-08-06 21:23:47] [INFO] Added to package: page-streaming.php
+[2025-08-06 21:23:47] [INFO] Added to package: README.md
+[2025-08-06 21:23:47] [INFO] Added to package: readme.txt
+[2025-08-06 21:23:47] [INFO] Added to package: style.css
+[2025-08-06 21:23:47] [INFO] Added to package: theme-setup.php
+[2025-08-06 21:23:47] [INFO] Added to package: YouTuneAiV2.code-workspace
+[2025-08-06 21:23:47] [INFO] Added to package: assets\js\main.js
+[2025-08-06 21:23:47] [INFO] Added to package: js\youtuneai-main.js
+[2025-08-06 21:23:47] [INFO] Package created successfully: C:\YouTuneAiV2\build\youtuneai-theme-v5.0-20250806_212347.zip (0.06MB)
+[2025-08-06 21:23:47] [INFO] Starting SFTP deployment...
+[2025-08-06 21:23:47] [INFO] Connecting to access-5017098454.webspace-host.com...
+[2025-08-06 21:23:49] [INFO] Deployed file: ai-controller-integration.php
+[2025-08-06 21:23:49] [INFO] Deployed file: main.js
+[2025-08-06 21:23:50] [INFO] Deployed file: footer.php
+[2025-08-06 21:23:50] [INFO] Deployed file: functions.php
+[2025-08-06 21:23:50] [INFO] Deployed file: header.php
+[2025-08-06 21:23:50] [INFO] Deployed file: index.php
+[2025-08-06 21:23:51] [INFO] Deployed file: youtuneai-main.js
+[2025-08-06 21:23:51] [INFO] Deployed file: page-admin-dashboard.php
+[2025-08-06 21:23:51] [INFO] Deployed file: page-avatar-creator.php
+[2025-08-06 21:23:51] [INFO] Deployed file: page-home.php
+[2025-08-06 21:23:52] [INFO] Deployed file: page-streaming.php
+[2025-08-06 21:23:52] [INFO] Deployed file: README.md
+[2025-08-06 21:23:52] [INFO] Deployed file: readme.txt
+[2025-08-06 21:23:52] [INFO] Deployed file: style.css
+[2025-08-06 21:23:53] [INFO] Deployed file: theme-setup.php
+[2025-08-06 21:23:53] [INFO] Deployed file: YouTuneAiV2.code-workspace
+[2025-08-06 21:23:53] [INFO] SFTP deployment completed successfully
+[2025-08-06 21:23:53] [INFO] Verifying DNS for youtuneai.com...
+[2025-08-06 21:23:53] [INFO] DNS resolved: youtuneai.com -> 74.208.236.201
+[2025-08-06 21:23:53] [INFO] Checking SSL certificate for youtuneai.com...
+[2025-08-06 21:23:53] [INFO] SSL certificate valid until: Aug  2 23:59:59 2026 GMT
+[2025-08-06 21:23:53] [INFO] Testing HTTP/HTTPS connectivity...
+[2025-08-06 21:23:53] [INFO] HTTPS connectivity verified
+[2025-08-06 21:23:53] [INFO] Full deployment pipeline completed successfully!
+[2025-08-06 21:23:53] [INFO] Pipeline results saved to: C:\YouTuneAiV2\logs\pipeline_results_20250806_212353.json
