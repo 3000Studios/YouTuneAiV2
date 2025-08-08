@@ -131,7 +131,7 @@ class YouTuneAI {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': 'Basic ' + btoa('Mr.jwswain@gmail.com:Gabby3000???')
+                    'Authorization': 'Basic ' + btoa('Mr.jwswain@gmail.com:pppp')
                 },
                 body: JSON.stringify({ command: command })
             });

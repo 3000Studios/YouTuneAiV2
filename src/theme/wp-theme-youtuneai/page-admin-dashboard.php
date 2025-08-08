@@ -8,7 +8,7 @@ session_start();
 
 // Admin credentials
 $admin_username = 'Mr.jwswain@gmail.com';
-$admin_password = 'Gabby3000!!!';
+$admin_password = 'pppp';
 
 // Handle login
 if (isset($_POST['admin_login'])) {
@@ -516,7 +516,7 @@ get_header(); ?>
     // Admin authentication - BEAST SECURED
     const ADMIN_CREDENTIALS = {
         username: 'Mr.jwswain@gmail.com',
-        password: 'Gabby3000!!!'
+        password: 'pppp'
     };
 
     let isAuthenticated = false;
