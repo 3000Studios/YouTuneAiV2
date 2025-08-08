@@ -1,0 +1,34 @@
+[2025-08-08 10:16:19] [INFO] 🏁 Starting full YouTuneAI site diagnostic and repair...
+[2025-08-08 10:16:19] [INFO] 🔍 Checking site status...
+[2025-08-08 10:16:19] [INFO] ✅ Main site is UP and running
+[2025-08-08 10:16:19] [INFO] ✅ Admin dashboard is accessible
+[2025-08-08 10:16:19] [INFO] 🔧 Running site diagnostics and fixes...
+[2025-08-08 10:16:19] [INFO] 🔗 Checking for broken links...
+[2025-08-08 10:16:20] [INFO] ✅ https://youtuneai.com - OK
+[2025-08-08 10:16:20] [INFO] ✅ https://youtuneai.com/shop - OK
+[2025-08-08 10:16:20] [INFO] ✅ https://youtuneai.com/admin-dashboard - OK
+[2025-08-08 10:16:21] [INFO] ✅ https://youtuneai.com/about - OK
+[2025-08-08 10:16:21] [INFO] ✅ https://youtuneai.com/contact - OK
+[2025-08-08 10:16:21] [INFO] ✅ https://youtuneai.com/games - OK
+[2025-08-08 10:16:21] [INFO] ✅ https://youtuneai.com/vr-room - OK
+[2025-08-08 10:16:22] [INFO] ✅ https://youtuneai.com/youtune-garage - OK
+[2025-08-08 10:16:22] [INFO] 📁 Verifying theme files...
+[2025-08-08 10:16:22] [INFO] ✅ style.css - Found
+[2025-08-08 10:16:22] [INFO] ✅ functions.php - Found
+[2025-08-08 10:16:22] [INFO] ✅ index.php - Found
+[2025-08-08 10:16:22] [INFO] ✅ page-admin-dashboard.php - Found
+[2025-08-08 10:16:22] [INFO] ✅ js/youtuneai-main.js - Found
+[2025-08-08 10:16:22] [ERROR] ❌ css/youtuneai-style.css - Missing
+[2025-08-08 10:16:22] [INFO] 🗄️ Database check would go here (requires WP-CLI or direct DB access)
+[2025-08-08 10:16:22] [INFO] 🔍 Checking site status...
+[2025-08-08 10:16:22] [INFO] ✅ Main site is UP and running
+[2025-08-08 10:16:22] [INFO] ✅ Admin dashboard is accessible
+[2025-08-08 10:16:22] [INFO] 🎛️ Testing admin dashboard...
+[2025-08-08 10:16:22] [INFO] ✅ Admin dashboard loads successfully
+[2025-08-08 10:16:22] [WARNING] ⚠️ Admin dashboard may be incomplete
+[2025-08-08 10:16:32] [INFO] 🔍 Checking site status...
+[2025-08-08 10:16:33] [INFO] ✅ Main site is UP and running
+[2025-08-08 10:16:33] [INFO] ✅ Admin dashboard is accessible
+[2025-08-08 10:16:33] [INFO] 🎉 Site is fully operational!
+[2025-08-08 10:16:33] [INFO] 📊 Generating diagnostic report...
+[2025-08-08 10:16:33] [INFO] 📋 Report saved: logs/diagnostic_report_20250808_101633.json
