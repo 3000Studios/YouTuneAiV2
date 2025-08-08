@@ -239,6 +239,7 @@ require_once YOUTUNEAI_THEME_DIR . '/includes/avatar-system.php';
 require_once YOUTUNEAI_THEME_DIR . '/includes/helpers.php';
 require_once YOUTUNEAI_THEME_DIR . '/includes/woocommerce-integration.php';
 require_once YOUTUNEAI_THEME_DIR . '/includes/seo-analytics.php';
+require_once YOUTUNEAI_THEME_DIR . '/includes/performance-optimization.php';
 
 /**
  * Block patterns
