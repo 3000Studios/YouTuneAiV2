@@ -100,7 +100,7 @@
   "workbench.iconTheme": "material-icon-theme",
   "workbench.colorTheme": "Default Dark Modern",
   "workbench.startupEditor": "welcomePage",
-  "workbench.editor.enablePreview": false,
+  "workbench.editor.enablePreview": true,
   "workbench.editor.enablePreviewFromQuickOpen": false,
   "workbench.tree.indent": 20,
   "workbench.colorCustomizations": {

@@ -19,7 +19,7 @@
     'use strict';
 
     // Initialize everything when DOM is ready
-    jQuery(document).ready(function() {
+    $(document).ready(function() {
         initializeYouTuneAI();
     });
 

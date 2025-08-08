@@ -588,3 +588,5 @@ function get_ai_command_logs()
 {
     return get_option('youtuneai_ai_logs', array());
 }
+
+?>

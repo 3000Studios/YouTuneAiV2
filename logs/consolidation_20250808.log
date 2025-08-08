@@ -1,0 +1,38 @@
+[2025-08-08 10:43:47] [SUCCESS] 🚀 Starting YouTuneAI Master Theme Consolidation & Deployment
+[2025-08-08 10:43:47] [INFO] 📦 Creating backup of existing theme...
+[2025-08-08 10:43:47] [INFO] ✅ Backed up main to c:\YouTuneAiV2\backups\backup_20250808_104347\main
+[2025-08-08 10:43:47] [INFO] ✅ Backed up deployment_ready to c:\YouTuneAiV2\backups\backup_20250808_104347\deployment_ready
+[2025-08-08 10:43:47] [SUCCESS] ✅ Backup completed successfully
+[2025-08-08 10:43:47] [INFO] 🔧 Starting theme consolidation...
+[2025-08-08 10:43:47] [INFO] 🔍 Analyzing theme files...
+[2025-08-08 10:43:47] [INFO] 📊 Analysis complete: 10 files to merge
+[2025-08-08 10:43:47] [INFO] ✅ Copied style.css from main
+[2025-08-08 10:43:47] [INFO] ✅ Copied functions.php from main
+[2025-08-08 10:43:47] [INFO] ✅ Copied index.php from main
+[2025-08-08 10:43:47] [INFO] ✅ Copied header.php from main
+[2025-08-08 10:43:47] [INFO] ✅ Copied footer.php from main
+[2025-08-08 10:43:47] [INFO] ✅ Copied page-admin-dashboard.php from main
+[2025-08-08 10:43:47] [INFO] ✅ Copied page-home.php from main
+[2025-08-08 10:43:47] [INFO] ✅ Copied js/youtuneai-main.js from main
+[2025-08-08 10:43:47] [INFO] ✅ Copied css/youtuneai-style.css from main
+[2025-08-08 10:43:47] [INFO] ✅ Copied assets/js/main.js from main
+[2025-08-08 10:43:47] [INFO] 📁 Copying additional assets...
+[2025-08-08 10:43:47] [INFO] 🔧 Fixing theme issues...
+[2025-08-08 10:43:47] [INFO] ✅ Fixed functions.php formatting
+[2025-08-08 10:43:47] [INFO] ✅ Fixed JavaScript issues in main.js
+[2025-08-08 10:43:47] [SUCCESS] ✅ Theme consolidation complete: 10 files merged
+[2025-08-08 10:43:47] [INFO] 📦 Creating deployment package...
+[2025-08-08 10:43:47] [SUCCESS] ✅ Deployment package created: c:\YouTuneAiV2\build\youtuneai-theme-consolidated-20250808_104347.zip
+[2025-08-08 10:43:47] [INFO] 🚀 Starting deployment to production...
+[2025-08-08 10:43:49] [WARNING] ⚠️  Failed to upload footer.php: [Errno 2] No such file
+[2025-08-08 10:43:49] [WARNING] ⚠️  Failed to upload functions.php: [Errno 2] No such file
+[2025-08-08 10:43:49] [WARNING] ⚠️  Failed to upload header.php: [Errno 2] No such file
+[2025-08-08 10:43:49] [WARNING] ⚠️  Failed to upload index.php: [Errno 2] No such file
+[2025-08-08 10:43:49] [WARNING] ⚠️  Failed to upload page-admin-dashboard.php: [Errno 2] No such file
+[2025-08-08 10:43:49] [WARNING] ⚠️  Failed to upload page-home.php: [Errno 2] No such file
+[2025-08-08 10:43:49] [WARNING] ⚠️  Failed to upload style.css: [Errno 2] No such file
+[2025-08-08 10:43:49] [WARNING] ⚠️  Failed to upload css\youtuneai-style.css: [Errno 2] No such file
+[2025-08-08 10:43:50] [WARNING] ⚠️  Failed to upload js\youtuneai-main.js: [Errno 2] No such file
+[2025-08-08 10:43:50] [WARNING] ⚠️  Failed to upload assets\js\main.js: [Errno 2] No such file
+[2025-08-08 10:43:50] [SUCCESS] ✅ Deployment completed: 0 files uploaded
+[2025-08-08 10:43:50] [INFO] 📤 Committing and pushing to GitHub...

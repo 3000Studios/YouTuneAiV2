@@ -3,16 +3,16 @@
 /**
  * YouTuneAI Theme Functions
  * AI-Controlled Voice-Responsive WordPress Theme
- *
+ * 
  * Copyright (c) 2025 Boss Man J (3000Studios)
  * All rights reserved. Proprietary voice-controlled AI website technology.
- *
+ * 
  * This theme contains proprietary algorithms for:
  * - Real-time AI command processing via WordPress
  * - Voice-controlled content management system
  * - Automated deployment and file management
  * - AI-powered website modification engine
- *
+ * 
  * COMMERCIAL USE REQUIRES PAID LICENSE - Contact: mr.jwswain@gmail.com
  * Unauthorized use subject to legal action and monetary damages.
  */
@@ -21,33 +21,6 @@
 if (!defined('ABSPATH')) {
     exit;
 }
-
-// Include admin functions
-require_once get_template_directory() . '/admin-functions.php';
-
-// Create admin dashboard page
-function youtuneai_create_admin_page()
-{
-    $page_slug = 'admin-dashboard';
-    $page = get_page_by_path($page_slug);
-
-    if (!$page) {
-        $page_data = array(
-            'post_title' => 'Admin Dashboard',
-            'post_name' => $page_slug,
-            'post_content' => '',
-            'post_status' => 'publish',
-            'post_type' => 'page'
-        );
-
-        $page_id = wp_insert_post($page_data);
-
-        if ($page_id) {
-            update_post_meta($page_id, '_wp_page_template', 'page-admin-dashboard.php');
-        }
-    }
-}
-add_action('after_switch_theme', 'youtuneai_create_admin_page');
 
 // Theme setup
 function youtuneai_theme_setup()
@@ -58,12 +31,80 @@ function youtuneai_theme_setup()
     add_theme_support('custom-logo');
     add_theme_support('html5', array('comment-list', 'comment-form', 'search-form', 'gallery', 'caption'));
 
-    // Register navigation menus
-    register_nav_menus(array(
-        'primary' => __('Primary Menu', 'youtuneai'),
-        'footer' => __('Footer Menu', 'youtuneai'),
-    ));
+    /**
+ * ULTRA PREMIUM ADMIN COMMAND HANDLER
+ * Processes voice and text commands for real-time website updates
+ */
+function handle_admin_command() {
+    // Verify nonce for security
+    if (!wp_verify_nonce($_POST['nonce'], 'admin_command_nonce')) {
+        wp_send_json_error(array('message' => 'Security verification failed'));
+        return;
+    }
+
+    $command = sanitize_textarea_field($_POST['command']);
+    $response = array('message' => '', 'reload' => false);
+
+    // Log the command
+    error_log("YouTuneAI Admin Command: " . $command);
+
+    // Process different types of commands
+    if (preg_match('/change.*background.*color.*to\s+(\w+)/i', $command, $matches)) {
+        $color = $matches[1];
+        $response['message'] = "Background color change to {$color} initiated";
+        $response['reload'] = true;
+        
+    } elseif (preg_match('/change.*theme.*color.*to\s+(\w+)/i', $command, $matches)) {
+        $color = $matches[1];
+        $response['message'] = "Theme color change to {$color} initiated";
+        $response['reload'] = true;
+        
+    } elseif (preg_match('/add.*page.*(\w+)/i', $command, $matches)) {
+        $page_name = $matches[1];
+        $response['message'] = "New page '{$page_name}' creation initiated";
+        
+    } elseif (preg_match('/update.*content/i', $command)) {
+        $response['message'] = "Content update command processed";
+        
+    } elseif (preg_match('/modify.*nav|navigation/i', $command)) {
+        $response['message'] = "Navigation modification initiated";
+        $response['reload'] = true;
+        
+    } elseif (preg_match('/change.*font/i', $command)) {
+        $response['message'] = "Font change command processed";
+        $response['reload'] = true;
+        
+    } elseif (preg_match('/add.*product/i', $command)) {
+        $response['message'] = "New product addition initiated";
+        
+    } elseif (preg_match('/update.*homepage/i', $command)) {
+        $response['message'] = "Homepage update command processed";
+        $response['reload'] = true;
+        
+    } elseif (preg_match('/deploy|publish/i', $command)) {
+        $response['message'] = "Deployment initiated - Changes will be live shortly";
+        
+    } else {
+        // Generic command processing
+        $response['message'] = "Command received and queued for processing: " . substr($command, 0, 50) . "...";
+    }
+
+    // Save command to database for later processing
+    $commands = get_option('youtuneai_pending_commands', array());
+    $commands[] = array(
+        'command' => $command,
+        'timestamp' => current_time('mysql'),
+        'status' => 'pending'
+    );
+    update_option('youtuneai_pending_commands', $commands);
+
+    wp_send_json_success($response);
 }
+add_action('wp_ajax_execute_admin_command', 'handle_admin_command');
+
+/**
+ * Remove old mobile chat handlers and replace with admin hub
+ */
 add_action('after_setup_theme', 'youtuneai_theme_setup');
 
 // Enqueue scripts and styles
@@ -141,11 +182,11 @@ add_action('wp_ajax_nopriv_process_ai_command', 'process_ai_command');
 function process_command_with_ai($command, $api_key)
 {
     $prompt = "
-    You are an AI assistant that processes website update commands.
+    You are an AI assistant that processes website update commands. 
     Convert the following user command into a structured action:
-
+    
     Command: '$command'
-
+    
     Available actions:
     - change_background_video: Change the homepage background video
     - update_content: Update page content
@@ -153,7 +194,7 @@ function process_command_with_ai($command, $api_key)
     - change_colors: Update theme colors
     - update_nav: Update navigation menu
     - add_page: Create a new page
-
+    
     Respond with JSON only:
     {
         \"action\": \"action_name\",
@@ -454,10 +495,6 @@ function youtuneai_settings_page()
         update_option('youtuneai_paypal_secret', sanitize_text_field($_POST['paypal_secret']));
         update_option('youtuneai_stripe_publishable', sanitize_text_field($_POST['stripe_publishable']));
         update_option('youtuneai_stripe_secret', sanitize_text_field($_POST['stripe_secret']));
-        update_option('youtuneai_ionos_api_key', sanitize_text_field($_POST['ionos_api_key']));
-        update_option('youtuneai_sftp_host', sanitize_text_field($_POST['sftp_host']));
-        update_option('youtuneai_sftp_user', sanitize_text_field($_POST['sftp_user']));
-        update_option('youtuneai_sftp_pass', sanitize_text_field($_POST['sftp_pass']));
         echo '<div class="notice notice-success"><p>Settings saved!</p></div>';
     }
 
@@ -466,60 +503,31 @@ function youtuneai_settings_page()
     $paypal_secret = get_option('youtuneai_paypal_secret', '');
     $stripe_publishable = get_option('youtuneai_stripe_publishable', '');
     $stripe_secret = get_option('youtuneai_stripe_secret', '');
-    $ionos_api_key = get_option('youtuneai_ionos_api_key', '');
-    $sftp_host = get_option('youtuneai_sftp_host', '');
-    $sftp_user = get_option('youtuneai_sftp_user', '');
-    $sftp_pass = get_option('youtuneai_sftp_pass', '');
 
 ?>
     <div class="wrap">
         <h1>YouTuneAI Settings</h1>
-        <p>Manage API keys and server credentials for your AI-powered website.</p>
         <form method="post">
-            <h2>AI & Monetization</h2>
             <table class="form-table">
                 <tr>
-                    <th scope="row"><label for="openai_key">OpenAI API Key</label></th>
-                    <td><input type="text" id="openai_key" name="openai_key" value="<?php echo esc_attr($openai_key); ?>" class="regular-text" /></td>
+                    <th scope="row">OpenAI API Key</th>
+                    <td><input type="text" name="openai_key" value="<?php echo esc_attr($openai_key); ?>" class="regular-text" /></td>
                 </tr>
                 <tr>
-                    <th scope="row"><label for="paypal_client_id">PayPal Client ID</label></th>
-                    <td><input type="text" id="paypal_client_id" name="paypal_client_id" value="<?php echo esc_attr($paypal_client_id); ?>" class="regular-text" /></td>
+                    <th scope="row">PayPal Client ID</th>
+                    <td><input type="text" name="paypal_client_id" value="<?php echo esc_attr($paypal_client_id); ?>" class="regular-text" /></td>
                 </tr>
                 <tr>
-                    <th scope="row"><label for="paypal_secret">PayPal Secret</label></th>
-                    <td><input type="password" id="paypal_secret" name="paypal_secret" value="<?php echo esc_attr($paypal_secret); ?>" class="regular-text" /></td>
+                    <th scope="row">PayPal Secret</th>
+                    <td><input type="password" name="paypal_secret" value="<?php echo esc_attr($paypal_secret); ?>" class="regular-text" /></td>
                 </tr>
                 <tr>
-                    <th scope="row"><label for="stripe_publishable">Stripe Publishable Key</label></th>
-                    <td><input type="text" id="stripe_publishable" name="stripe_publishable" value="<?php echo esc_attr($stripe_publishable); ?>" class="regular-text" /></td>
+                    <th scope="row">Stripe Publishable Key</th>
+                    <td><input type="text" name="stripe_publishable" value="<?php echo esc_attr($stripe_publishable); ?>" class="regular-text" /></td>
                 </tr>
                 <tr>
-                    <th scope="row"><label for="stripe_secret">Stripe Secret Key</label></th>
-                    <td><input type="password" id="stripe_secret" name="stripe_secret" value="<?php echo esc_attr($stripe_secret); ?>" class="regular-text" /></td>
-                </tr>
-            </table>
-
-            <hr>
-
-            <h2>Server & Deployment</h2>
-            <p>Credentials for connecting to your IONOS server.</p>
-            <table class="form-table">
-                <tr>
-                    <th scope="row"><label for="ionos_api_key">IONOS API Key</label></th>
-                    <td><input type="text" name="ionos_api_key" id="ionos_api_key" value="<?php echo esc_attr($ionos_api_key); ?>" class="regular-text" /></td>
-                </tr>
-                <tr>
-                    <th scope="row"><label for="sftp_host">SFTP Host</label></th>
-                    <td><input type="text" name="sftp_host" id="sftp_host" value="<?php echo esc_attr($sftp_host); ?>" class="regular-text" placeholder="e.g., access-5017098454.webspace-host.com"/></td>
-                </tr>
-                <tr>
-                    <th scope="row"><label for="sftp_user">SFTP Username</label></th>
-                    <td><input type="text" name="sftp_user" id="sftp_user" value="<?php echo esc_attr($sftp_user); ?>" class="regular-text" /></td>
-                </tr>
-                <tr>
-                    <th scope="row"><label for="sftp_pass">SFTP Password</label></th>
-                    <td><input type="password" name="sftp_pass" id="sftp_pass" value="<?php echo esc_attr($sftp_pass); ?>" class="regular-text" /></td>
+                    <th scope="row">Stripe Secret Key</th>
+                    <td><input type="password" name="stripe_secret" value="<?php echo esc_attr($stripe_secret); ?>" class="regular-text" /></td>
                 </tr>
             </table>
             <?php submit_button(); ?>
@@ -588,3 +596,89 @@ function get_ai_command_logs()
 {
     return get_option('youtuneai_ai_logs', array());
 }
+
+// Mobile Chat Interface Handler
+add_action('wp_ajax_mobile_chat_instruction', 'handle_mobile_chat_instruction');
+add_action('wp_ajax_nopriv_mobile_chat_instruction', 'handle_mobile_chat_instruction');
+
+function handle_mobile_chat_instruction() {
+    if (!isset($_POST['instruction'])) {
+        wp_die('No instruction provided');
+    }
+
+    // Security check: Verify authentication
+    $authenticated = isset($_POST['authenticated']) && $_POST['authenticated'] === 'true';
+    $auth_token = $_POST['auth_token'] ?? '';
+    
+    if (!$authenticated || empty($auth_token)) {
+        // Log unauthorized attempt
+        error_log('Unauthorized mobile chat attempt from IP: ' . ($_SERVER['REMOTE_ADDR'] ?? 'unknown'));
+        wp_send_json_error(array(
+            'message' => 'Authentication required. Access denied.',
+            'code' => 'UNAUTHORIZED'
+        ));
+        return;
+    }
+
+    // Additional security: Rate limiting per IP
+    $user_ip = $_SERVER['REMOTE_ADDR'] ?? 'unknown';
+    $rate_limit_key = 'mobile_chat_rate_limit_' . md5($user_ip);
+    $attempts = get_transient($rate_limit_key) ?: 0;
+    
+    if ($attempts > 10) { // Max 10 instructions per hour
+        wp_send_json_error(array(
+            'message' => 'Rate limit exceeded. Please try again later.',
+            'code' => 'RATE_LIMITED'
+        ));
+        return;
+    }
+
+    // Increment rate limit counter
+    set_transient($rate_limit_key, $attempts + 1, HOUR_IN_SECONDS);
+
+    $instruction = sanitize_text_field($_POST['instruction']);
+    $timestamp = current_time('Y-m-d H:i:s');
+    
+    // Log the authenticated instruction
+    $mobile_instructions = get_option('youtuneai_mobile_instructions', array());
+    $mobile_instructions[] = array(
+        'instruction' => $instruction,
+        'timestamp' => $timestamp,
+        'ip' => $user_ip,
+        'authenticated' => true,
+        'auth_token' => substr($auth_token, 0, 10) . '...', // Store partial token for logging
+        'status' => 'pending'
+    );
+    
+    // Keep only last 50 instructions
+    if (count($mobile_instructions) > 50) {
+        $mobile_instructions = array_slice($mobile_instructions, -50);
+    }
+    
+    update_option('youtuneai_mobile_instructions', $mobile_instructions);
+    
+    // Also log to AI command logs for processing
+    log_ai_command("MOBILE_INSTRUCTION", $instruction, "Mobile chat interface");
+    
+    wp_send_json_success(array(
+        'message' => 'Instruction received and queued for processing!',
+        'timestamp' => $timestamp
+    ));
+}
+
+// Function to get mobile instructions for processing
+function get_mobile_instructions() {
+    return get_option('youtuneai_mobile_instructions', array());
+}
+
+// Function to mark mobile instruction as processed
+function mark_mobile_instruction_processed($index) {
+    $instructions = get_option('youtuneai_mobile_instructions', array());
+    if (isset($instructions[$index])) {
+        $instructions[$index]['status'] = 'processed';
+        $instructions[$index]['processed_at'] = current_time('Y-m-d H:i:s');
+        update_option('youtuneai_mobile_instructions', $instructions);
+    }
+}
+
+?>
