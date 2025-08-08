@@ -14,7 +14,7 @@ $admin_password = 'pppp';
 if (isset($_POST['admin_login'])) {
     $username = $_POST['username'];
     $password = $_POST['password'];
-    
+
     if ($username === $admin_username && $password === $admin_password) {
         $_SESSION['admin_authenticated'] = true;
         $_SESSION['admin_username'] = $username;
@@ -43,7 +43,7 @@ get_header(); ?>
         <?php if (isset($login_error)): ?>
             <div class="error-message"><?php echo $login_error; ?></div>
         <?php endif; ?>
-        
+
         <form method="POST" action="">
             <div class="form-group">
                 <label for="username">Username:</label>
