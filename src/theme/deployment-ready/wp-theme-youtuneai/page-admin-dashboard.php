@@ -403,15 +403,14 @@ get_header(); ?>
 </style>
 
 <script>
-// Admin authentication
-const ADMIN_CREDENTIALS = {
-    username: 'Mr.jwswain@gmail.com',
-    password: 'Gabby3000???'
-};
-
+// Secure admin authentication - no hardcoded credentials
 let isAuthenticated = false;
 let recognition;
 let isListening = false;
+let csrfToken = '';
+
+// Get WordPress AJAX URL
+const ajaxUrl = '/wp-admin/admin-ajax.php';
 
 // Check if already authenticated
 window.onload = function() {
@@ -438,31 +437,89 @@ function authenticateAdmin(event) {
     const password = document.getElementById('password').value;
     const errorDiv = document.getElementById('authError');
     
-    if (username === ADMIN_CREDENTIALS.username && password === ADMIN_CREDENTIALS.password) {
-        isAuthenticated = true;
-        document.getElementById('adminAuth').style.display = 'none';
-        document.getElementById('adminDashboard').style.display = 'block';
-        initializeAdminPanel();
-        errorDiv.textContent = '';
-    } else {
-        errorDiv.textContent = '❌ Invalid credentials. Please try again.';
-        // Clear form
-        document.getElementById('username').value = '';
-        document.getElementById('password').value = '';
+    if (!username || !password) {
+        errorDiv.textContent = '❌ Please enter both username and password.';
+        return false;
     }
+    
+    // Show loading state
+    errorDiv.textContent = 'Authenticating...';
+    errorDiv.style.color = '#3498db';
+    
+    // Make secure AJAX request to WordPress
+    const formData = new FormData();
+    formData.append('action', 'youtuneai_admin_auth');
+    formData.append('username', username);
+    formData.append('password', password);
+    formData.append('nonce', '<?php echo wp_create_nonce("youtuneai_admin_auth"); ?>');
+    
+    fetch(ajaxUrl, {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            isAuthenticated = true;
+            csrfToken = data.data.csrf_token;
+            document.getElementById('adminAuth').style.display = 'none';
+            document.getElementById('adminDashboard').style.display = 'block';
+            initializeAdminPanel();
+            errorDiv.textContent = '';
+        } else {
+            errorDiv.textContent = '❌ ' + (data.data.message || 'Authentication failed');
+            errorDiv.style.color = '#e74c3c';
+            // Clear form
+            document.getElementById('username').value = '';
+            document.getElementById('password').value = '';
+        }
+    })
+    .catch(error => {
+        console.error('Authentication error:', error);
+        errorDiv.textContent = '❌ Connection error. Please try again.';
+        errorDiv.style.color = '#e74c3c';
+    });
     
     return false;
 }
 
 function logoutAdmin() {
-    isAuthenticated = false;
-    document.getElementById('adminDashboard').style.display = 'none';
-    document.getElementById('adminAccessBtn').style.display = 'flex';
+    if (!isAuthenticated) return;
     
-    // Stop voice recognition if active
-    if (recognition && isListening) {
-        recognition.stop();
-    }
+    // Make secure logout request
+    const formData = new FormData();
+    formData.append('action', 'youtuneai_admin_logout');
+    formData.append('csrf_token', csrfToken);
+    
+    fetch(ajaxUrl, {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        // Always logout on frontend regardless of server response
+        isAuthenticated = false;
+        csrfToken = '';
+        document.getElementById('adminDashboard').style.display = 'none';
+        document.getElementById('adminAccessBtn').style.display = 'flex';
+        
+        // Stop voice recognition if active
+        if (recognition && isListening) {
+            recognition.stop();
+        }
+        
+        // Clear any cached data
+        document.getElementById('commandHistory').innerHTML = '';
+        document.getElementById('lastCommand').textContent = 'No commands yet';
+        document.getElementById('commandResult').textContent = '';
+    })
+    .catch(error => {
+        console.error('Logout error:', error);
+        // Force logout even on error
+        isAuthenticated = false;
+        document.getElementById('adminDashboard').style.display = 'none';
+        document.getElementById('adminAccessBtn').style.display = 'flex';
+    });
 }
 
 function initializeAdminPanel() {

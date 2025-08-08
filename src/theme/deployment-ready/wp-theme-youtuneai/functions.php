@@ -22,6 +22,9 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
+// Include secure admin configuration
+require_once get_template_directory() . '/secure_admin_config.php';
+
 // Theme setup
 function youtuneai_theme_setup()
 {
