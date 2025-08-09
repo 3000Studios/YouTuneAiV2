@@ -1,0 +1,17 @@
+{
+  "name": "youtuneai",
+  "version": "5.0.0",
+  "description": "YouTuneAI Pro Theme and AI Voice Controller.",
+  "author": "3000Studios",
+  "private": true,
+  "scripts": {
+    "setup": "powershell -File ./setup.ps1",
+    "start": "python ai_controller.py",
+    "deploy": "python ai_controller.py --deploy-all",
+    "test": "pytest",
+    "install-deps": "pip install -r requirements.txt",
+    "package-theme": "python ai_controller.py --package-theme"
+  },
+  "dependencies": {},
+  "devDependencies": {}
+}

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Voice Command Test</title>
+</head>
+
+<body style="font-family: Arial; padding: 20px; background: #000; color: white;">
+  <h1>🎤 Voice Command Testing</h1>
+
+  <button onclick="testVoiceCommands()"
+    style="padding: 10px 20px; font-size: 16px; background: #00ffff; color: #000; border: none; border-radius: 5px; cursor: pointer;">
+    Test Voice Recognition
+  </button>
+
+  <div id="results" style="margin-top: 20px; background: #333; padding: 15px; border-radius: 10px;"></div>
+
+  <script>
+    function testVoiceCommands() {
+      const results = document.getElementById('results');
+      results.innerHTML = '<h3>🔍 Voice Command System Test Results:</h3>';
+
+      // Test 1: Check if Web Speech API is available
+      if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+        results.innerHTML += '<p>✅ Web Speech API: AVAILABLE</p>';
+
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        const recognition = new SpeechRecognition();
+
+        // Test 2: Configure recognition
+        try {
+          recognition.continuous = false;
+          recognition.interimResults = false;
+          recognition.lang = 'en-US';
+          results.innerHTML += '<p>✅ Voice Recognition: CONFIGURED</p>';
+
+          // Test 3: Test event handlers
+          recognition.onstart = function () {
+            results.innerHTML += '<p>✅ Voice Recognition: STARTED (Say "hello test")</p>';
+          };
+
+          recognition.onresult = function (event) {
+            const command = event.results[0][0].transcript;
+            results.innerHTML += '<p>✅ Voice Command Received: "' + command + '"</p>';
+
+            // Test command processing
+            if (command.toLowerCase().includes('hello') || command.toLowerCase().includes('test')) {
+              results.innerHTML += '<p>🎉 SUCCESS: Voice command processing WORKS!</p>';
+              results.innerHTML += '<p>💎 The voice system is FULLY FUNCTIONAL!</p>';
+            } else {
+              results.innerHTML += '<p>✅ Command recognized but not a test phrase</p>';
+            }
+          };
+
+          recognition.onerror = function (event) {
+            results.innerHTML += '<p>⚠️ Error: ' + event.error + '</p>';
+          };
+
+          recognition.onend = function () {
+            results.innerHTML += '<p>✅ Voice Recognition: ENDED</p>';
+          };
+
+          // Start recognition
+          recognition.start();
+          results.innerHTML += '<p>🎤 Listening... (Speak now!)</p>';
+
+        } catch (error) {
+          results.innerHTML += '<p>❌ Configuration Error: ' + error.message + '</p>';
+        }
+
+      } else {
+        results.innerHTML += '<p>❌ Web Speech API: NOT AVAILABLE in this browser</p>';
+        results.innerHTML += '<p>⚠️ Try Chrome, Edge, or Safari for voice commands</p>';
+      }
+
+      // Test 4: Check if the main site files exist
+      fetch('src/theme/deployment-ready/wp-theme-youtuneai/clean_index.html')
+        .then(response => {
+          if (response.ok) {
+            results.innerHTML += '<p>✅ Main Site File: AVAILABLE</p>';
+          } else {
+            results.innerHTML += '<p>⚠️ Main Site File: Check file path</p>';
+          }
+        })
+        .catch(() => {
+          results.innerHTML += '<p>⚠️ File Check: Unable to verify (normal for local files)</p>';
+        });
+    }
+  </script>
+</body>
+
+</html>

@@ -132,3 +132,5 @@ yarn-error.log*
 !wp-theme-youtuneai/assets/video/.gitkeep
 !wp-theme-youtuneai/assets/audio/.gitkeep
 !wp-theme-youtuneai/assets/images/.gitkeep
+
+.fake
