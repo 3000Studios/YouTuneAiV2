@@ -10,6 +10,7 @@ secrets.env
 *.key
 *.pem
 config.local.*
+.secure_admin
 
 # Python
 __pycache__/
@@ -103,8 +104,10 @@ Thumbs.db
 
 # SFTP and deployment
 sftp-config.json
+.ftpconfig
 deploy.log
 backup/
+logs/
 
 # Node.js (if used)
 node_modules/
@@ -132,5 +135,3 @@ yarn-error.log*
 !wp-theme-youtuneai/assets/video/.gitkeep
 !wp-theme-youtuneai/assets/audio/.gitkeep
 !wp-theme-youtuneai/assets/images/.gitkeep
-
-.fake
