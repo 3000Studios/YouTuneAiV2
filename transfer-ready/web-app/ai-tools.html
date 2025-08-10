@@ -1,0 +1,1284 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>YouTuneAI - Diamond AI Tools</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap"
+    rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+    rel="stylesheet">
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary-color: #00ffff;
+      --secondary-color: #e5e4e2;
+      --accent-color: #ffffff;
+      --platinum: #e5e4e2;
+      --gunmetal: #2a3439;
+      --diamond-glow: 0 0 20px rgba(0, 255, 255, 0.8), 0 0 40px rgba(0, 255, 255, 0.6);
+      --platinum-shine: 0 0 30px rgba(229, 228, 226, 0.8), 0 0 60px rgba(229, 228, 226, 0.4);
+      --marble-bg: linear-gradient(135deg, rgba(0, 0, 0, 0.9) 0%, rgba(42, 52, 57, 0.8) 50%, rgba(0, 0, 0, 0.9) 100%);
+    }
+
+    body {
+      font-family: 'Montserrat', 'Inter', sans-serif;
+      background: #000;
+      color: white;
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Marble Background */
+    .marble-background {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -3;
+      background-image: url('https://images.unsplash.com/photo-1578662996442-48f60103fc96?q=80&w=2070&auto=format&fit=crop');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+    }
+
+    /* Video Background Underlay */
+    .video-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -2;
+      opacity: 0.3;
+    }
+
+    .video-bg video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* Marble Overlay */
+    .marble-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      background: var(--marble-bg);
+      backdrop-filter: blur(1px);
+    }
+
+    /* Particles Container */
+    #particles-js {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    /* Navigation */
+    .nav-container {
+      position: relative;
+      top: 0;
+      width: 100%;
+      background: rgba(42, 52, 57, 0.15);
+      backdrop-filter: blur(20px);
+      padding: 20px 0;
+      z-index: 1000;
+      border-bottom: 2px solid rgba(0, 255, 255, 0.2);
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .nav-menu {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 30px;
+    }
+
+    .logo {
+      font-size: 2.5rem;
+      font-weight: 900;
+      color: var(--primary-color);
+      text-shadow: var(--diamond-glow);
+      animation: diamondPulse 3s ease-in-out infinite;
+      font-family: 'Montserrat', sans-serif;
+      letter-spacing: 2px;
+      text-decoration: none;
+    }
+
+    @keyframes diamondPulse {
+
+      0%,
+      100% {
+        text-shadow: var(--diamond-glow);
+        transform: scale(1);
+      }
+
+      50% {
+        text-shadow: 0 0 40px rgba(0, 255, 255, 1), 0 0 80px rgba(229, 228, 226, 0.8);
+        transform: scale(1.02);
+      }
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 25px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--platinum);
+      text-decoration: none;
+      padding: 12px 25px;
+      border-radius: 30px;
+      background: rgba(229, 228, 226, 0.1);
+      border: 2px solid transparent;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      font-weight: 600;
+      font-size: 0.95rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .nav-links a::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.4), transparent);
+      transition: left 0.5s;
+    }
+
+    .nav-links a:hover {
+      background: rgba(0, 255, 255, 0.1);
+      border-color: var(--primary-color);
+      box-shadow: var(--diamond-glow);
+      transform: translateY(-3px);
+      color: white;
+    }
+
+    .nav-links a:hover::before {
+      left: 100%;
+    }
+
+    .nav-links a.active {
+      background: rgba(0, 255, 255, 0.2);
+      border-color: var(--primary-color);
+      box-shadow: var(--diamond-glow);
+      color: white;
+    }
+
+    /* AI Tools Header */
+    .ai-header {
+      padding: 120px 20px 60px;
+      text-align: center;
+      position: relative;
+      z-index: 10;
+    }
+
+    .ai-title {
+      font-size: 5rem;
+      font-weight: 900;
+      margin-bottom: 30px;
+      background: linear-gradient(135deg, #ffffff 0%, #00ffff 30%, #e5e4e2 70%, #ffffff 100%);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: var(--diamond-glow);
+      animation: diamondGlow 4s ease-in-out infinite;
+      font-family: 'Montserrat', sans-serif;
+      letter-spacing: 3px;
+    }
+
+    @keyframes diamondGlow {
+
+      0%,
+      100% {
+        text-shadow: var(--diamond-glow);
+        transform: scale(1);
+      }
+
+      25% {
+        text-shadow: 0 0 40px rgba(0, 255, 255, 1), 0 0 80px rgba(229, 228, 226, 0.6);
+        transform: scale(1.02);
+      }
+
+      50% {
+        text-shadow: var(--platinum-shine);
+        transform: scale(1.05);
+      }
+
+      75% {
+        text-shadow: 0 0 50px rgba(0, 255, 255, 0.9), 0 0 100px rgba(255, 255, 255, 0.3);
+        transform: scale(1.03);
+      }
+    }
+
+    .ai-subtitle {
+      font-size: 2rem;
+      margin-bottom: 20px;
+      color: var(--platinum);
+      text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
+      font-weight: 600;
+    }
+
+    /* AI Chat Interface */
+    .ai-chat-section {
+      max-width: 1200px;
+      margin: 0 auto 60px;
+      padding: 0 20px;
+      position: relative;
+      z-index: 10;
+    }
+
+    .chat-container {
+      background: rgba(229, 228, 226, 0.05);
+      backdrop-filter: blur(20px);
+      border: 2px solid rgba(0, 255, 255, 0.3);
+      border-radius: 30px;
+      padding: 40px;
+      position: relative;
+      overflow: hidden;
+      min-height: 600px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .chat-container::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.1), transparent);
+      transition: left 0.6s;
+    }
+
+    .chat-container:hover::before {
+      left: 100%;
+    }
+
+    .chat-header {
+      text-align: center;
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+      border-bottom: 2px solid rgba(0, 255, 255, 0.2);
+    }
+
+    .chat-title {
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: var(--primary-color);
+      text-shadow: var(--diamond-glow);
+      margin-bottom: 15px;
+    }
+
+    .chat-status {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      color: var(--platinum);
+      font-weight: 600;
+    }
+
+    .status-indicator {
+      width: 12px;
+      height: 12px;
+      background: var(--primary-color);
+      border-radius: 50%;
+      box-shadow: var(--diamond-glow);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+
+      0%,
+      100% {
+        opacity: 1;
+      }
+
+      50% {
+        opacity: 0.5;
+      }
+    }
+
+    .chat-messages {
+      flex: 1;
+      overflow-y: auto;
+      margin-bottom: 30px;
+      padding: 20px;
+      background: rgba(42, 52, 57, 0.2);
+      border-radius: 20px;
+      min-height: 350px;
+      max-height: 400px;
+    }
+
+    .message {
+      margin-bottom: 20px;
+      animation: fadeInUp 0.5s ease;
+    }
+
+    .message.user {
+      text-align: right;
+    }
+
+    .message.ai {
+      text-align: left;
+    }
+
+    .message-bubble {
+      display: inline-block;
+      padding: 15px 20px;
+      border-radius: 20px;
+      max-width: 70%;
+      font-weight: 500;
+      position: relative;
+      word-wrap: break-word;
+    }
+
+    .message.user .message-bubble {
+      background: linear-gradient(135deg, rgba(0, 255, 255, 0.3), rgba(229, 228, 226, 0.2));
+      border: 1px solid rgba(0, 255, 255, 0.4);
+      color: white;
+    }
+
+    .message.ai .message-bubble {
+      background: rgba(229, 228, 226, 0.1);
+      border: 1px solid rgba(229, 228, 226, 0.3);
+      color: var(--platinum);
+    }
+
+    .message-time {
+      font-size: 0.8rem;
+      color: rgba(229, 228, 226, 0.6);
+      margin-top: 5px;
+    }
+
+    .chat-input-container {
+      display: flex;
+      gap: 15px;
+      align-items: center;
+    }
+
+    .chat-input {
+      flex: 1;
+      background: rgba(42, 52, 57, 0.5);
+      border: 2px solid rgba(0, 255, 255, 0.3);
+      border-radius: 25px;
+      padding: 15px 25px;
+      color: white;
+      font-size: 1rem;
+      outline: none;
+      transition: all 0.3s ease;
+    }
+
+    .chat-input:focus {
+      border-color: var(--primary-color);
+      box-shadow: var(--diamond-glow);
+    }
+
+    .chat-input::placeholder {
+      color: rgba(229, 228, 226, 0.6);
+    }
+
+    .send-btn {
+      background: linear-gradient(135deg, #00ffff 0%, #e5e4e2 50%, #00ffff 100%);
+      color: #000;
+      border: none;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .send-btn:hover {
+      transform: scale(1.1);
+      box-shadow: var(--diamond-glow);
+    }
+
+    /* AI Tools Grid */
+    .ai-tools-grid {
+      max-width: 1400px;
+      margin: 60px auto;
+      padding: 0 20px;
+      position: relative;
+      z-index: 10;
+    }
+
+    .tools-header {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+
+    .section-title {
+      font-size: 3rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #00ffff 0%, #ffffff 50%, #e5e4e2 100%);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: var(--diamond-glow);
+      margin-bottom: 20px;
+    }
+
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 30px;
+    }
+
+    .tool-card {
+      background: rgba(229, 228, 226, 0.05);
+      backdrop-filter: blur(20px);
+      border: 2px solid rgba(0, 255, 255, 0.2);
+      border-radius: 25px;
+      padding: 30px;
+      transition: all 0.4s ease;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .tool-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.1), transparent);
+      transition: left 0.6s;
+    }
+
+    .tool-card:hover::before {
+      left: 100%;
+    }
+
+    .tool-card:hover {
+      border-color: var(--primary-color);
+      box-shadow: var(--diamond-glow);
+      transform: translateY(-10px);
+    }
+
+    .tool-icon {
+      font-size: 4rem;
+      margin-bottom: 20px;
+      text-align: center;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    @keyframes float {
+
+      0%,
+      100% {
+        transform: translateY(0px);
+      }
+
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+
+    .tool-title {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--primary-color);
+      margin-bottom: 15px;
+      text-shadow: var(--diamond-glow);
+      text-align: center;
+    }
+
+    .tool-description {
+      color: var(--platinum);
+      line-height: 1.6;
+      margin-bottom: 25px;
+      text-align: center;
+    }
+
+    .tool-features {
+      list-style: none;
+      margin-bottom: 25px;
+    }
+
+    .tool-features li {
+      color: rgba(229, 228, 226, 0.8);
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .tool-features li::before {
+      content: '💎';
+      font-size: 0.8rem;
+    }
+
+    .tool-actions {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+    }
+
+    .tool-btn {
+      background: rgba(0, 255, 255, 0.1);
+      border: 2px solid var(--primary-color);
+      color: var(--primary-color);
+      padding: 10px 20px;
+      border-radius: 15px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
+    .tool-btn:hover {
+      background: var(--primary-color);
+      color: #000;
+      transform: scale(1.05);
+    }
+
+    .tool-btn.primary {
+      background: linear-gradient(135deg, #00ffff 0%, #e5e4e2 50%, #00ffff 100%);
+      color: #000;
+    }
+
+    /* AI Stats Dashboard */
+    .ai-stats {
+      max-width: 1200px;
+      margin: 60px auto;
+      padding: 0 20px;
+      position: relative;
+      z-index: 10;
+    }
+
+    .stats-container {
+      background: rgba(229, 228, 226, 0.05);
+      backdrop-filter: blur(20px);
+      border: 2px solid rgba(0, 255, 255, 0.3);
+      border-radius: 30px;
+      padding: 40px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .stats-container::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.1), transparent);
+      transition: left 0.6s;
+    }
+
+    .stats-container:hover::before {
+      left: 100%;
+    }
+
+    .stats-header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .stats-title {
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: var(--primary-color);
+      text-shadow: var(--diamond-glow);
+      margin-bottom: 15px;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+    }
+
+    .stat-item {
+      text-align: center;
+      background: rgba(42, 52, 57, 0.3);
+      border: 1px solid rgba(0, 255, 255, 0.2);
+      border-radius: 20px;
+      padding: 25px;
+    }
+
+    .stat-value {
+      font-size: 3rem;
+      font-weight: 900;
+      color: var(--primary-color);
+      text-shadow: var(--diamond-glow);
+      margin-bottom: 10px;
+    }
+
+    .stat-label {
+      color: var(--platinum);
+      font-weight: 600;
+      font-size: 1.1rem;
+    }
+
+    /* Diamond Sparkle Effect */
+    @keyframes sparkle {
+
+      0%,
+      100% {
+        opacity: 0;
+        transform: scale(0) rotate(0deg);
+      }
+
+      50% {
+        opacity: 1;
+        transform: scale(1) rotate(180deg);
+      }
+    }
+
+    .sparkle {
+      position: relative;
+    }
+
+    .sparkle::after {
+      content: '💎';
+      position: absolute;
+      top: -10px;
+      right: -10px;
+      opacity: 0;
+      animation: sparkle 2s ease-in-out infinite;
+      font-size: 1.2rem;
+    }
+
+    .sparkle:hover::after {
+      animation: sparkle 0.6s ease-in-out infinite;
+    }
+
+    /* Loading Animation */
+    .typing-indicator {
+      display: none;
+      padding: 15px 20px;
+      background: rgba(229, 228, 226, 0.1);
+      border: 1px solid rgba(229, 228, 226, 0.3);
+      border-radius: 20px;
+      margin-bottom: 20px;
+    }
+
+    .typing-dots {
+      display: flex;
+      gap: 5px;
+    }
+
+    .typing-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--primary-color);
+      border-radius: 50%;
+      animation: typingBounce 1.4s infinite ease-in-out;
+    }
+
+    .typing-dot:nth-child(1) {
+      animation-delay: -0.32s;
+    }
+
+    .typing-dot:nth-child(2) {
+      animation-delay: -0.16s;
+    }
+
+    .typing-dot:nth-child(3) {
+      animation-delay: 0;
+    }
+
+    @keyframes typingBounce {
+
+      0%,
+      80%,
+      100% {
+        transform: scale(0);
+        opacity: 0.5;
+      }
+
+      40% {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    /* Mobile Responsive */
+    @media (max-width: 768px) {
+      .ai-title {
+        font-size: 3.5rem;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .chat-container {
+        padding: 20px;
+        min-height: 500px;
+      }
+
+      .chat-messages {
+        min-height: 300px;
+      }
+
+      .tools-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .stat-value {
+        font-size: 2.5rem;
+      }
+
+      .tool-icon {
+        font-size: 3rem;
+      }
+
+      .tool-title {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Marble Background -->
+  <div class="marble-background"></div>
+
+  <!-- Video Background -->
+  <div class="video-bg">
+    <video autoplay muted loop>
+      <source src="https://assets.codepen.io/1480814/video.mp4" type="video/mp4">
+    </video>
+  </div>
+
+  <!-- Marble Overlay -->
+  <div class="marble-overlay"></div>
+
+  <!-- Particles -->
+  <div id="particles-js"></div>
+
+  <!-- Navigation -->
+  <nav class="nav-container">
+    <div class="nav-menu">
+      <a href="clean_index.html" class="logo sparkle">YOUTUNEAI</a>
+      <ul class="nav-links">
+        <li><a href="clean_index.html" class="sparkle">🏠 Home</a></li>
+        <li><a href="shop.html" class="sparkle">🛒 Shop</a></li>
+        <li><a href="streaming.html" class="sparkle">🎮 Streaming</a></li>
+        <li><a href="music.html" class="sparkle">🎵 Music</a></li>
+        <li><a href="ai-tools.html" class="sparkle active">🧠 AI Tools</a></li>
+        <li><a href="#" onclick="openAdmin()" class="sparkle">⚡ ADMIN</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- AI Tools Header -->
+  <section class="ai-header">
+    <h1 class="ai-title sparkle">AI DIAMOND TOOLS</h1>
+    <h2 class="ai-subtitle">Premium Artificial Intelligence Suite</h2>
+  </section>
+
+  <!-- AI Chat Interface -->
+  <section class="ai-chat-section">
+    <div class="chat-container sparkle">
+      <div class="chat-header">
+        <h3 class="chat-title">🤖 Diamond AI Assistant</h3>
+        <div class="chat-status">
+          <div class="status-indicator"></div>
+          <span>AI Ready • Premium Mode Active</span>
+        </div>
+      </div>
+
+      <div class="chat-messages" id="chatMessages">
+        <div class="message ai">
+          <div class="message-bubble">
+            💎 Welcome to YouTuneAI Diamond AI Assistant! I'm your premium AI companion with advanced capabilities in
+            music production, content creation, and business intelligence. How can I assist you today?
+          </div>
+          <div class="message-time">Now</div>
+        </div>
+      </div>
+
+      <div class="typing-indicator" id="typingIndicator">
+        <div class="typing-dots">
+          <div class="typing-dot"></div>
+          <div class="typing-dot"></div>
+          <div class="typing-dot"></div>
+        </div>
+      </div>
+
+      <div class="chat-input-container">
+        <input type="text" class="chat-input" id="chatInput" placeholder="Ask the Diamond AI anything..."
+          onkeypress="handleEnter(event)">
+        <button class="send-btn sparkle" onclick="sendMessage()">
+          <i class='bx bx-send'></i>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- AI Tools Grid -->
+  <section class="ai-tools-grid">
+    <div class="tools-header">
+      <h2 class="section-title sparkle">💎 Premium AI Toolkit</h2>
+      <p style="color: var(--platinum); font-size: 1.2rem;">Advanced artificial intelligence tools for creators and
+        entrepreneurs</p>
+    </div>
+
+    <div class="tools-grid">
+      <div class="tool-card sparkle" onclick="openTool('music-ai')">
+        <div class="tool-icon">🎼</div>
+        <h3 class="tool-title">Music AI Composer</h3>
+        <p class="tool-description">Create professional-grade music compositions with AI-powered assistance</p>
+        <ul class="tool-features">
+          <li>Multi-genre composition</li>
+          <li>Professional mastering</li>
+          <li>MIDI export capability</li>
+          <li>Real-time collaboration</li>
+        </ul>
+        <div class="tool-actions">
+          <button class="tool-btn primary">Launch Studio</button>
+          <button class="tool-btn">Learn More</button>
+        </div>
+      </div>
+
+      <div class="tool-card sparkle" onclick="openTool('content-ai')">
+        <div class="tool-icon">✍️</div>
+        <h3 class="tool-title">Content Creator AI</h3>
+        <p class="tool-description">Generate high-quality content for blogs, social media, and marketing</p>
+        <ul class="tool-features">
+          <li>Multi-platform optimization</li>
+          <li>SEO-friendly content</li>
+          <li>Brand voice matching</li>
+          <li>Plagiarism checking</li>
+        </ul>
+        <div class="tool-actions">
+          <button class="tool-btn primary">Start Creating</button>
+          <button class="tool-btn">Templates</button>
+        </div>
+      </div>
+
+      <div class="tool-card sparkle" onclick="openTool('video-ai')">
+        <div class="tool-icon">🎥</div>
+        <h3 class="tool-title">Video AI Editor</h3>
+        <p class="tool-description">Automated video editing with intelligent scene detection and effects</p>
+        <ul class="tool-features">
+          <li>Auto scene detection</li>
+          <li>Smart transitions</li>
+          <li>Color grading</li>
+          <li>Audio synchronization</li>
+        </ul>
+        <div class="tool-actions">
+          <button class="tool-btn primary">Edit Video</button>
+          <button class="tool-btn">Examples</button>
+        </div>
+      </div>
+
+      <div class="tool-card sparkle" onclick="openTool('business-ai')">
+        <div class="tool-icon">📊</div>
+        <h3 class="tool-title">Business Intelligence AI</h3>
+        <p class="tool-description">Advanced analytics and insights for business growth and optimization</p>
+        <ul class="tool-features">
+          <li>Market analysis</li>
+          <li>Competitor research</li>
+          <li>Growth predictions</li>
+          <li>ROI optimization</li>
+        </ul>
+        <div class="tool-actions">
+          <button class="tool-btn primary">Analyze Now</button>
+          <button class="tool-btn">Dashboard</button>
+        </div>
+      </div>
+
+      <div class="tool-card sparkle" onclick="openTool('voice-ai')">
+        <div class="tool-icon">🎤</div>
+        <h3 class="tool-title">Voice AI Studio</h3>
+        <p class="tool-description">Professional voice synthesis and audio processing capabilities</p>
+        <ul class="tool-features">
+          <li>Voice cloning</li>
+          <li>Multi-language support</li>
+          <li>Emotion control</li>
+          <li>Background noise removal</li>
+        </ul>
+        <div class="tool-actions">
+          <button class="tool-btn primary">Voice Lab</button>
+          <button class="tool-btn">Samples</button>
+        </div>
+      </div>
+
+      <div class="tool-card sparkle" onclick="openTool('image-ai')">
+        <div class="tool-icon">🎨</div>
+        <h3 class="tool-title">Image AI Generator</h3>
+        <p class="tool-description">Create stunning visuals and artwork with advanced AI image generation</p>
+        <ul class="tool-features">
+          <li>Text-to-image generation</li>
+          <li>Style transfer</li>
+          <li>Image enhancement</li>
+          <li>Background removal</li>
+        </ul>
+        <div class="tool-actions">
+          <button class="tool-btn primary">Generate Art</button>
+          <button class="tool-btn">Gallery</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AI Stats Dashboard -->
+  <section class="ai-stats">
+    <div class="stats-container sparkle">
+      <div class="stats-header">
+        <h3 class="stats-title">⚡ AI Performance Analytics</h3>
+        <p style="color: var(--platinum);">Real-time insights into your AI tool usage and productivity gains</p>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-item sparkle">
+          <div class="stat-value" id="tasksCompleted">12,847</div>
+          <div class="stat-label">Tasks Completed</div>
+        </div>
+        <div class="stat-item sparkle">
+          <div class="stat-value" id="timesSaved">2,340</div>
+          <div class="stat-label">Hours Saved</div>
+        </div>
+        <div class="stat-item sparkle">
+          <div class="stat-value" id="accuracyRate">98.7%</div>
+          <div class="stat-label">Accuracy Rate</div>
+        </div>
+        <div class="stat-item sparkle">
+          <div class="stat-value" id="activeUsers">15,892</div>
+          <div class="stat-label">Active Users</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    // Initialize Particles (same as other pages)
+    particlesJS('particles-js', {
+      "particles": {
+        "number": {
+          "value": 100,
+          "density": {
+            "enable": true,
+            "value_area": 800
+          }
+        },
+        "color": {
+          "value": ["#00ffff", "#ffffff", "#e5e4e2"]
+        },
+        "shape": {
+          "type": "circle",
+          "stroke": {
+            "width": 0,
+            "color": "#000000"
+          },
+          "polygon": {
+            "nb_sides": 6
+          }
+        },
+        "opacity": {
+          "value": 0.7,
+          "random": true,
+          "anim": {
+            "enable": true,
+            "speed": 1,
+            "opacity_min": 0.3,
+            "sync": false
+          }
+        },
+        "size": {
+          "value": 3,
+          "random": true,
+          "anim": {
+            "enable": true,
+            "speed": 2,
+            "size_min": 0.5,
+            "sync": false
+          }
+        },
+        "line_linked": {
+          "enable": true,
+          "distance": 150,
+          "color": "#00ffff",
+          "opacity": 0.4,
+          "width": 1
+        },
+        "move": {
+          "enable": true,
+          "speed": 2,
+          "direction": "none",
+          "random": true,
+          "straight": false,
+          "out_mode": "out",
+          "bounce": false,
+          "attract": {
+            "enable": false,
+            "rotateX": 600,
+            "rotateY": 1200
+          }
+        }
+      },
+      "interactivity": {
+        "detect_on": "canvas",
+        "events": {
+          "onhover": {
+            "enable": true,
+            "mode": "repulse"
+          },
+          "onclick": {
+            "enable": true,
+            "mode": "push"
+          },
+          "resize": true
+        },
+        "modes": {
+          "grab": {
+            "distance": 400,
+            "line_linked": {
+              "opacity": 1
+            }
+          },
+          "bubble": {
+            "distance": 400,
+            "size": 40,
+            "duration": 2,
+            "opacity": 8,
+            "speed": 3
+          },
+          "repulse": {
+            "distance": 200,
+            "duration": 0.4
+          },
+          "push": {
+            "particles_nb": 4
+          },
+          "remove": {
+            "particles_nb": 2
+          }
+        }
+      },
+      "retina_detect": true
+    });
+
+    // AI Chat System
+    const aiResponses = [
+      "💎 Excellent question! I'm analyzing that for you with my premium AI capabilities...",
+      "🧠 Based on my advanced algorithms, here's what I recommend...",
+      "⚡ Processing your request through my neural networks...",
+      "🎯 I've found some interesting insights that might help you...",
+      "🚀 Let me tap into my knowledge base to provide you the best solution...",
+      "💡 That's a great use case for our AI tools! Here's how we can approach it...",
+      "🎼 For music-related queries, I recommend using our Music AI Composer...",
+      "📊 For business insights, our Business Intelligence AI would be perfect...",
+      "🎨 Creative projects? Our Image AI Generator has amazing capabilities...",
+      "🎥 Video content creation? Check out our Video AI Editor features..."
+    ];
+
+    function sendMessage() {
+      const chatInput = document.getElementById('chatInput');
+      const message = chatInput.value.trim();
+
+      if (message) {
+        addMessage(message, 'user');
+        chatInput.value = '';
+
+        // Show typing indicator
+        showTypingIndicator();
+
+        // Simulate AI response
+        setTimeout(() => {
+          hideTypingIndicator();
+          const randomResponse = aiResponses[Math.floor(Math.random() * aiResponses.length)];
+          addMessage(randomResponse, 'ai');
+        }, 2000 + Math.random() * 2000);
+      }
+    }
+
+    function addMessage(text, sender) {
+      const chatMessages = document.getElementById('chatMessages');
+      const messageDiv = document.createElement('div');
+      messageDiv.className = `message ${sender}`;
+
+      const currentTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+      messageDiv.innerHTML = `
+        <div class="message-bubble">${text}</div>
+        <div class="message-time">${currentTime}</div>
+      `;
+
+      chatMessages.appendChild(messageDiv);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    function showTypingIndicator() {
+      document.getElementById('typingIndicator').style.display = 'block';
+    }
+
+    function hideTypingIndicator() {
+      document.getElementById('typingIndicator').style.display = 'none';
+    }
+
+    function handleEnter(event) {
+      if (event.key === 'Enter') {
+        sendMessage();
+      }
+    }
+
+    function openTool(toolId) {
+      const toolNames = {
+        'music-ai': 'Music AI Composer',
+        'content-ai': 'Content Creator AI',
+        'video-ai': 'Video AI Editor',
+        'business-ai': 'Business Intelligence AI',
+        'voice-ai': 'Voice AI Studio',
+        'image-ai': 'Image AI Generator'
+      };
+
+      showNotification(`🚀 Launching ${toolNames[toolId]}...`);
+
+      setTimeout(() => {
+        showNotification(`💎 ${toolNames[toolId]} is now ready for use!`);
+      }, 2000);
+    }
+
+    function showNotification(message) {
+      const notification = document.createElement('div');
+      notification.style.cssText = `
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: rgba(42, 52, 57, 0.95);
+        backdrop-filter: blur(20px);
+        border: 2px solid rgba(0, 255, 255, 0.5);
+        border-radius: 15px;
+        padding: 20px 30px;
+        color: white;
+        font-weight: 600;
+        z-index: 999999;
+        text-align: center;
+        box-shadow: 0 0 30px rgba(0, 255, 255, 0.3);
+      `;
+      notification.textContent = message;
+      document.body.appendChild(notification);
+
+      setTimeout(() => {
+        notification.remove();
+      }, 3000);
+    }
+
+    // Animate Statistics
+    function animateStats() {
+      const counters = [
+        { id: 'tasksCompleted', target: 12847 },
+        { id: 'timesSaved', target: 2340 },
+        { id: 'activeUsers', target: 15892 }
+      ];
+
+      counters.forEach(counter => {
+        let current = 0;
+        const increment = counter.target / 100;
+        const timer = setInterval(() => {
+          current += increment;
+          if (current >= counter.target) {
+            current = counter.target;
+            clearInterval(timer);
+          }
+          document.getElementById(counter.id).textContent = Math.floor(current).toLocaleString();
+        }, 20);
+      });
+
+      // Accuracy rate animation
+      let accuracy = 90.0;
+      const accuracyTimer = setInterval(() => {
+        accuracy += 0.1;
+        if (accuracy >= 98.7) {
+          accuracy = 98.7;
+          clearInterval(accuracyTimer);
+        }
+        document.getElementById('accuracyRate').textContent = accuracy.toFixed(1) + '%';
+      }, 50);
+    }
+
+    // Initialize AI Tools on load
+    document.addEventListener('DOMContentLoaded', function () {
+      setTimeout(() => {
+        animateStats();
+      }, 1000);
+
+      console.log('🧠 YouTuneAI Diamond AI Tools Ready');
+      console.log('🤖 AI Assistant activated');
+      console.log('💎 Premium AI toolkit loaded');
+      console.log('⚡ Advanced analytics dashboard active');
+    });
+
+    // Add some sample AI responses based on keywords
+    const originalSendMessage = sendMessage;
+    sendMessage = function () {
+      const chatInput = document.getElementById('chatInput');
+      const message = chatInput.value.trim().toLowerCase();
+
+      if (message) {
+        addMessage(chatInput.value, 'user');
+        chatInput.value = '';
+
+        showTypingIndicator();
+
+        let response = '';
+
+        if (message.includes('music') || message.includes('song') || message.includes('audio')) {
+          response = "🎼 For music creation, I recommend our Music AI Composer! It can generate professional-grade compositions in any genre. Would you like me to launch it for you?";
+        } else if (message.includes('video') || message.includes('edit') || message.includes('movie')) {
+          response = "🎥 Our Video AI Editor is perfect for that! It features intelligent scene detection, automatic transitions, and professional color grading. Ready to start editing?";
+        } else if (message.includes('business') || message.includes('analytics') || message.includes('data')) {
+          response = "📊 The Business Intelligence AI can help with market analysis, competitor research, and growth predictions. It's designed to maximize your ROI!";
+        } else if (message.includes('image') || message.includes('art') || message.includes('picture')) {
+          response = "🎨 Try our Image AI Generator! It creates stunning visuals from text descriptions and offers advanced style transfer capabilities. Want to generate some art?";
+        } else if (message.includes('voice') || message.includes('speech') || message.includes('audio')) {
+          response = "🎤 Voice AI Studio is amazing for voice synthesis, cloning, and audio processing. It supports multiple languages with emotion control!";
+        } else {
+          response = aiResponses[Math.floor(Math.random() * aiResponses.length)];
+        }
+
+        setTimeout(() => {
+          hideTypingIndicator();
+          addMessage(response, 'ai');
+        }, 1500 + Math.random() * 1500);
+      }
+    }
+  </script>
+</body>
+
+</html>
