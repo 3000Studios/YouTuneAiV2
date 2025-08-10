@@ -1,0 +1,84 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom base styles */
+@layer base {
+  body {
+    @apply bg-background-dark text-marble-white font-raleway;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-orbitron font-bold;
+  }
+}
+
+/* Custom components */
+@layer components {
+  .btn-primary {
+    @apply bg-gradient-to-r from-primary to-secondary text-white px-6 py-3 rounded-lg font-semibold hover:shadow-lg hover:shadow-primary/50 transition-all duration-300 animate-pulse-glow;
+  }
+  
+  .btn-secondary {
+    @apply border-2 border-primary text-primary px-6 py-3 rounded-lg font-semibold hover:bg-primary hover:text-white transition-all duration-300;
+  }
+  
+  .card-3d {
+    @apply bg-background-card backdrop-blur-lg rounded-xl border border-platinum/20 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2;
+  }
+  
+  .glow-text {
+    @apply animate-glow;
+  }
+  
+  .floating-element {
+    @apply animate-float;
+  }
+}
+
+/* Custom 3D effects */
+.marble-texture {
+  background: linear-gradient(45deg, #f8f8ff 25%, #e5e4e2 25%, #e5e4e2 50%, #f8f8ff 50%, #f8f8ff 75%, #e5e4e2 75%);
+  background-size: 40px 40px;
+}
+
+.neon-border {
+  border: 2px solid;
+  border-image: linear-gradient(45deg, #9d00ff, #00e5ff, #00ff88, #9d00ff) 1;
+  box-shadow: 0 0 20px rgba(157, 0, 255, 0.5);
+}
+
+.glass-morphism {
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* 3D Avatar container */
+.avatar-container {
+  width: 300px;
+  height: 400px;
+  position: relative;
+  perspective: 1000px;
+}
+
+/* VR styles */
+.vr-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.9);
+  z-index: 9999;
+}
+
+/* Game container styles */
+.game-canvas {
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
