@@ -38,8 +38,8 @@ coloredlogs==15.0.1
 # Background task processing
 celery==5.3.1
 
-# Database (if needed for logging)
-sqlite3
+# Database (sqlite3 is built-in to Python)
+# sqlite3
 
 # Optional: Advanced voice processing
 vosk==0.3.45
