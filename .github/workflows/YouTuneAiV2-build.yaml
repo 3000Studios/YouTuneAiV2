@@ -1,41 +1,92 @@
-# To better understand this file read this:
+# To better understand this file read:
 # https://docs.ionos.space/docs/github-actions-customization/
 
 name: "Deploy Now: Execute Build"
 
 on:
+  # This is invoked by IONOS Deploy Now; do not change
   workflow_call:
     inputs:
-      site-url:
-        required: true
-        type: string
       branch-id:
         required: true
         type: string
 
+permissions:
+  contents: read
+
 env:
+  # Default; auto-detect step below will override if it finds a standard build output
   DEPLOYMENT_FOLDER: ./
 
+concurrency:
+  group: deploy-now-${{ inputs.branch-id }}
+  cancel-in-progress: true
+
 jobs:
-# Please do not rename this job
+  # Please do not rename this job (Deploy Now expects this exact name)
   build-project:
     name: build YouTuneAiV2
     runs-on: ubuntu-latest
+
     steps:
-      - name: checkout
+      - name: Checkout
         uses: actions/checkout@v4
         with:
-          submodules: 'recursive'
+          fetch-depth: 0
+          submodules: recursive
+          lfs: true
 
-# Please do not touch the following action
+      # ---------- Auto-detect: Node/JS project (optional; harmless if absent) ----------
+      - name: Detect Node project
+        id: detect_node
+        run: |
+          if [ -f package.json ]; then
+            echo "present=true" >> $GITHUB_OUTPUT
+          else
+            echo "present=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Setup Node
+        if: steps.detect_node.outputs.present == 'true'
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install & Build (Node)
+        if: steps.detect_node.outputs.present == 'true'
+        run: |
+          if [ -f package-lock.json ]; then npm ci; else npm i; fi
+          npm run build --if-present
+
+      - name: Pick build folder (Node)
+        if: steps.detect_node.outputs.present == 'true'
+        run: |
+          # Common output folders; first match wins
+          for d in dist build out public .next .output; do
+            if [ -d "$d" ]; then
+              echo "DEPLOYMENT_FOLDER=$d" >> $GITHUB_ENV
+              echo "Using build output: $d"
+              exit 0
+            fi
+          done
+          echo "No build output folder found; using repo root."
+          echo "DEPLOYMENT_FOLDER=./" >> $GITHUB_ENV
+
+      # ---------- Log summary (useful in Deploy Now panel) ----------
+      - name: Write build report
+        run: |
+          mkdir -p logs
+          {
+            echo "# Build Report – $(date -u +"%Y-%m-%d %H:%M UTC")"
+            echo
+            echo "## Environment"
+            echo "- Project:     YouTuneAiV2"
+            echo "- Branch ID:   ${{ inputs.branch-id }}"
+            echo "- Commit SHA:  ${{ github.sha }}"
+            echo "- Upload Path: ${DEPLOYMENT_FOLDER}"
+          } > logs/build_report.md
+
+      # ---------- Do not touch the following action (required by Deploy Now) ----------
       - name: Store deployment content
         uses: ionos-deploy-now/artifact-action@v1
-        with:
-          api-key: ${{ secrets.IONOS_API_KEY }}
-          service-host: api-us.ionos.space
-          project-id: 4c47214c-0cd9-452f-b2b6-1b4b19813f6b
-          branch-id: ${{ inputs.branch-id }}
-          version: ${{ github.sha }}
-          folder: ${{ env.DEPLOYMENT_FOLDER }}
-          config-file: .deploy-now/YouTuneAiV2/config.yaml
-          action: upload
