@@ -1,5 +1,17 @@
-# YouTuneAI .gitignore
+# YouTubeAI .gitignore
 # Protect sensitive configuration and build files
+
+# CI/CD and Deployment Security
+deployment-package/
+youtuneai-deployment-*.tar.gz
+deployment_report_*.json
+ci_cd_test_results.json
+bandit-report.json
+safety-report.json
+*_backup_*.tar.gz
+secure_deploy.py
+backup_script.py
+rollback_script.py
 
 # Environment variables and secrets
 .env
