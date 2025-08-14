@@ -25,7 +25,7 @@ concurrency:
 jobs:
   # Please do not rename this job (Deploy Now expects this exact name)
   build-project:
-    name: build YouTuneAiV2
+    name: build YouTuneAi.com
     runs-on: ubuntu-latest
 
     steps:
