@@ -7,12 +7,12 @@ SpeechRecognition==3.10.0
 pyaudio==0.2.11
 
 # SFTP and File Transfer
-paramiko==3.3.1
+paramiko==3.4.0
 scp==0.14.5
 
 # Web and API requests
 requests==2.32.4
-urllib3==1.26.16
+urllib3==2.5.0
 
 # WordPress API integration
 python-wordpress-xmlrpc==2.3
@@ -21,7 +21,7 @@ python-wordpress-xmlrpc==2.3
 pydub==0.25.1
 
 # Image processing for dynamic graphics
-Pillow==10.0.0
+Pillow==10.3.0
 
 # Environment variables
 python-dotenv==1.0.0
@@ -48,11 +48,11 @@ vosk==0.3.45
 pyttsx3==2.90
 
 # Optional: Advanced AI features
-transformers==4.33.2
-torch==2.0.1
+transformers==4.53.0
+torch==2.8.0
 
 # Security and encryption
-cryptography==41.0.4
+cryptography==44.0.1
 
 # Command line interface
 click==8.1.7
