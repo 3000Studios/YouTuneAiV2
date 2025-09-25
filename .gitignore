@@ -109,6 +109,11 @@ deploy.log
 backup/
 logs/
 
+# But keep important documentation logs
+!logs/build_report.md
+!logs/decisions.md
+!logs/commands.sh
+
 # Node.js (if used)
 node_modules/
 npm-debug.log*
