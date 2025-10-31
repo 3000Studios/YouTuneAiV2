@@ -16,10 +16,11 @@ This package contains all the working, tested components from the YouTuneAiV2 re
 - `test.html` - Testing page (1KB)
 
 ### `/ai-system/` - Python AI Controllers
+**Note:** AI controller files are now located in the main repository at `src/deployment/`:
 - `ai_controller.py` - Main voice-controlled AI system (29KB)
 - `enhanced_ai_controller.py` - Advanced AI features (16KB)
 - `working_deployment_controller.py` - Deployment automation (16KB)
-- `comprehensive_test_suite.py` - Complete testing framework (13KB)
+- See `src/deployment/` in the main repository for the canonical versions
 - `requirements.txt` - Python dependencies (1KB)
 
 ### `/docs/` - Documentation
