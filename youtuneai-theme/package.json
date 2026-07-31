@@ -13,7 +13,7 @@
   "devDependencies": {
     "autoprefixer": "^10.4.0",
     "postcss": "^8.4.0",
-    "tailwindcss": "^3.3.0"
+    "tailwindcss": "^4.3.3"
   },
   "dependencies": {
     "three": "^0.157.0"
